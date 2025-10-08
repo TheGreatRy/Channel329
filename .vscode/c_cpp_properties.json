@@ -4,7 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/include/"
+                "C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/include/"
             ],
             "defines": [
                 "_DEBUG",
