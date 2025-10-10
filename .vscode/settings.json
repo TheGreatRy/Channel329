@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.rh": "cpp",
+        "type_traits": "cpp",
+        "exception": "cpp"
+    }
+}

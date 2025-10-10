@@ -18,6 +18,7 @@ typedef void (fnptrvoid)(void);
 typedef int (fnptr1int)(int);
 typedef int (fnptr2int)(int, int);
 
+
 int main(int argc, char **argv)
 {
     defaultExceptionHandler();
