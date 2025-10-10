@@ -6,7 +6,7 @@ BLOCKSDS	?= /opt/blocksds/core
 
 # User config
 
-NAME		:= dyn_libs_cpp_demo
+NAME		:= ch329cotmi
 GAME_TITLE	:= C++ demo
 GAME_SUBTITLE	:= Dynamic libraries
 
