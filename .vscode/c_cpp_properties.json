@@ -11,7 +11,7 @@
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE",
-                "ARM9=C:/msys64/opt/wonderful/thirdparty/blocksds/core/sys/crts/ds_arm9.specs"
+                "ARM9=C:/msys64/opt/wonderful/thirdparty/blocksds/core/sys/crts/ds_arm9_crt0.s"
             ],
             "windowsSdkVersion": "10.0.22621.0",
             "compilerPath": "cl.exe",

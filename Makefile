@@ -7,8 +7,8 @@ BLOCKSDS	?= /opt/blocksds/core
 # User config
 
 NAME		:= ch329cotmi
-GAME_TITLE	:= C++ demo
-GAME_SUBTITLE	:= Dynamic libraries
+GAME_TITLE	:= Channel 329: Crimes of the Magically Inclined
+GAME_SUBTITLE	:= Detective battles!
 
 # Source code paths
 

@@ -21,8 +21,10 @@ typedef int (fnptr2int)(int, int);
 
 int main(int argc, char **argv)
 {
+    //Set up exception handler
     defaultExceptionHandler();
 
+    //#pragma region Initialization
     PrintConsole topScreen;
     PrintConsole bottomScreen;
 
@@ -37,6 +39,7 @@ int main(int argc, char **argv)
 
     consoleSelect(&topScreen);
 
+    //I cant get VSCode to accept this so I'm just leaving it for now
     bool init_ok = nitroFSInit(NULL);
     if (!init_ok)
     {
