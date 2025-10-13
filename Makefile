@@ -13,7 +13,6 @@ GAME_SUBTITLE	:= Detective battles!
 # Source code paths
 
 INCLUDEDIRS	:= source
-NITROFSDIR	:= nitrofs
 
 include $(BLOCKSDS)/sys/default_makefiles/rom_arm9/Makefile
 
@@ -25,24 +24,3 @@ include $(BLOCKSDS)/sys/default_makefiles/rom_arm9/Makefile
 # 4. Save the DSL in the NitroFS folder.
 # 5. Build NDS ROM.
 
-.PHONY: clean_test test
-
-DSLTOOL		?= $(BLOCKSDS)/tools/dsltool/dsltool
-
-TEST_ELF	:= lib_test/test.elf
-TEST_DSL	:= nitrofs/dsl/test.dsl
-
-test:
-	make -C lib_test
-
-$(TEST_DSL): test $(ELF)
-	@$(MKDIR) -p $(@D)
-	@$(RM) $(TEST_DSL)
-	$(DSLTOOL) -i $(TEST_ELF) -o $(TEST_DSL) -m $(ELF)
-
-$(ROM): $(TEST_DSL)
-
-clean: clean_test
-
-clean_test:
-	make clean -C lib_test

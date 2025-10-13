@@ -2,12 +2,11 @@
 //
 // SPDX-FileContributor: Antonio Niño Díaz, 2025 
 
+#include "dsinput_print.h"
 #include <errno.h>
 #include <dlfcn.h>
-#include <stdio.h>
 #include <filesystem.h>
-#include <nds.h>
-#include <string>
+#include <fat.h>
 
 void wait_forever(void)
 {
@@ -41,12 +40,11 @@ int main(int argc, char **argv)
 
     consoleSelect(&topScreen);
 
-    //NitroFS Init Test
-    //I cant get VSCode to accept this so I'm just leaving it for now
-    bool init_ok = nitroFSInit(NULL);
+    
+    bool init_ok = fatInitDefault();
     if (!init_ok)
     {
-        perror("nitroFSInit()");
+        perror("fatInitDefault()");
         wait_forever();
     }
 
@@ -55,63 +53,23 @@ int main(int argc, char **argv)
     printf("START will exit the program");
     printf("\n");
 
-    #pragma region Dynamic Library Tests
-    void *h = dlopen("dsl/test.dsl", RTLD_NOW | RTLD_LOCAL);
-    const char *err = dlerror();
-    if (err != NULL)
-    {
-        printf("dlopen(): %s\n", err);
-        wait_forever();
-    }
-    printf("\n");
-
-    printf("[*] Resolving functions...\n");
-    printf("\n");
-
-    VoidFn my_print = (VoidFn)dlsym(h, "_Z10print_textv");
-    printf("_Z10print_textv: %p\n", my_print);
-    err = dlerror();
-    if (err != NULL)
-    {
-        printf("dlsym(_Z10print_textv): %s\n", err);
-        wait_forever();
-    }
-
-    printf("\n");
-
-    printf("[*] Using library functions...\n");
-    printf("\n");
-
-    my_print();
-
-    printf("\n");
-    printf("[*] Unloading library...\n");
-    printf("\n");
-
-    dlclose(h);
-    err = dlerror();
-    if (err != NULL)
-    {
-        printf("dlclose(): %s\n", err);
-        wait_forever();
-    }
-    #pragma endregion
 
     consoleSelect(&bottomScreen);
 
     while (1)
     {
-        KEYPAD_BITS currentKey = static_cast<KEYPAD_BITS>(keysHeld());
+        PrintDSInput* getInput = new PrintDSInput();
         
         swiWaitForVBlank();
-
+        
         scanKeys();
-
+        
         if (keysHeld() & KEY_START) break;
 
-        else if (keysHeld() & currentKey)
+        else if (keysHeld() & static_cast<KEYPAD_BITS>(keysHeld()))
         {
-            printf(static_cast<int>(currentKey) + " was held!\n");
+            getInput->printInput(static_cast<KEYPAD_BITS>(keysHeld()));
+            printf(" was held!\n");
         }
         
     }
