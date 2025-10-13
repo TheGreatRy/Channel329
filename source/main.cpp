@@ -55,7 +55,7 @@ int main(int argc, char **argv)
     printf("\n");
 
     #pragma region Dynamic Library Tests
-    void *h = dlopen("dsl/test.dsl", RTLD_NOW | RTLD_LOCAL);
+    // void *h = dlopen("dsl/test.dsl", RTLD_NOW | RTLD_LOCAL);
     // const char *err = dlerror();
     // if (err != NULL)
     // {
@@ -100,7 +100,7 @@ int main(int argc, char **argv)
 
     while (1)
     {
-        KEYPAD_BITS currentKey;
+        KEYPAD_BITS currentKey = KEY_A;
         swiWaitForVBlank();
 
         scanKeys();
