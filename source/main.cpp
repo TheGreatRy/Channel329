@@ -101,12 +101,12 @@ int main(int argc, char **argv)
 
     while (1)
     {
+        KEYPAD_BITS currentKey = static_cast<KEYPAD_BITS>(keysHeld());
         
         swiWaitForVBlank();
         
         scanKeys();
         
-        KEYPAD_BITS currentKey = static_cast<KEYPAD_BITS>(keysHeld());
         
         if (keysHeld() & KEY_START) break;
         
