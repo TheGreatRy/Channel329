@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <filesystem.h>
 #include <nds.h>
+#include <string>
 
 void wait_forever(void)
 {
@@ -100,48 +101,17 @@ int main(int argc, char **argv)
 
     while (1)
     {
-        KEYPAD_BITS currentKey = KEY_A;
+        KEYPAD_BITS currentKey = static_cast<KEYPAD_BITS>(keysHeld());
+        
         swiWaitForVBlank();
 
         scanKeys();
 
         if (keysHeld() & KEY_START) break;
 
-        else if (keysHeld())
+        else if (keysHeld() & currentKey)
         {
-            switch (currentKey)
-            {
-                case KEY_A:
-                    printf("A Button Held!");
-                    break;
-                case KEY_B:
-                    printf("B Button Held!");
-                    break;
-                case KEY_X:
-                    printf("X Button Held!");
-                    break;
-                case KEY_Y:
-                    printf("Y Button Held!");
-                    break;
-                case KEY_UP:
-                    printf("UP Button Held!");
-                    break;
-                case KEY_DOWN:
-                    printf("DOWN Button Held!");
-                    break;
-                case KEY_LEFT:
-                    printf("LEFT Button Held!");
-                    break;
-                case KEY_RIGHT:
-                    printf("RIGHT Button Held!");
-                    break;
-                case KEY_SELECT:
-                    printf("SELECT Button Held!");
-                    break;
-                default:
-                    printf("OTHER INPUT");
-                    break;
-            }
+            printf(static_cast<int>(currentKey) + " was held!\n");
         }
         
     }
