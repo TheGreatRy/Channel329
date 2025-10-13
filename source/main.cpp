@@ -24,7 +24,7 @@ int main(int argc, char **argv)
     //Set up exception handler
     defaultExceptionHandler();
 
-    //#pragma region Initialization
+    #pragma region Initialization
     PrintConsole topScreen;
     PrintConsole bottomScreen;
 
@@ -36,9 +36,11 @@ int main(int argc, char **argv)
 
     consoleInit(&topScreen, 3, BgType_Text4bpp, BgSize_T_256x256, 31, 0, true, true);
     consoleInit(&bottomScreen, 3, BgType_Text4bpp, BgSize_T_256x256, 31, 0, false, true);
+    #pragma endregion
 
     consoleSelect(&topScreen);
 
+    //NitroFS Init Test
     //I cant get VSCode to accept this so I'm just leaving it for now
     bool init_ok = nitroFSInit(NULL);
     if (!init_ok)
@@ -47,61 +49,101 @@ int main(int argc, char **argv)
         wait_forever();
     }
 
-    printf("[*] Loading library...\n");
+    printf("Testing input. Please press any key");
+    printf("\n");
+    printf("START will exit the program");
     printf("\n");
 
+    #pragma region Dynamic Library Tests
     void *h = dlopen("dsl/test.dsl", RTLD_NOW | RTLD_LOCAL);
-    const char *err = dlerror();
-    if (err != NULL)
-    {
-        printf("dlopen(): %s\n", err);
-        wait_forever();
-    }
-    printf("\n");
+    // const char *err = dlerror();
+    // if (err != NULL)
+    // {
+    //     printf("dlopen(): %s\n", err);
+    //     wait_forever();
+    // }
+    // printf("\n");
 
-    printf("[*] Resolving functions...\n");
-    printf("\n");
+    // printf("[*] Resolving functions...\n");
+    // printf("\n");
 
-    VoidFn my_print = (VoidFn)dlsym(h, "_Z10print_textv");
-    printf("_Z10print_textv: %p\n", my_print);
-    err = dlerror();
-    if (err != NULL)
-    {
-        printf("dlsym(_Z10print_textv): %s\n", err);
-        wait_forever();
-    }
+    // VoidFn my_print = (VoidFn)dlsym(h, "_Z10print_textv");
+    // printf("_Z10print_textv: %p\n", my_print);
+    // err = dlerror();
+    // if (err != NULL)
+    // {
+    //     printf("dlsym(_Z10print_textv): %s\n", err);
+    //     wait_forever();
+    // }
 
-    printf("\n");
+    // printf("\n");
 
-    printf("[*] Using library functions...\n");
-    printf("\n");
+    // printf("[*] Using library functions...\n");
+    // printf("\n");
 
-    my_print();
+    // my_print();
 
-    printf("\n");
-    printf("[*] Unloading library...\n");
-    printf("\n");
+    // printf("\n");
+    // printf("[*] Unloading library...\n");
+    // printf("\n");
 
-    dlclose(h);
-    err = dlerror();
-    if (err != NULL)
-    {
-        printf("dlclose(): %s\n", err);
-        wait_forever();
-    }
+    // dlclose(h);
+    // err = dlerror();
+    // if (err != NULL)
+    // {
+    //     printf("dlclose(): %s\n", err);
+    //     wait_forever();
+    // }
+    #pragma endregion
 
     consoleSelect(&bottomScreen);
 
-    printf("Press START to exit to loader\n");
-
     while (1)
     {
+        KEYPAD_BITS currentKey;
         swiWaitForVBlank();
 
         scanKeys();
 
-        if (keysHeld() & KEY_START)
-            break;
+        if (keysHeld() & KEY_START) break;
+
+        else if (keysHeld())
+        {
+            switch (currentKey)
+            {
+                case KEY_A:
+                    printf("A Button Held!");
+                    break;
+                case KEY_B:
+                    printf("B Button Held!");
+                    break;
+                case KEY_X:
+                    printf("X Button Held!");
+                    break;
+                case KEY_Y:
+                    printf("Y Button Held!");
+                    break;
+                case KEY_UP:
+                    printf("UP Button Held!");
+                    break;
+                case KEY_DOWN:
+                    printf("DOWN Button Held!");
+                    break;
+                case KEY_LEFT:
+                    printf("LEFT Button Held!");
+                    break;
+                case KEY_RIGHT:
+                    printf("RIGHT Button Held!");
+                    break;
+                case KEY_SELECT:
+                    printf("SELECT Button Held!");
+                    break;
+                default:
+                    printf("OTHER INPUT");
+                    break;
+            }
+        }
+        
     }
 
     return 0;
