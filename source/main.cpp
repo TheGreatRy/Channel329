@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include <filesystem.h>
 #include <nds.h>
-#include <string>
 
 void wait_forever(void)
 {
