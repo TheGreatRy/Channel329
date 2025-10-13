@@ -56,45 +56,45 @@ int main(int argc, char **argv)
     printf("\n");
 
     #pragma region Dynamic Library Tests
-    // void *h = dlopen("dsl/test.dsl", RTLD_NOW | RTLD_LOCAL);
-    // const char *err = dlerror();
-    // if (err != NULL)
-    // {
-    //     printf("dlopen(): %s\n", err);
-    //     wait_forever();
-    // }
-    // printf("\n");
+    void *h = dlopen("dsl/test.dsl", RTLD_NOW | RTLD_LOCAL);
+    const char *err = dlerror();
+    if (err != NULL)
+    {
+        printf("dlopen(): %s\n", err);
+        wait_forever();
+    }
+    printf("\n");
 
-    // printf("[*] Resolving functions...\n");
-    // printf("\n");
+    printf("[*] Resolving functions...\n");
+    printf("\n");
 
-    // VoidFn my_print = (VoidFn)dlsym(h, "_Z10print_textv");
-    // printf("_Z10print_textv: %p\n", my_print);
-    // err = dlerror();
-    // if (err != NULL)
-    // {
-    //     printf("dlsym(_Z10print_textv): %s\n", err);
-    //     wait_forever();
-    // }
+    VoidFn my_print = (VoidFn)dlsym(h, "_Z10print_textv");
+    printf("_Z10print_textv: %p\n", my_print);
+    err = dlerror();
+    if (err != NULL)
+    {
+        printf("dlsym(_Z10print_textv): %s\n", err);
+        wait_forever();
+    }
 
-    // printf("\n");
+    printf("\n");
 
-    // printf("[*] Using library functions...\n");
-    // printf("\n");
+    printf("[*] Using library functions...\n");
+    printf("\n");
 
-    // my_print();
+    my_print();
 
-    // printf("\n");
-    // printf("[*] Unloading library...\n");
-    // printf("\n");
+    printf("\n");
+    printf("[*] Unloading library...\n");
+    printf("\n");
 
-    // dlclose(h);
-    // err = dlerror();
-    // if (err != NULL)
-    // {
-    //     printf("dlclose(): %s\n", err);
-    //     wait_forever();
-    // }
+    dlclose(h);
+    err = dlerror();
+    if (err != NULL)
+    {
+        printf("dlclose(): %s\n", err);
+        wait_forever();
+    }
     #pragma endregion
 
     consoleSelect(&bottomScreen);
