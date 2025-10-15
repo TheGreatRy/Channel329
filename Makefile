@@ -7,20 +7,12 @@ BLOCKSDS	?= /opt/blocksds/core
 # User config
 
 NAME		:= ch329cotmi
-GAME_TITLE	:= Channel 329: Crimes of the Magically Inclined
-GAME_SUBTITLE	:= Detective battles!
+GAME_TITLE	:= Channel 329
+GAME_SUBTITLE	:= Crimes of the Magically Inclined
 
 # Source code paths
 
 INCLUDEDIRS	:= source
+GFXDIRS		:= graphics
 
 include $(BLOCKSDS)/sys/default_makefiles/rom_arm9/Makefile
-
-# Additional rules to build the dynamic library:
-#
-# 1. Build ELF file of main ARM9 binary.
-# 2. Build ELF file of library.
-# 3. Generate DSL of the library taking both ELF files as input.
-# 4. Save the DSL in the NitroFS folder.
-# 5. Build NDS ROM.
-
