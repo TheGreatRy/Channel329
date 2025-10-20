@@ -418,3 +418,237 @@ void BlockDSExamples::Object3D()
             break;
     }
 }
+
+void BlockDSExamples::TilesetBG()
+{
+    consoleDemoInit();
+
+    // Initialize OpenGL to some sensible defaults
+    glScreen2D();
+
+    videoSetMode(MODE_0_3D);
+
+    // Setup some memory to be used for textures and for texture palettes
+    vramSetBankA(VRAM_A_TEXTURE);
+    vramSetBankE(VRAM_E_TEX_PALETTE);
+
+    // A tile set is formed by several images of the same size that start at the
+    // top left corner. It increses to the right in the top row until the end of
+    // the texture is reached, then it continues to the second row.
+    //
+    // When all the images are put together they form a bitmap with some
+    // dimensions. The dimensions can be whatever is required for that specific
+    // sprite, with no restrictions.
+    //
+    // However, the GPU of the DS requires textures to have sizes that are power
+    // of two. When you have a bitmap with dimensions that aren't a power of
+    // two, padding needs to be added to the bottom and to the right to fill the
+    // image up to a valid size.
+    //
+    // Note that if you leave enough space on the right of the texture for a new
+    // image, even if there aren't graphics there, it will count.
+    int tileset_texture_id =
+        glLoadTileSet(tileset,         // Pointer to glImage array
+                      16,              // Sprite width
+                      16,              // Sprite height
+                      16 * 10,         // Bitmap width (the part that contains useful images)
+                      16 * 10,         // Bitmap height (the part that contains useful images)
+                      GL_RGB256,       // Texture type for glTexImage2D()
+                      256,             // Full texture size X (image size)
+                      256,             // Full texture size Y (image size)
+                      TEXGEN_TEXCOORD, // Parameters for glTexImage2D()
+                      256,             // Length of the palette to use (256 colors)
+                      tiny_16Pal,      // Pointer to texture palette data
+                      tiny_16Bitmap);  // Pointer to texture data
+
+    if (tileset_texture_id < 0)
+        printf("Failed to load texture: %d\n", tileset_texture_id);
+
+    // Print some controls
+    printf("PAD:    Scroll\n");
+    printf("START:  Exit to loader\n");
+    printf("\n");
+
+    int scroll_x = 0;
+    int scroll_y = 0;
+
+    while (1)
+    {
+        // Synchronize game loop to the screen refresh
+        swiWaitForVBlank();
+
+        // Handle user input
+        // -----------------
+
+        scanKeys();
+
+        uint16_t keys = keysHeld();
+        if (keys & KEY_START)
+            break;
+
+        if (keys & KEY_UP)
+            scroll_y++;
+        if (keys & KEY_DOWN)
+            scroll_y--;
+
+        if (keys & KEY_LEFT)
+            scroll_x++;
+        if (keys & KEY_RIGHT)
+            scroll_x--;
+
+        // Render 3D scene
+        // ---------------
+
+        // Set up GL2D for 2D mode
+        glBegin2D();
+
+        glColor(RGB15(31, 31, 31));
+        glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE);
+
+        // This code could be made more intelligent by only drawing the
+        // tiles that are actually shown on the screen. That would reduce
+        // the number of polygons that are sent to the GPU and improve
+        // performance.
+        for (int j = 0; j < MAP_HEIGHT; j++)
+        {
+            for (int i = 0; i < MAP_WIDTH; i++)
+            {
+                int x = scroll_x + i * 16;
+                int y = scroll_y + j * 16;
+                int tile_id = map[j * MAP_WIDTH + i];
+
+                glSprite(x, y, GL_FLIP_NONE, &tileset[tile_id]);
+            }
+        }
+
+        glEnd2D();
+
+        glFlush(0);
+    }
+
+    glDeleteTextures(1, &tileset_texture_id);
+
+    return 0;
+}
+
+void BlockDSExamples::TilesetSprite()
+{
+    consoleDemoInit();
+
+    // Initialize OpenGL to some sensible defaults
+    glScreen2D();
+
+    videoSetMode(MODE_0_3D);
+
+    // Setup some memory to be used for textures and for texture palettes
+    vramSetBankA(VRAM_A_TEXTURE);
+    vramSetBankE(VRAM_E_TEX_PALETTE);
+
+    // A tile set is formed by several images of the same size that start at the
+    // top left corner. It increses to the right in the top row until the end of
+    // the texture is reached, then it continues to the second row.
+    //
+    // When all the images are put together they form a bitmap with some
+    // dimensions. The dimensions can be whatever is required for that specific
+    // sprite, with no restrictions.
+    //
+    // However, the GPU of the DS requires textures to have sizes that are power
+    // of two. When you have a bitmap with dimensions that aren't a power of
+    // two, padding needs to be added to the bottom and to the right to fill the
+    // image up to a valid size.
+    //
+    // Note that if you leave enough space on the right of the texture for a new
+    // image, even if there aren't graphics there, it will count.
+    int character_texture_id =
+        glLoadTileSet(character, // Pointer to glImage array
+                      22,        // Sprite width
+                      64,        // Sprite height
+                      22 * 6,    // Bitmap width (the part that contains useful images)
+                      64,        // Bitmap height (the part that contains useful images)
+                      GL_RGB256, // Texture type for glTexImage2D()
+                      256,       // Full texture size X (image size)
+                      64,        // Full texture size Y (image size)
+                      // Parameters for glTexImage2D()
+                      TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT,
+                      256,          // Length of the palette to use (256 colors)
+                      advntPal,     // Pointer to texture palette data
+                      advntBitmap); // Pointer to texture data
+
+    if (character_texture_id < 0)
+        printf("Failed to load texture: %d\n", character_texture_id);
+
+    // Print some controls
+    printf("START:  Exit to loader\n");
+    printf("\n");
+
+    int delay = 0;
+    int frame = 0;
+
+    while (1)
+    {
+        // Synchronize game loop to the screen refresh
+        swiWaitForVBlank();
+
+        // Handle user input
+        // -----------------
+
+        scanKeys();
+
+        uint16_t keys = keysHeld();
+        if (keys & KEY_START)
+            break;
+
+        // Render 3D scene
+        // ---------------
+
+        // Set up GL2D for 2D mode
+        glBegin2D();
+
+        // Fill screen with a gradient
+        glBoxFilledGradient(0, 0,
+                            screen_width - 1, screen_height - 1,
+                            RGB15(31, 0, 0),
+                            RGB15(31, 31, 0),
+                            RGB15(31, 0, 31),
+                            RGB15(0, 31, 31));
+
+        // Draw sprite frames individually
+        glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_ID(0));
+        glColor(RGB15(31, 31, 31));
+
+        for (int i = 0; i < 6; i++)
+        {
+            int x = i * 24;
+            int y = i * 5;
+            glSprite(x, y, GL_FLIP_NONE, &character[i]);
+        }
+
+        // Draw animated sprite
+        glSprite(200, 0, GL_FLIP_NONE, &character[frame]);
+
+        // Animate (change animation frame every 10 frames)
+        delay++;
+        if (delay == 10)
+        {
+            delay = 0;
+
+            frame++;
+            if (frame == 6)
+                frame = 0;
+        }
+
+        // Draw a rotated and scaled sprite
+        glSpriteRotateScaleXY(40, 150,                          // Position
+                              32767 / 8,                        // Rotation = 45 degrees (full circle / 8)
+                              floattof32(1.2), floattof32(0.8), // Scale X and Y
+                              GL_FLIP_NONE, &character[0]);
+
+        glEnd2D();
+
+        glFlush(0);
+    }
+
+    glDeleteTextures(1, &character_texture_id);
+
+    return 0;
+}

@@ -8,20 +8,19 @@
 #include <dlfcn.h>
 #include <filesystem.h>
 #include <fat.h>
-
-
-
-typedef void (fnptrvoid)(void);
-typedef int (fnptr1int)(int);
-typedef int (fnptr2int)(int, int);
-
+#include <gl2d.h>
 
 int main(int argc, char **argv)
 {
     //Set up exception handler
     defaultExceptionHandler();
 
-    
+    glInit();
+    videoSetMode(MODE_0_3D);
+
+    vramSetPrimaryBanks(VRAM_A_MAIN_BG, VRAM_B_MAIN_SPRITE,
+                        VRAM_C_TEXTURE, VRAM_D_TEXTURE);
+
 
     return 0;
 }
