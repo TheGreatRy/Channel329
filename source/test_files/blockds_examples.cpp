@@ -527,8 +527,6 @@ void BlockDSExamples::TilesetBG()
     }
 
     glDeleteTextures(1, &tileset_texture_id);
-
-    return 0;
 }
 
 void BlockDSExamples::TilesetSprite()
@@ -650,5 +648,4 @@ void BlockDSExamples::TilesetSprite()
 
     glDeleteTextures(1, &character_texture_id);
 
-    return 0;
 }
