@@ -3,6 +3,7 @@
         "*.rh": "cpp",
         "type_traits": "cpp",
         "exception": "cpp",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "memory": "cpp"
     }
 }

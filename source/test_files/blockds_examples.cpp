@@ -423,14 +423,14 @@ void BlockDSExamples::TilesetBG()
 {
     consoleDemoInit();
 
-    // Initialize OpenGL to some sensible defaults
-    glScreen2D();
+    // // Initialize OpenGL to some sensible defaults
+    // glScreen2D();
 
-    videoSetMode(MODE_0_3D);
+    // videoSetMode(MODE_0_3D);
 
-    // Setup some memory to be used for textures and for texture palettes
-    vramSetBankA(VRAM_A_TEXTURE);
-    vramSetBankE(VRAM_E_TEX_PALETTE);
+    // // Setup some memory to be used for textures and for texture palettes
+    // vramSetBankA(VRAM_A_TEXTURE);
+    // vramSetBankE(VRAM_E_TEX_PALETTE);
 
     // A tile set is formed by several images of the same size that start at the
     // top left corner. It increses to the right in the top row until the end of
@@ -533,14 +533,14 @@ void BlockDSExamples::TilesetSprite()
 {
     consoleDemoInit();
 
-    // Initialize OpenGL to some sensible defaults
-    glScreen2D();
+    // //Initialize OpenGL to some sensible defaults
+    // glScreen2D();
 
-    videoSetMode(MODE_0_3D);
+    // videoSetMode(MODE_0_3D);
 
-    // Setup some memory to be used for textures and for texture palettes
-    vramSetBankA(VRAM_A_TEXTURE);
-    vramSetBankE(VRAM_E_TEX_PALETTE);
+    // //Setup some memory to be used for textures and for texture palettes
+    // vramSetBankA(VRAM_A_TEXTURE);
+    // vramSetBankE(VRAM_E_TEX_PALETTE);
 
     // A tile set is formed by several images of the same size that start at the
     // top left corner. It increses to the right in the top row until the end of
