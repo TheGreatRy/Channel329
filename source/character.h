@@ -1,4 +1,5 @@
 #include <memory>
+#include <vector>
 
 #include <nds.h>
 #include <stdio.h>
@@ -8,15 +9,15 @@
 class Character
 {
     public:
-    Character(const int frames);
+    Character(const int frames, const int spr_w, const int spr_h);
     ~Character() = default;
 
-    int m_frames = 1;
-    int m_character_id = 0;
+    int m_frames_num = 1;
+    int m_texture_id = 0;
+    int m_sprite_h = 8;
+    int m_sprite_w = 8;
 
-    const uint32_t screen_width = 256;
-    const uint32_t screen_height = 192;
+    std::vector<glImage> m_frames_img;
 
-    void DrawCharacterFromTileset(glImage spr_img[], const int spr_w, const int spr_h, const unsigned short pal_dt[], const unsigned int tex_dt[]);
-
+    void DrawCharacterFromTileset(glImage character_arr[], const unsigned short pal_dt[], const unsigned int tex_dt[]);
 };

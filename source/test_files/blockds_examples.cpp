@@ -1,6 +1,7 @@
 #include "blockds_examples.h"
 #include "dsinput_print.h"
 
+
 void BlockDSExamples::InputTests()
 {
     PrintConsole topScreen;
@@ -419,34 +420,10 @@ void BlockDSExamples::Object3D()
     }
 }
 
-void BlockDSExamples::TilesetBG()
+void BlockDSExamples::TilesetBG(Character character)
 {
     consoleDemoInit();
 
-    // // Initialize OpenGL to some sensible defaults
-    // glScreen2D();
-
-    // videoSetMode(MODE_0_3D);
-
-    // // Setup some memory to be used for textures and for texture palettes
-    // vramSetBankA(VRAM_A_TEXTURE);
-    // vramSetBankE(VRAM_E_TEX_PALETTE);
-
-    // A tile set is formed by several images of the same size that start at the
-    // top left corner. It increses to the right in the top row until the end of
-    // the texture is reached, then it continues to the second row.
-    //
-    // When all the images are put together they form a bitmap with some
-    // dimensions. The dimensions can be whatever is required for that specific
-    // sprite, with no restrictions.
-    //
-    // However, the GPU of the DS requires textures to have sizes that are power
-    // of two. When you have a bitmap with dimensions that aren't a power of
-    // two, padding needs to be added to the bottom and to the right to fill the
-    // image up to a valid size.
-    //
-    // Note that if you leave enough space on the right of the texture for a new
-    // image, even if there aren't graphics there, it will count.
     int tileset_texture_id =
         glLoadTileSet(tileset,         // Pointer to glImage array
                       16,              // Sprite width
@@ -472,6 +449,13 @@ void BlockDSExamples::TilesetBG()
     int scroll_x = 0;
     int scroll_y = 0;
 
+    glImage character_arr[]{character.m_frames_num};
+
+    for (int i = 0; i < character.m_frames_num; i++)
+    {
+        character_arr[i] = character.m_frames_img[i];
+    }
+
     while (1)
     {
         // Synchronize game loop to the screen refresh
@@ -481,6 +465,8 @@ void BlockDSExamples::TilesetBG()
         // -----------------
 
         scanKeys();
+
+        
 
         uint16_t keys = keysHeld();
         if (keys & KEY_START)
@@ -520,6 +506,10 @@ void BlockDSExamples::TilesetBG()
                 glSprite(x, y, GL_FLIP_NONE, &tileset[tile_id]);
             }
         }
+        
+        
+
+        glSprite((screen_width / 2) - (character.m_sprite_w / 2), (screen_height / 2) - (character.m_sprite_h / 2), GL_FLIP_NONE, &character_arr[0]);
 
         glEnd2D();
 
@@ -527,6 +517,7 @@ void BlockDSExamples::TilesetBG()
     }
 
     glDeleteTextures(1, &tileset_texture_id);
+    glDeleteTextures(1, &character.m_texture_id);
 }
 
 void BlockDSExamples::TilesetSprite()
@@ -647,5 +638,4 @@ void BlockDSExamples::TilesetSprite()
     }
 
     glDeleteTextures(1, &character_texture_id);
-
 }

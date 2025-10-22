@@ -11,12 +11,13 @@
 #include <gl2d.h>
 
 #include "../graphics/characters/cam.h"
-#include "character.h"
 
 #include "test_files/blockds_examples.h"
 
 int main(int argc, char **argv)
 {
+    consoleDemoInit();
+
     // Set up exception handler
     defaultExceptionHandler();
     
@@ -34,13 +35,13 @@ int main(int argc, char **argv)
     vramSetBankA(VRAM_A_TEXTURE);
     vramSetBankE(VRAM_E_TEX_PALETTE);
         
-    Character* cam = new Character(1);
+    Character* cam = new Character(1, 32, 32);
     
-    cam->DrawCharacterFromTileset({new glImage[cam->m_frames]}, 32, 32, camPal, camBitmap);
+    cam->DrawCharacterFromTileset({new glImage[cam->m_frames_num]},camPal, camBitmap);
 
-    // BlockDSExamples* DSeX = new BlockDSExamples();
+    BlockDSExamples* DSeX = new BlockDSExamples();
 
-    // DSeX->TilesetSprite();
-
+    DSeX->TilesetBG(*cam);
+        
     return 0;
 }
