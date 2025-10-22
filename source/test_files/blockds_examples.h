@@ -21,7 +21,7 @@
 #include "../graphics/test_graphics/tiny_16.h"
 #include "../graphics/test_graphics/advnt.h"
 
-#include "../character.h"
+#include "../tileset.h"
 
 #define MAP_WIDTH 30
 #define MAP_HEIGHT 20
@@ -36,7 +36,7 @@ public:
     void BGScroll2D();
     void LayerMovement();
     void Object3D();
-    void TilesetBG(Character character);
+    void TilesetBG(Tileset character);
     void TilesetSprite();
 
 private:

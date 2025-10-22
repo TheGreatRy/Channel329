@@ -1,7 +1,7 @@
-#include "character.h"
+#include "tileset.h"
 #include "../graphics/characters/cam.h"
 
-Character::Character(const int frames, const int spr_w, const int spr_h)
+Tileset::Tileset(const int frames, const int spr_w, const int spr_h)
 {
     if (frames < 1) m_frames_num = 1;
     else m_frames_num = frames;
@@ -13,10 +13,10 @@ Character::Character(const int frames, const int spr_w, const int spr_h)
     else m_sprite_h = spr_h;
 }
 
-void Character::DrawCharacterFromTileset(glImage character_arr[], const unsigned short pal_dt[], const unsigned int tex_dt[])
+void Tileset::DrawTileset(glImage Tileset_arr[], const unsigned short pal_dt[], const unsigned int tex_dt[])
 {
     m_texture_id =
-        glLoadTileSet(character_arr, // Pointer to glImage array
+        glLoadTileSet(Tileset_arr, // Pointer to glImage array
                       m_sprite_w,        // Sprite width
                       m_sprite_h,        // Sprite height
                       m_sprite_w * m_frames_num,    // Bitmap width (the part that contains useful images)
@@ -34,6 +34,6 @@ void Character::DrawCharacterFromTileset(glImage character_arr[], const unsigned
     
     for (int i = 0; i < m_frames_num; i++)
     {
-        m_frames_img.push_back(character_arr[i]);
+        m_frames_img.push_back(Tileset_arr[i]);
     }
 }

@@ -35,9 +35,9 @@ int main(int argc, char **argv)
     vramSetBankA(VRAM_A_TEXTURE);
     vramSetBankE(VRAM_E_TEX_PALETTE);
         
-    Character* cam = new Character(1, 32, 32);
+    Tileset* cam = new Tileset(1, 32, 32);
     
-    cam->DrawCharacterFromTileset({new glImage[cam->m_frames_num]},camPal, camBitmap);
+    cam->DrawTileset({new glImage[cam->m_frames_num]},camPal, camBitmap);
 
     BlockDSExamples* DSeX = new BlockDSExamples();
 

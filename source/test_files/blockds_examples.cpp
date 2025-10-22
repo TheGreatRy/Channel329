@@ -420,7 +420,7 @@ void BlockDSExamples::Object3D()
     }
 }
 
-void BlockDSExamples::TilesetBG(Character character)
+void BlockDSExamples::TilesetBG(Tileset character)
 {
     consoleDemoInit();
 
