@@ -449,11 +449,11 @@ void BlockDSExamples::TilesetBG(Tileset character)
     int scroll_x = 0;
     int scroll_y = 0;
 
-    glImage character_arr[]{character.m_frames_num};
+    glImage character_arr[]{character.m_sprites_num_x};
 
-    for (int i = 0; i < character.m_frames_num; i++)
+    for (int i = 0; i < character.m_sprites_num_x; i++)
     {
-        character_arr[i] = character.m_frames_img[i];
+        character_arr[i] = character.m_tileset_img[i];
     }
 
     while (1)

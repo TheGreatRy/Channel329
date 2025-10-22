@@ -4,6 +4,7 @@
         "type_traits": "cpp",
         "exception": "cpp",
         "xstring": "cpp",
-        "memory": "cpp"
+        "memory": "cpp",
+        "vector": "cpp"
     }
 }
