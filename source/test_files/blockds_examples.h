@@ -21,7 +21,7 @@
 #include "../graphics/test_graphics/tiny_16.h"
 #include "../graphics/test_graphics/advnt.h"
 
-#include "../components/tileset.h"
+#include "../components/scene.h"
 
 #define MAP_WIDTH 30
 #define MAP_HEIGHT 20
