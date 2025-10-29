@@ -2,8 +2,6 @@
 
 void Game::InitializeGame()
 {
-    consoleDemoInit();
-
     // Set up exception handler
     defaultExceptionHandler();
 
@@ -21,6 +19,11 @@ void Game::InitializeGame()
     // Setup some memory to be used for textures and for texture palettes
     vramSetBankA(VRAM_A_TEXTURE);
     vramSetBankE(VRAM_E_TEX_PALETTE);
+
+    //console setup in sub engine
+    videoSetModeSub(MODE_0_3D);
+    vramSetBankC(VRAM_C_SUB_BG);
+
 }
 
 void Game::RunCurrentScene(Scene *scene)
@@ -30,6 +33,21 @@ void Game::RunCurrentScene(Scene *scene)
     int scroll_y = 0;
 
     scene->DrawLayers(scene->m_drawing_layers, scroll_x, scroll_y);
+    
+    // delete textures post game (scene most likely)
+    for (Tileset *layer : scene->m_drawing_layers)
+    {
+        glDeleteTextures(1, &layer->m_texture_id);
+    }
+}
+
+void Game::RunCurrentScene(Scene *scene, Options *options)
+{
+    // tileset variables
+    int scroll_x = 0;
+    int scroll_y = 0;
+    
+    scene->DrawLayers(scene->m_drawing_layers, options, scroll_x, scroll_y);
     
     // delete textures post game (scene most likely)
     for (Tileset *layer : scene->m_drawing_layers)

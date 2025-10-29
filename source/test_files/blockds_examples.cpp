@@ -639,3 +639,99 @@ void BlockDSExamples::TilesetSprite()
 
     glDeleteTextures(1, &character_texture_id);
 }
+
+void BlockDSExamples::CustomFonts()
+{
+    PrintConsole main_console;
+
+    PrintConsole sub_console1;
+    PrintConsole sub_console2;
+
+    videoSetMode(MODE_0_2D);
+    vramSetBankA(VRAM_A_MAIN_BG);
+
+    videoSetModeSub(MODE_0_2D);
+    vramSetBankC(VRAM_C_SUB_BG);
+
+    setBackdropColorSub(RGB15(5, 5, 5));
+
+    // Initialize the consoles with default libnds settings, but don't load
+    // graphics yet so that it doesn't load the default libnds font and
+    // palettes.
+
+    consoleInitEx(&main_console,
+                  1,                // Background layer
+                  BgType_Text8bpp,  // 8 BPP mode
+                  BgSize_T_256x256, // Size of the background layer
+                  0,                // Use map base 0 (they can't be shared)
+                  3,                // Use tile base 3
+                  0,                // Use palette index 0 (256 color palette)
+                  0,                // Start from character 0 of the tile base
+                  true,             // Main screen
+                  false);           // Don't load graphics
+
+    // As both fonts only have the characters from ASCII 32 to 127, which isn't
+    // a lot of tiles, we can load both of them in the same tile slot. The first
+    // font can start at character 0, the second one can start at character 128.
+    // This lets us optimize VRAM usage.
+    consoleInitEx(&sub_console1,
+                  0,                // Background layer
+                  BgType_Text4bpp,  // 4 BPP mode
+                  BgSize_T_256x256, // Size of the background layer
+                  0,                // Use map base 0 (they can't be shared)
+                  3,                // Use tile base 3
+                  4,                // Use palette index 4 (16 color palettes)
+                  0,                // Start from character 0 of the tile base
+                  false,            // Sub screen
+                  false);           // Don't load graphics
+
+    consoleInitEx(&sub_console2,
+                  2,                // Background layer
+                  BgType_Text4bpp,  // 4 BPP mode
+                  BgSize_T_256x256, // Size of the background layer
+                  1,                // Use map base 1 (they can't be shared)
+                  3,                // Use tile base 3
+                  8,                // Use palette index 8 (16 color palettes)
+                  128,              // Start from character 128 of the tile base
+                  false,            // Sub screen
+                  false);           // Don't load graphics
+
+    // Now, load the custom graphics
+
+    consoleSetFont(&main_console, &font_anuvverbubbla);
+
+    consoleSetFont(&sub_console1, &font_cellphone);
+    consoleSetFont(&sub_console2, &font_futuristic);
+
+    // Print some text to test the consoles
+
+    consoleSelect(&main_console);
+    printf("THIS IS A 8 BPP FONT:\n");
+    for (int i = 0; i < 128; i++)
+        printf("%c", i);
+
+    consoleSelect(&sub_console1);
+    printf("This is a 4 BPP font:\n");
+    for (int i = 0; i < 128; i++)
+        printf("%c", i);
+
+    consoleSelect(&sub_console2);
+    consoleSetCursor(&sub_console2, 0, 8);
+    printf("This is a 4 BPP font too:\n");
+    for (int i = 0; i < 128; i++)
+        printf("%c", i);
+
+    consoleSetCursor(&sub_console2, 0, 23);
+    printf("Press START to exit to loader");
+
+    while (1)
+    {
+        swiWaitForVBlank();
+
+        scanKeys();
+
+        if (keysDown() & KEY_START)
+            break;
+    }
+
+}

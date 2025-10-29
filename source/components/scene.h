@@ -4,6 +4,7 @@
 
 #include "tileset.h"
 #include "../graphics/test_graphics/tiny_16.h"
+#include "options.h"
 
 #define MAP_WIDTH 30
 #define MAP_HEIGHT 20
@@ -15,6 +16,8 @@ public:
 
     void AddLayer(Tileset* layer);
     void DrawLayers(std::vector<Tileset*> layers, int scroll_x, int scroll_y);
+    void DrawLayers(std::vector<Tileset*> layers, Options* options, int scroll_x, int scroll_y);
+
 
     int ScanInput(int &scroll_x, int &scroll_y);
 
