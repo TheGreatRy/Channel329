@@ -50,20 +50,69 @@ void Options::DisplayOptions(PrintConsole main_con, std::vector<PrintConsole> su
 {
     setBackdropColorSub(RGB15(5, 5, 5));
 
+    // consoleInit(&sub_con_01, 0, BgType_Text4bpp, BgSize_T_256x256, 0, 3, false, false);
+
     InitializeConsole(&sub_con_01, 0, BgType_Text4bpp, BgSize_T_256x256, 0, 3, 4, 0, false, false);
 
     consoleSetFont(&sub_con_01, &font_cellphone);
 
-    consoleSetWindow(&sub_con_01, 0, 0, 75, 30);
+    //     consoleSetWindow(&sub_con_01, 0, 0, 128, 64);
 
-    int *x = 0; 
-    int *y = 0;
+    //     int *x = 0;
+    //     int *y = 0;
+
+    //     consoleSelect(&sub_con_01);
+    //     consoleGetCursor(&sub_con_01, x, y);
+
+    //     printf("This is a 4 BPP font:\n");
+    //     for (int i = 0; i < 128; i++)
+    //     {
+
+    //         printf("%c", i);
+    //     }
+    // consoleInit(&sub_con_01, 3, BgType_Text4bpp, BgSize_T_256x256, 31, 0, false, true);
+
+    int x = 1;
+    int y = 1;
+    int width = 10;
+    int height = 5;
+
+    consoleSetWindow(&sub_con_01, x, y, x + width, y + height);
 
     consoleSelect(&sub_con_01);
-    printf("This is a 4 BPP font:\n");
-    for (int i = 0; i < 128; i++)
-    {
-        printf("%c", i);
 
+    printf("Printing on the bottom screen in a small window\n");
+
+    touchPosition current_pos;
+
+    u16 L_x = 8 * x;
+    u16 R_x = 8 * (x + width);
+    u16 L_y = 8 * y;
+    u16 R_y = 8 * (y + height);
+
+    while (1)
+    {
+        swiWaitForVBlank();
+
+        scanKeys();
+
+        if (keysHeld() & KEY_START)
+            break;
+
+        if (keysHeld() & KEY_TOUCH)
+        {
+            touchRead(&current_pos);
+        }
+
+        if (current_pos.px >= L_x && current_pos.px <= R_x && current_pos.py >= L_y && current_pos.py <= R_y)
+        {
+            printf("\x1b[2J");
+            printf("Text box detected input!");
+        }
+        else
+        {
+            printf("\x1b[2J");
+            printf("Not the box dummy!");
+        }
     }
 }

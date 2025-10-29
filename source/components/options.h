@@ -1,7 +1,10 @@
 #include <nds.h>
 #include <stdio.h>
+#include <gl2d.h>
+
 #include <memory>
 #include <vector>
+#include <string>
 
 #include <../graphics/test_graphics/anuvverbubbla_8x8.h>
 #include <../graphics/test_graphics/charmap_cellphone.h>
@@ -22,6 +25,10 @@ class Options
     void SetMainConsole(PrintConsole main_con);
     void AddSubConsole(PrintConsole sub_con);
     void DisplayOptions(PrintConsole main_con, std::vector<PrintConsole> sub_con);
+
+    // void GetWordsFromString(std::vector<std::string> sentence);
+
+    // void UpdateOptionText();
 
      // Size of a color in bytes
     const size_t size_color = 2;
@@ -56,6 +63,7 @@ class Options
         .asciiOffset = 32,
         .numChars = charmap_futuristicTilesLen / size_char_4bpp,
     };
+
 
    
 };

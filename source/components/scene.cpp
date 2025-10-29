@@ -5,15 +5,8 @@ void Scene::AddLayer(Tileset *layer)
     m_drawing_layers.push_back(layer);
 }
 
-int Scene::ScanInput(int &scroll_x, int &scroll_y)
+void Scene::ScrollInput(uint16_t keys, int &scroll_x, int &scroll_y)
 {
-    scanKeys();
-
-    uint16_t keys = keysHeld();
-
-    if (keys & KEY_START)
-        return 0;
-
     if (keys & KEY_UP)
         scroll_y++;
     if (keys & KEY_DOWN)
@@ -24,7 +17,6 @@ int Scene::ScanInput(int &scroll_x, int &scroll_y)
     if (keys & KEY_RIGHT)
         scroll_x--;
 
-    return 1;
 }
 
 void Scene::DrawLayers(std::vector<Tileset *> layers, int scroll_x, int scroll_y)
@@ -32,8 +24,6 @@ void Scene::DrawLayers(std::vector<Tileset *> layers, int scroll_x, int scroll_y
     while (1)
     {
         swiWaitForVBlank();
-
-        ScanInput(scroll_x, scroll_y);
 
         glBegin2D();
         glColor(RGB15(31, 31, 31));
@@ -76,7 +66,13 @@ void Scene::DrawLayers(std::vector<Tileset *> layers, Options *options, int scro
     {
         swiWaitForVBlank();
 
-        ScanInput(scroll_x, scroll_y);
+        scanKeys();
+
+        uint16_t keys = keysHeld();
+        
+        ScrollInput(keys, scroll_x, scroll_y);
+
+        if (keys & KEY_START) break;
 
         glBegin2D();
         glColor(RGB15(31, 31, 31));

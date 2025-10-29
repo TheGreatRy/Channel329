@@ -19,7 +19,7 @@ public:
     void DrawLayers(std::vector<Tileset*> layers, Options* options, int scroll_x, int scroll_y);
 
 
-    int ScanInput(int &scroll_x, int &scroll_y);
+    void ScrollInput(uint16_t keys, int &scroll_x, int &scroll_y);
 
      const int16_t map[MAP_WIDTH * MAP_HEIGHT] = {
         94, 95, 84, 85, 94, 95, 84, 85, 94, 95,  1,  1,  1,  1,  1,  1,  1,  1, 94, 95, 84, 85, 84, 85, 94, 95, 84, 85, 84, 85, 
