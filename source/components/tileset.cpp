@@ -28,11 +28,11 @@ void Tileset::LoadTileset(glImage tileset_arr[], const unsigned short pal_dt[], 
                       m_sprite_w * m_sprites_num_x,                                       // Bitmap width (the part that contains useful images)
                       m_sprite_h * m_sprites_num_y,                                       // Bitmap height (the part that contains useful images)
                       tex_type,                                                           // Texture type for glTexImage2D()
-                      PaddingForPowerOfTwo(m_sprite_w, m_sprites_num_x, TS_FULL_TEXTURE), // Full texture size X (image size)
-                      PaddingForPowerOfTwo(m_sprite_h, m_sprites_num_y, TS_FULL_TEXTURE), // Full texture size Y (image size)
+                      PaddingForPowerOfTwo(m_sprite_w, m_sprites_num_x, TS_SIZE_FULL_TEX), // Full texture size X (image size)
+                      PaddingForPowerOfTwo(m_sprite_h, m_sprites_num_y, TS_SIZE_FULL_TEX), // Full texture size Y (image size)
                       // Parameters for glTexImage2D()
                       TEXGEN_TEXCOORD | GL_TEXTURE_COLOR0_TRANSPARENT,
-                      PaddingForPowerOfTwo(pal_len, 1, TS_PALETTE_LENGTH), // Palette length
+                      PaddingForPowerOfTwo(pal_len, 1, TS_SIZE_PAL_LEN), // Palette length
                       pal_dt,                                              // Pointer to texture palette data
                       tex_dt);                                             // Pointer to texture data
 
@@ -58,7 +58,7 @@ int Tileset::PaddingForPowerOfTwo(int x, int y, TS_SIZE ts_size)
         {
 #pragma region Texture Size Checks
         // Texture images need to be between 8 and 1024, but a power of 2
-        case TS_FULL_TEXTURE:
+        case TS_SIZE_FULL_TEX:
             if (dimensions <= 8)
                 return 8;
             else if (dimensions > 8 && dimensions <= 16)
@@ -79,7 +79,7 @@ int Tileset::PaddingForPowerOfTwo(int x, int y, TS_SIZE ts_size)
 
 #pragma region Palette Length Checks
         // Palette lengths can be between 4 and 256 bits, but a power of two (I actually don't know is this is required for all palettes but I'm restricting it to be safe)
-        case TS_PALETTE_LENGTH:
+        case TS_SIZE_PAL_LEN:
             if (dimensions <= 4)
                 return 4;
             else if (dimensions > 4 && dimensions <= 8)

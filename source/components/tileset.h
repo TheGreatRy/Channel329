@@ -8,14 +8,14 @@
 
 enum TS_TAG
 {
-    TS_CHARACTER,
-    TS_BACKGROUND
+    TS_TAG_CHAR,
+    TS_TAG_BG
 };
 
 enum TS_SIZE
 {
-    TS_FULL_TEXTURE,
-    TS_PALETTE_LENGTH
+    TS_SIZE_FULL_TEX,
+    TS_SIZE_PAL_LEN
 };
 
 class Tileset
@@ -31,7 +31,7 @@ class Tileset
     int m_offset_y = 0;
 
     std::vector<glImage> m_tileset_img;
-    TS_TAG m_tag = TS_BACKGROUND;
+    TS_TAG m_tag = TS_TAG_BG;
 
     Tileset(const int spr_num_x, const int spr_num_y, const int spr_w, const int spr_h, TS_TAG ts_tag);
     ~Tileset() = default;

@@ -21,8 +21,8 @@ int main(int argc, char **argv)
 
     Scene* demo = new Scene();
 
-    Tileset* cam = new Tileset(1, 1, 32, 32, TS_CHARACTER);
-    Tileset* town = new Tileset(10, 10, 16, 16, TS_BACKGROUND);
+    Tileset* cam = new Tileset(1, 1, 32, 32, TS_TAG_CHAR);
+    Tileset* town = new Tileset(10, 10, 16, 16, TS_TAG_BG);
 
     cam->LoadTileset({new glImage[cam->m_img_dimensions]},camPal, camBitmap, GL_RGB256, 256);
     town->LoadTileset({new glImage[town->m_img_dimensions]}, tiny_16Pal, tiny_16Bitmap, GL_RGB256, 256);

@@ -33,7 +33,7 @@ void Scene::DrawLayers(std::vector<Tileset *> layers, int scroll_x, int scroll_y
         {
             switch (layer->m_tag)
             {
-            case TS_BACKGROUND:
+            case TS_TAG_BG:
                 for (int j = 0; j < MAP_HEIGHT; j++)
                 {
                     for (int i = 0; i < MAP_WIDTH; i++)
@@ -46,7 +46,7 @@ void Scene::DrawLayers(std::vector<Tileset *> layers, int scroll_x, int scroll_y
                     }
                 }
                 break;
-            case TS_CHARACTER:
+            case TS_TAG_CHAR:
                 glSprite((screen_width / 2) - (layer->m_sprite_w / 2), (screen_height / 2) - (layer->m_sprite_h / 2), GL_FLIP_NONE, &layer->m_tileset_img[0]);
                 break;
             }
@@ -83,7 +83,7 @@ void Scene::DrawLayers(std::vector<Tileset *> layers, Options *options, int scro
         {
             switch (layer->m_tag)
             {
-            case TS_BACKGROUND:
+            case TS_TAG_BG:
                 for (int j = 0; j < MAP_HEIGHT; j++)
                 {
                     for (int i = 0; i < MAP_WIDTH; i++)
@@ -96,7 +96,7 @@ void Scene::DrawLayers(std::vector<Tileset *> layers, Options *options, int scro
                     }
                 }
                 break;
-            case TS_CHARACTER:
+            case TS_TAG_CHAR:
                 glSprite((screen_width / 2) - (layer->m_sprite_w / 2), (screen_height / 2) - (layer->m_sprite_h / 2), GL_FLIP_NONE, &layer->m_tileset_img[0]);
                 break;
             }
