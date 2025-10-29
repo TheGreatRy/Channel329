@@ -7,6 +7,7 @@
 
 #include "../graphics/characters/cam.h"
 #include "../graphics/test_graphics/tiny_16.h"
+#include "../graphics/characters/talkingnpc.h"
 
 #include <nds/arm9/dldi.h>
 
@@ -31,13 +32,28 @@ int main(int argc, char **argv)
     demo->AddLayer(town);
     demo->AddLayer(cam);
 
+
+    Scene* battle = new Scene();
     Options* options = new Options();
 
-    //options->SetMainConsole(main_console);
-    //options->DisplayOptions(main_console, sub_consoles);
+    Tileset* enemy = new Tileset(1,1,64,64,TS_TAG_CHAR);
 
+    enemy->LoadTileset({new glImage[enemy->m_img_dimensions]}, talkingnpcPal, talkingnpcBitmap, GL_RGB256, 256);
+
+    battle->AddLayer(enemy);
+
+    // while (1)
+    // {
+    //     swiWaitForVBlank();
+
+    //     scanKeys();
+
+    //     if (keysHeld() & KEY_START) break;
+
+    // }
+    
     game->RunCurrentScene(demo, options);
-
+    //game->RunCurrentScene(demo);
     
     // Test methods to run
     // BlockDSExamples *DSeX = new BlockDSExamples();

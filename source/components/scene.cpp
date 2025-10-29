@@ -14,9 +14,8 @@ void Scene::ScrollInput(uint16_t keys, int &scroll_x, int &scroll_y)
 
     if (keys & KEY_LEFT)
         scroll_x++;
-    if (keys & KEY_RIGHT)
+    if (keys & KEY_RIGHT)   
         scroll_x--;
-
 }
 
 void Scene::DrawLayers(std::vector<Tileset *> layers, int scroll_x, int scroll_y)
@@ -24,6 +23,16 @@ void Scene::DrawLayers(std::vector<Tileset *> layers, int scroll_x, int scroll_y
     while (1)
     {
         swiWaitForVBlank();
+
+        scanKeys();
+
+        uint16_t keys = keysHeld();
+
+        // if (keys & KEY_START) return GM_STATE_QUIT;
+
+        ScrollInput(keys, scroll_x, scroll_y);
+
+        // if (keys & KEY_A & KEY_B) return switch_gm_st;
 
         glBegin2D();
         glColor(RGB15(31, 31, 31));
@@ -59,9 +68,8 @@ void Scene::DrawLayers(std::vector<Tileset *> layers, int scroll_x, int scroll_y
 
 void Scene::DrawLayers(std::vector<Tileset *> layers, Options *options, int scroll_x, int scroll_y)
 {
-
     options->DisplayOptions(options->m_main_console, options->m_sub_consoles);
-    
+
     while (1)
     {
         swiWaitForVBlank();
@@ -69,16 +77,19 @@ void Scene::DrawLayers(std::vector<Tileset *> layers, Options *options, int scro
         scanKeys();
 
         uint16_t keys = keysHeld();
-        
-        ScrollInput(keys, scroll_x, scroll_y);
 
-        if (keys & KEY_START) break;
+        if (keys & KEY_START)
+            break;
+
+        ScrollInput(keys, scroll_x, scroll_y);
 
         glBegin2D();
         glColor(RGB15(31, 31, 31));
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE);
-        
-        
+
+        // if (keys & KEY_A & KEY_B) return switch_gm_st;
+
+        // insert battle graphics
         for (Tileset *layer : m_drawing_layers)
         {
             switch (layer->m_tag)

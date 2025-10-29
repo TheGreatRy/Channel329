@@ -4,15 +4,19 @@
 #include <dlfcn.h>
 #include <filesystem.h>
 #include <gl2d.h>
+#include <vector>
 
 //includes characters and backgrounds
 #include "../components/scene.h"
+
 
 class Game
 {
     public:
     Game() = default;
     ~Game() = default;
+
+    //GM_STATE* m_current_game_state;
 
     void InitializeGame();
 
