@@ -50,27 +50,10 @@ void Options::DisplayOptions(PrintConsole main_con, std::vector<PrintConsole> su
 {
     setBackdropColorSub(RGB15(5, 5, 5));
 
-    // consoleInit(&sub_con_01, 0, BgType_Text4bpp, BgSize_T_256x256, 0, 3, false, false);
-
     InitializeConsole(&sub_con_01, 0, BgType_Text4bpp, BgSize_T_256x256, 0, 3, 4, 0, false, false);
 
     consoleSetFont(&sub_con_01, &font_cellphone);
 
-    //     consoleSetWindow(&sub_con_01, 0, 0, 128, 64);
-
-    //     int *x = 0;
-    //     int *y = 0;
-
-    //     consoleSelect(&sub_con_01);
-    //     consoleGetCursor(&sub_con_01, x, y);
-
-    //     printf("This is a 4 BPP font:\n");
-    //     for (int i = 0; i < 128; i++)
-    //     {
-
-    //         printf("%c", i);
-    //     }
-    // consoleInit(&sub_con_01, 3, BgType_Text4bpp, BgSize_T_256x256, 31, 0, false, true);
 
     int x = 1;
     int y = 1;
@@ -96,12 +79,28 @@ void Options::DisplayOptions(PrintConsole main_con, std::vector<PrintConsole> su
 
         scanKeys();
 
+        glBegin2D();
+        glColor(RGB15(31, 31, 31));
+
         if (keysHeld() & KEY_START)
             break;
 
         if (keysHeld() & KEY_TOUCH)
         {
             touchRead(&current_pos);
+        }
+
+        if (keysHeld() & KEY_TOUCH)
+        {
+            glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_ID(0));
+
+            glBoxFilled(
+                current_pos.px - TOUCH_BOX_RADIUS,
+                current_pos.py - TOUCH_BOX_RADIUS,
+                current_pos.px + TOUCH_BOX_RADIUS,
+                current_pos.py + TOUCH_BOX_RADIUS,
+                RGB15(31, 31, 31)
+            );
         }
 
         if (current_pos.px >= L_x && current_pos.px <= R_x && current_pos.py >= L_y && current_pos.py <= R_y)
@@ -114,6 +113,8 @@ void Options::DisplayOptions(PrintConsole main_con, std::vector<PrintConsole> su
             printf("\x1b[2J");
             printf("Not the box dummy!");
         }
+        glEnd2D();
+        glFlush(0);
     }
 }
 

@@ -21,6 +21,7 @@ int main(int argc, char **argv)
     game->InitializeGame();
 
     Scene* demo = new Scene();
+    Options* options = new Options();
 
     Tileset* cam = new Tileset(1, 1, 32, 32, TS_TAG_CHAR);
     Tileset* town = new Tileset(10, 10, 16, 16, TS_TAG_BG);
@@ -33,14 +34,14 @@ int main(int argc, char **argv)
     demo->AddLayer(cam);
 
 
-    Scene* battle = new Scene();
-    Options* options = new Options();
+    // Multiple scenes doesnt work yet
+    // Scene* battle = new Scene();
 
-    Tileset* enemy = new Tileset(1,1,64,64,TS_TAG_CHAR);
+    // Tileset* enemy = new Tileset(1,1,64,64,TS_TAG_CHAR);
 
-    enemy->LoadTileset({new glImage[enemy->m_img_dimensions]}, talkingnpcPal, talkingnpcBitmap, GL_RGB256, 256);
+    // enemy->LoadTileset({new glImage[enemy->m_img_dimensions]}, talkingnpcPal, talkingnpcBitmap, GL_RGB256, 256);
 
-    battle->AddLayer(enemy);
+    // battle->AddLayer(enemy);
 
     // while (1)
     // {
