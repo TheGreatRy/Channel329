@@ -10,18 +10,16 @@ void Game::InitializeGame()
 
     // Set video mode to 3D
     videoSetMode(MODE_0_3D);
+    videoSetModeSub(MODE_0_3D);
 
     // // Setup some VRAM as memory for main engine background, main engine
     // // sprites, and 3D textures.
-    // vramSetPrimaryBanks(VRAM_A_MAIN_BG, VRAM_B_MAIN_SPRITE,
-    //      VRAM_C_TEXTURE, VRAM_D_TEXTURE);
+    vramSetPrimaryBanks(VRAM_A_MAIN_BG, VRAM_B_MAIN_SPRITE,
+         VRAM_C_TEXTURE, VRAM_D_TEXTURE);
 
     // Setup some memory to be used for textures and for texture palettes
     vramSetBankA(VRAM_A_TEXTURE);
     vramSetBankE(VRAM_E_TEX_PALETTE);
-
-    //console setup in sub engine
-    videoSetModeSub(MODE_0_3D);
     vramSetBankC(VRAM_C_SUB_BG);
 }
 
