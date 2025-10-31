@@ -31,6 +31,7 @@ public:
     std::vector<Tileset *> m_drawing_layers;
 
     void InitializeConsole(PrintConsole *console, const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int map_base, const unsigned int tile_base, const unsigned int pal_index, const unsigned int start_char, bool is_main, bool load_gr);
+    
     void SetMainConsole(PrintConsole main_con);
     void AddSubConsole(PrintConsole sub_con);
     void DisplayOptions(PrintConsole main_con, std::vector<PrintConsole> sub_con);

@@ -120,6 +120,9 @@ void Options::DisplayOptions(PrintConsole main_con, std::vector<PrintConsole> su
 
 void Options::DisplayOptions(std::vector<Tileset *> layers, Options *options, int scroll_x, int scroll_y, std::vector<PrintConsole> sub_con)
 {
+    //so everything needs to be drawn in the same while loop as well as input
+    //switching "scenes" means stop everything and initialize a new one
+
     setBackdropColorSub(RGB15(5, 5, 5));
 
     InitializeConsole(&sub_con_01, 0, BgType_Text4bpp, BgSize_T_256x256, 0, 3, 4, 0, false, false);
@@ -164,17 +167,6 @@ void Options::DisplayOptions(std::vector<Tileset *> layers, Options *options, in
         if (keys & KEY_TOUCH)
         {
             touchRead(&current_pos);
-        }
-
-        if (keys & KEY_TOUCH)
-        {
-            glBoxFilled(
-                current_pos.px - TOUCH_BOX_RADIUS,
-                current_pos.py - TOUCH_BOX_RADIUS,
-                current_pos.px + TOUCH_BOX_RADIUS,
-                current_pos.py + TOUCH_BOX_RADIUS,
-                RGB15(31, 31, 31)
-            );
         }
         
         // insert battle graphics

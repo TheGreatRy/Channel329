@@ -42,16 +42,6 @@ int main(int argc, char **argv)
     // enemy->LoadTileset({new glImage[enemy->m_img_dimensions]}, talkingnpcPal, talkingnpcBitmap, GL_RGB256, 256);
 
     // battle->AddLayer(enemy);
-
-    // while (1)
-    // {
-    //     swiWaitForVBlank();
-
-    //     scanKeys();
-
-    //     if (keysHeld() & KEY_START) break;
-
-    // }
     
     game->RunCurrentScene(demo, options);
     //game->RunCurrentScene(demo);
