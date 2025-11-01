@@ -38,13 +38,13 @@ void Game::RunCurrentScene(Scene *scene)
     }
 }
 
-void Game::RunCurrentScene(Scene *scene, Options *options)
+void Game::RunCurrentScene(Scene *scene, TextConsole *TextConsole)
 {
     // tileset variables
     int scroll_x = 0;
     int scroll_y = 0;
 
-    scene->DrawLayers(scene->m_drawing_layers, options, scroll_x, scroll_y);
+    scene->DrawLayers(scene->m_drawing_layers, TextConsole, scroll_x, scroll_y);
     
     // delete textures post game
     for (Tileset *layer : scene->m_drawing_layers)

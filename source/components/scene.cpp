@@ -5,6 +5,16 @@ void Scene::AddLayer(Tileset *layer)
     m_drawing_layers.push_back(layer);
 }
 
+void Scene::AddTextConsole(TextConsole *text_con)
+{
+    //Add the console to the respective vector
+    if (text_con->m_text_console_type == TEXT_CON_TYPE_MAIN_OPT || text_con->m_text_console_type == TEXT_CON_TYPE_MAIN_TALK) 
+        m_main_consoles.push_back(text_con);
+    else if (text_con->m_text_console_type == TEXT_CON_TYPE_SUB_OPT || text_con->m_text_console_type == TEXT_CON_TYPE_SUB_TALK) 
+        m_sub_consoles.push_back(text_con);
+
+}
+
 void Scene::ScrollInput(uint16_t keys, int &scroll_x, int &scroll_y)
 {
     if (keys & KEY_UP)
@@ -66,12 +76,13 @@ void Scene::DrawLayers(std::vector<Tileset *> layers, int scroll_x, int scroll_y
     // }
 }
 
-void Scene::DrawLayers(std::vector<Tileset *> layers, Options *options, int scroll_x, int scroll_y)
+void Scene::DrawLayers(std::vector<Tileset *> layers, std::vector<TextConsole*> text_cons, int scroll_x, int scroll_y)
 {
-    for (Tileset* layer : m_drawing_layers)
-    {
-        options->m_drawing_layers.push_back(layer);
-    }
     
-    options->DisplayOptions(options->m_drawing_layers, options, scroll_x, scroll_x,options->m_sub_consoles);
+    // for (Tileset* layer : m_drawing_layers)
+    // {
+    //     TextConsole->m_drawing_layers.push_back(layer);
+    // }
+    
+    // TextConsole->DisplayTextConsole(TextConsole->m_drawing_layers, TextConsole, scroll_x, scroll_x,TextConsole->m_sub_consoles);
 }

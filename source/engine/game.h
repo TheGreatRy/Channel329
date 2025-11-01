@@ -21,5 +21,5 @@ class Game
     void InitializeGame();
 
     void RunCurrentScene(Scene* scene);
-    void RunCurrentScene(Scene* scene, Options* options);
+    void RunCurrentScene(Scene* scene, TextConsole* TextConsole);
 };

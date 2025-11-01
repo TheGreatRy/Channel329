@@ -21,7 +21,7 @@ int main(int argc, char **argv)
     game->InitializeGame();
 
     Scene* demo = new Scene();
-    Options* options = new Options();
+    TextConsole* TextConsole = new TextConsole();
 
     Tileset* cam = new Tileset(1, 1, 32, 32, TS_TAG_CHAR);
     Tileset* town = new Tileset(10, 10, 16, 16, TS_TAG_BG);
@@ -43,7 +43,7 @@ int main(int argc, char **argv)
 
     // battle->AddLayer(enemy);
     
-    game->RunCurrentScene(demo, options);
+    game->RunCurrentScene(demo, TextConsole);
     //game->RunCurrentScene(demo);
     
     // Test methods to run
