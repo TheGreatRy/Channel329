@@ -49,14 +49,18 @@ public:
         bool is_main, bool load_gr, ConsoleFont font, const unsigned int x_pos, const unsigned int y_pos, const unsigned int width, const unsigned int height);
     
     //display text console to screen
-    void DisplayTextConsole(PrintConsole text_con);
+    void DisplayTextConsole(PrintConsole text_con, touchPosition current_pos);
 
     // void GetWordsFromString(std::vector<std::string> sentence);
     // void UpdateOptionText();
 
+    // Size of a color in bytes
+    const size_t size_color = 2;
+
     // Size of a font character in 4 and 8 BPP modes in bytes
     const size_t size_char_4bpp = (8 * 8) / 2;
     const size_t size_char_8bpp = 8 * 8;
+
 
     ConsoleFont font_anuvverbubbla = {
         .gfx = anuvverbubbla_8x8Tiles,

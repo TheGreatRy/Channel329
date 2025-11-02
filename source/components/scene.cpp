@@ -58,37 +58,8 @@ void Scene::DrawLayers(std::vector<Tileset *> layers, int scroll_x, int scroll_y
         if (keysHeld() & KEY_START)
             break;
 
-        if (keysHeld() & KEY_TOUCH)
-        {
-            touchRead(&current_pos);
-        }
-
-        if (keysHeld() & KEY_TOUCH)
-        {
-            glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_ID(0));
-
-            glBoxFilled(
-                current_pos.px - TOUCH_BOX_RADIUS,
-                current_pos.py - TOUCH_BOX_RADIUS,
-                current_pos.px + TOUCH_BOX_RADIUS,
-                current_pos.py + TOUCH_BOX_RADIUS,
-                RGB15(31, 31, 31)
-            );
-        }
-
-        if (current_pos.px >= &m_sub_consoles[0]->left_x && current_pos.px <= &m_sub_consoles[0]->right_x 
-            && current_pos.py >= &m_sub_consoles[0]->top_y && current_pos.py <= &m_sub_consoles[0]->bottom_y)
-        {
-            printf("\x1b[2J");
-            printf("Text box detected input!");
-        }
-        else
-        {
-            printf("\x1b[2J");
-            printf("Not the box dummy!");
-        }
-
         
+        m_sub_consoles[0]->DisplayTextConsole(m_sub_consoles[0]->m_print_console, current_pos);
 
         for (Tileset *layer : m_drawing_layers)
         {
