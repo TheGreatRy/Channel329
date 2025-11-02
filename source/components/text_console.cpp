@@ -9,8 +9,11 @@ void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned i
     int map_base = 0;
 
     //only initialize one console at a time using the is_main bool
-    if (is_main) map_base = main_cons_size - 1;
-    else if (!is_main) map_base = sub_cons_size - 1;
+    // + 1 because the console should be initialized before being added to the repective vector
+    if (is_main) map_base = main_cons_size + 1;
+    else if (!is_main) map_base = sub_cons_size + 1;
+    
+    //set console type
     m_text_console_type = con_type;
 
     //initialize console with given parameters
@@ -24,6 +27,8 @@ void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned i
                   start_char, // Starting character from the tile base
                   is_main,    // True or false for if the console is on the main screen
                   load_gr);   // True or false to load graphics (true for base, false for custom)
+
+    m_print_console = *text_con;
 }
 
 void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned int main_cons_size, const unsigned int sub_cons_size,
@@ -85,8 +90,6 @@ void TextConsole::DisplayTextConsole(PrintConsole text_con)
 
     touchPosition current_pos;
 
-    
-
     while (1)
     {
         swiWaitForVBlank();
@@ -117,7 +120,7 @@ void TextConsole::DisplayTextConsole(PrintConsole text_con)
             );
         }
 
-        if (current_pos.px >= L_x && current_pos.px <= R_x && current_pos.py >= L_y && current_pos.py <= R_y)
+        if (current_pos.px >= left_x && current_pos.px <= right_x && current_pos.py >= top_y && current_pos.py <= bottom_y)
         {
             printf("\x1b[2J");
             printf("Text box detected input!");

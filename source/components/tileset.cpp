@@ -53,7 +53,7 @@ int Tileset::PaddingForPowerOfTwo(int x, int y, TS_SIZE ts_size)
     // if the the dimensions are NOT an integer power of two, restrict it (accurate to 10 decimal places, I hope this is enough)
     if (std::to_string(getExponent).find("0000000000", 2) != 2)
     {
-        // I'm aware I can combine this into one block instead of a switch case, but that requires more checks that could potentially
+        // I'm aware I can combine this into one block instead of a switch case, but that requires more checks that could potentially break
         switch (ts_size)
         {
 #pragma region Texture Size Checks

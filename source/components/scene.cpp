@@ -12,7 +12,6 @@ void Scene::AddTextConsole(TextConsole *text_con)
         m_main_consoles.push_back(text_con);
     else if (text_con->m_text_console_type == TEXT_CON_TYPE_SUB_OPT || text_con->m_text_console_type == TEXT_CON_TYPE_SUB_TALK) 
         m_sub_consoles.push_back(text_con);
-
 }
 
 void Scene::ScrollInput(uint16_t keys, int &scroll_x, int &scroll_y)
@@ -30,50 +29,94 @@ void Scene::ScrollInput(uint16_t keys, int &scroll_x, int &scroll_y)
 
 void Scene::DrawLayers(std::vector<Tileset *> layers, int scroll_x, int scroll_y)
 {
-    // while (1)
-    // {
-    //     swiWaitForVBlank();
+    setBackdropColorSub(RGB15(5, 5, 5));
 
-    //     scanKeys();
+    consoleSelect(&m_sub_consoles[0]->m_print_console);
 
-    //     uint16_t keys = keysHeld();
+    printf("Printing on the bottom screen in a small window\n");
 
-    //     // if (keys & KEY_START) return GM_STATE_QUIT;
+    touchPosition current_pos;
 
-    //     ScrollInput(keys, scroll_x, scroll_y);
+    while (1)
+    {
+        swiWaitForVBlank();
 
-    //     // if (keys & KEY_A & KEY_B) return switch_gm_st;
+        scanKeys();
 
-    //     glBegin2D();
-    //     glColor(RGB15(31, 31, 31));
-    //     glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE);
+        uint16_t keys = keysHeld();
 
-    //     for (Tileset *layer : m_drawing_layers)
-    //     {
-    //         switch (layer->m_tag)
-    //         {
-    //         case TS_TAG_BG:
-    //             for (int j = 0; j < MAP_HEIGHT; j++)
-    //             {
-    //                 for (int i = 0; i < MAP_WIDTH; i++)
-    //                 {
-    //                     int x = scroll_x + i * 16;
-    //                     int y = scroll_y + j * 16;
-    //                     int tile_id = map[j * MAP_WIDTH + i];
+        // if (keys & KEY_START) return GM_STATE_QUIT;
 
-    //                     glSprite(x, y, GL_FLIP_NONE, &layer->m_tileset_img[tile_id]);
-    //                 }
-    //             }
-    //             break;
-    //         case TS_TAG_CHAR:
-    //             glSprite((screen_width / 2) - (layer->m_sprite_w / 2), (screen_height / 2) - (layer->m_sprite_h / 2), GL_FLIP_NONE, &layer->m_tileset_img[0]);
-    //             break;
-    //         }
-    //     }
-    //     // end drawing 2D graphics
-    //     glEnd2D();
-    //     glFlush(0);
-    // }
+        ScrollInput(keys, scroll_x, scroll_y);
+
+        // if (keys & KEY_A & KEY_B) return switch_gm_st;
+
+        glBegin2D();
+        glColor(RGB15(31, 31, 31));
+        glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE);
+
+        if (keysHeld() & KEY_START)
+            break;
+
+        if (keysHeld() & KEY_TOUCH)
+        {
+            touchRead(&current_pos);
+        }
+
+        if (keysHeld() & KEY_TOUCH)
+        {
+            glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_ID(0));
+
+            glBoxFilled(
+                current_pos.px - TOUCH_BOX_RADIUS,
+                current_pos.py - TOUCH_BOX_RADIUS,
+                current_pos.px + TOUCH_BOX_RADIUS,
+                current_pos.py + TOUCH_BOX_RADIUS,
+                RGB15(31, 31, 31)
+            );
+        }
+
+        if (current_pos.px >= &m_sub_consoles[0]->left_x && current_pos.px <= &m_sub_consoles[0]->right_x 
+            && current_pos.py >= &m_sub_consoles[0]->top_y && current_pos.py <= &m_sub_consoles[0]->bottom_y)
+        {
+            printf("\x1b[2J");
+            printf("Text box detected input!");
+        }
+        else
+        {
+            printf("\x1b[2J");
+            printf("Not the box dummy!");
+        }
+
+        
+
+        for (Tileset *layer : m_drawing_layers)
+        {
+            switch (layer->m_tag)
+            {
+            case TS_TAG_BG:
+                for (int j = 0; j < MAP_HEIGHT; j++)
+                {
+                    for (int i = 0; i < MAP_WIDTH; i++)
+                    {
+                        int x = scroll_x + i * 16;
+                        int y = scroll_y + j * 16;
+                        int tile_id = map[j * MAP_WIDTH + i];
+
+                        glSprite(x, y, GL_FLIP_NONE, &layer->m_tileset_img[tile_id]);
+                    }
+                }
+                break;
+            case TS_TAG_CHAR:
+                glSprite((screen_width / 2) - (layer->m_sprite_w / 2), (screen_height / 2) - (layer->m_sprite_h / 2), GL_FLIP_NONE, &layer->m_tileset_img[0]);
+                break;
+            }
+        }
+       
+        // end drawing 2D graphics
+        glEnd2D();
+        glFlush(0);
+    }
 }
 
 void Scene::DrawLayers(std::vector<Tileset *> layers, std::vector<TextConsole*> text_cons, int scroll_x, int scroll_y)

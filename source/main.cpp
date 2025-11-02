@@ -21,7 +21,8 @@ int main(int argc, char **argv)
     game->InitializeGame();
 
     Scene* demo = new Scene();
-    TextConsole* TextConsole = new TextConsole();
+    PrintConsole* sub_con_01 = new PrintConsole();
+    TextConsole* text_console = new TextConsole();
 
     Tileset* cam = new Tileset(1, 1, 32, 32, TS_TAG_CHAR);
     Tileset* town = new Tileset(10, 10, 16, 16, TS_TAG_BG);
@@ -29,9 +30,16 @@ int main(int argc, char **argv)
     cam->LoadTileset({new glImage[cam->m_img_dimensions]},camPal, camBitmap, GL_RGB256, 256);
     town->LoadTileset({new glImage[town->m_img_dimensions]}, tiny_16Pal, tiny_16Bitmap, GL_RGB256, 256);
 
+    //this is a crime im so sorry
+    text_console->InitializeTextConsole(TEXT_CON_TYPE_SUB_OPT, demo->m_main_consoles.size(), demo->m_sub_consoles.size(), sub_con_01, 0, BgType_Text4bpp,
+    BgSize_T_256x256, 3, 4, 0, false, false, text_console->font_cellphone, 1, 1, 5, 10);
+    
     //FIFO
     demo->AddLayer(town);
     demo->AddLayer(cam);
+    demo->AddTextConsole(text_console);
+    
+    //initialize after to get current vector sizes
 
 
     // Multiple scenes doesnt work yet
@@ -43,8 +51,8 @@ int main(int argc, char **argv)
 
     // battle->AddLayer(enemy);
     
-    game->RunCurrentScene(demo, TextConsole);
-    //game->RunCurrentScene(demo);
+    //game->RunCurrentScene(demo, text_console);
+    game->RunCurrentScene(demo);
     
     // Test methods to run
     // BlockDSExamples *DSeX = new BlockDSExamples();

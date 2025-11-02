@@ -7,6 +7,7 @@
 #include <string>
 
 // Components Folder
+//I might need this for text box graphics but that's a later me problem
 #include "tileset.h"
 
 // Graphics Folder
@@ -15,8 +16,6 @@
 #include <../graphics/test_graphics/charmap_futuristic.h>
 
 #define TOUCH_BOX_RADIUS 4
-#define MAP_WIDTH 30
-#define MAP_HEIGHT 20
 
 enum TEXT_CON_TYPE
 {
@@ -31,12 +30,13 @@ class TextConsole
 public:
 
     TextConsole() = default;
+
+    PrintConsole m_print_console;
     TEXT_CON_TYPE m_text_console_type;
     u16 left_x;
     u16 right_x;
     u16 top_y;
     u16 bottom_y;
-
 
     //base text console
     void InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned int main_cons_size, const unsigned int sub_cons_size, PrintConsole *console, 
@@ -50,7 +50,6 @@ public:
     
     //display text console to screen
     void DisplayTextConsole(PrintConsole text_con);
-
 
     // void GetWordsFromString(std::vector<std::string> sentence);
     // void UpdateOptionText();
