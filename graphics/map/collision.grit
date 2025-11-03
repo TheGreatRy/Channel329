@@ -1,2 +1,2 @@
-#4 bit texture bitmap, set magenta as alpha color
--gx -gb -gB4 -gTFF0FF
+#8 bit texture bitmap, set magenta as alpha color
+-gx -gb -gB8 -gTFFFFFFF

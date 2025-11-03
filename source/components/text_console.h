@@ -6,10 +6,6 @@
 #include <vector>
 #include <string>
 
-// Components Folder
-//I might need this for text box graphics but that's a later me problem
-#include "tileset.h"
-
 // Graphics Folder
 #include <../graphics/test_graphics/anuvverbubbla_8x8.h>
 #include <../graphics/test_graphics/charmap_cellphone.h>
@@ -39,17 +35,17 @@ public:
     u16 bottom_y;
 
     //base text console
-    void InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned int main_cons_size, const unsigned int sub_cons_size, PrintConsole *console, 
+    void InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned int main_cons_size, const unsigned int sub_cons_size, PrintConsole* console, 
         const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int tile_base, const unsigned int pal_index, const unsigned int start_char, 
         bool is_main, bool load_gr);
 
     //text console with custom fonts and window sizes
-    void InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned int main_cons_size, const unsigned int sub_cons_size, PrintConsole *console, 
+    void InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned int main_cons_size, const unsigned int sub_cons_size, PrintConsole* console, 
         const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int tile_base, const unsigned int pal_index, const unsigned int start_char, 
-        bool is_main, bool load_gr, ConsoleFont font, const unsigned int x_pos, const unsigned int y_pos, const unsigned int width, const unsigned int height);
+        bool is_main, bool load_gr, ConsoleFont* font, const unsigned int x_pos, const unsigned int y_pos, const unsigned int width, const unsigned int height);
     
     //display text console to screen
-    void DisplayTextConsole(PrintConsole text_con, touchPosition current_pos);
+    void DisplayTextConsole(PrintConsole* text_con, touchPosition current_pos);
 
     // void GetWordsFromString(std::vector<std::string> sentence);
     // void UpdateOptionText();

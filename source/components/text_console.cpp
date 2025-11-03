@@ -1,8 +1,8 @@
 #include "text_console.h"
 
 void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned int main_cons_size, const unsigned int sub_cons_size,
-                                        PrintConsole *text_con, const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int tile_base, const unsigned int pal_index,
-                                        const unsigned int start_char, bool is_main, bool load_gr)
+                                        PrintConsole* text_con, const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int tile_base, 
+                                        const unsigned int pal_index, const unsigned int start_char, bool is_main, bool load_gr)
 {
     // internally set map base to prevent bases from being shared
     // they are per screen (main and sub), so check for both
@@ -34,15 +34,15 @@ void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned i
 }
 
 void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned int main_cons_size, const unsigned int sub_cons_size,
-                                        PrintConsole *text_con, const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int tile_base, const unsigned int pal_index,
-                                        const unsigned int start_char, bool is_main, bool load_gr, ConsoleFont font, const unsigned int x_pos, const unsigned int y_pos,
-                                        const unsigned int width, const unsigned int height)
+                                        PrintConsole* text_con, const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int tile_base, 
+                                        const unsigned int pal_index, const unsigned int start_char, bool is_main, bool load_gr, ConsoleFont* font, 
+                                        const unsigned int x_pos, const unsigned int y_pos, const unsigned int width, const unsigned int height)
 {
     // Use the base initializer
     InitializeTextConsole(con_type, main_cons_size, sub_cons_size, text_con, layer, bg_type, bg_size, tile_base, pal_index, start_char, is_main, load_gr);
 
     // Set custom graphics
-    consoleSetFont(text_con, &font_cellphone);
+    consoleSetFont(&m_print_console, &font_cellphone);
 
     // Set custom window size
     // The screen size for the DS is 256:192
@@ -53,8 +53,8 @@ void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned i
     // This is also true of just x_pos and y_pos
     // I am restricting this for my own sanity
 
-    int x_corner;
-    int y_corner;
+    int x_corner = 0;
+    int y_corner = 0;
     int screen_width = x_pos + width;
     int screen_height = y_pos + height;
 
@@ -63,12 +63,11 @@ void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned i
     y_corner = (y_corner > 24) ? 0 : y_pos;
 
     // setting the window size to width = 1 (if 0) or 32 (if past limit) and/or height = 1 (if 0) or 24 (if past limit)
-    screen_width = (screen_width < 1) ? 1 : (screen_width > 32) ? 32
-                                                                : screen_width;
-    screen_height = (screen_height < 1) ? 1 : (screen_height > 24) ? 24
-                                                                   : screen_height;
+    screen_width = (screen_width < 1) ? 1 : (screen_width > 32) ? 32 : screen_width;
+    
+    screen_height = (screen_height < 1) ? 1 : (screen_height > 24) ? 24 : screen_height;
 
-    consoleSetWindow(text_con, x_corner, y_corner, screen_width, screen_height);
+    consoleSetWindow(&m_print_console, x_corner, y_corner, screen_width, screen_height);
 
     // Detecting touch to the console will use the processed pixel value (0-256 x && 0-192 y)
     // Due to the consoleSetWindow, we need to scale up the values by 8
@@ -84,23 +83,13 @@ void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned i
     bottom_y = 8 * screen_height;
 }
 
-void TextConsole::DisplayTextConsole(PrintConsole text_con, touchPosition current_pos)
+void TextConsole::DisplayTextConsole(PrintConsole* text_con, touchPosition current_pos)
 {
+    consoleSelect(text_con);
+
     if (keysHeld() & KEY_TOUCH)
     {
         touchRead(&current_pos);
-    }
-
-    if (keysHeld() & KEY_TOUCH)
-    {
-        glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE | POLY_ID(0));
-
-        glBoxFilled(
-            current_pos.px - TOUCH_BOX_RADIUS,
-            current_pos.py - TOUCH_BOX_RADIUS,
-            current_pos.px + TOUCH_BOX_RADIUS,
-            current_pos.py + TOUCH_BOX_RADIUS,
-            RGB15(31, 31, 31));
     }
 
     if (current_pos.px >= left_x && current_pos.px <= right_x && current_pos.py >= top_y && current_pos.py <= bottom_y)
@@ -113,6 +102,4 @@ void TextConsole::DisplayTextConsole(PrintConsole text_con, touchPosition curren
         printf("\x1b[2J");
         printf("Not the box dummy!");
     }
-    glEnd2D();
-    glFlush(0);
 }

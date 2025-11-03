@@ -1,57 +1,40 @@
+// C++ Classes
 #include <vector>
+#include <map>
+
+// NDS Libraries
 #include <nds.h>
 #include <stdio.h>
 
-//Components Folder
+// Components Folder
 #include "text_console.h"
+#include "map.h"
 
-//Graphics Folder
+// Graphics Folder
 #include "../graphics/test_graphics/tiny_16.h"
 
-//Engine Folder
+// Engine Folder
 #include "../engine/game_states.h"
-
-#define MAP_WIDTH 30
-#define MAP_HEIGHT 20
 
 class Scene
 {
 public:
     std::vector<Tileset *> m_drawing_layers;
-    std::vector<TextConsole* > m_main_consoles;
-    std::vector<TextConsole* > m_sub_consoles;
+    std::vector<TextConsole *> m_main_consoles;
+    std::vector<TextConsole *> m_sub_consoles;
+    std::map<int, int> m_row_col;
+
+    bool can_move_left = true;
+    bool can_move_right = true;
+    bool can_move_up = true;
+    bool can_move_down = true;
 
     void AddLayer(Tileset *layer);
-    void AddTextConsole(TextConsole* text_con);
+    void AddTextConsole(TextConsole *text_con);
     void DrawLayers(std::vector<Tileset *> layers, int scroll_x, int scroll_y);
-    void DrawLayers(std::vector<Tileset *> layers, std::vector<TextConsole*> text_cons, int scroll_x, int scroll_y);
 
     void ScrollInput(uint16_t keys, int &scroll_x, int &scroll_y);
 
-     const int16_t map[MAP_WIDTH * MAP_HEIGHT] = {
-        94, 95, 84, 85, 94, 95, 84, 85, 94, 95, 1, 1, 1, 1, 1, 1, 1, 1, 94, 95, 84, 85, 84, 85, 94, 95, 84, 85, 84, 85,
-        84, 85, 94, 95, 84, 85, 94, 95, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 94, 95, 94, 95, 84, 85, 94, 95, 94, 95,
-        94, 95, 84, 85, 94, 95, 1, 0, 1, 1, 1, 1, 1, 1, 7, 7, 7, 1, 0, 1, 1, 1, 1, 1, 94, 95, 84, 85, 84, 85,
-        1, 1, 94, 95, 1, 1, 1, 7, 1, 1, 1, 1, 1, 1, 1, 0, 2, 1, 1, 1, 1, 1, 1, 1, 7, 7, 94, 95, 94, 95,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 7, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 84, 85,
-        1, 1, 7, 0, 1, 1, 1, 1, 1, 1, 7, 2, 1, 1, 1, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 94, 95,
-        1, 7, 7, 7, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 47, 48, 48, 48, 49, 1, 1, 1, 1, 1, 1, 1, 1, 1, 84,
-        0, 17, 18, 18, 18, 18, 18, 18, 19, 1, 1, 1, 1, 1, 1, 57, 58, 58, 58, 59, 1, 1, 1, 1, 0, 1, 1, 1, 1, 94,
-        0, 27, 1, 1, 1, 1, 1, 1, 29, 1, 1, 1, 1, 1, 7, 67, 68, 68, 68, 69, 1, 1, 7, 7, 2, 1, 7, 1, 84, 85,
-        7, 27, 1, 1, 1, 1, 1, 1, 29, 1, 1, 1, 1, 1, 1, 87, 97, 98, 99, 89, 1, 1, 0, 7, 7, 0, 0, 1, 94, 95,
-        7, 27, 1, 1, 1, 1, 1, 1, 29, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 84, 85, 84,
-        0, 27, 1, 1, 1, 1, 1, 1, 29, 7, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 94, 95, 94,
-        7, 27, 1, 1, 1, 1, 1, 1, 29, 2, 7, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 84, 85,
-        1, 37, 38, 38, 38, 38, 28, 38, 39, 7, 7, 1, 1, 1, 1, 20, 21, 21, 21, 21, 21, 21, 21, 22, 1, 1, 1, 1, 94, 95,
-        7, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 7, 1, 1, 1, 30, 31, 31, 31, 31, 31, 31, 31, 32, 1, 1, 1, 1, 84, 85,
-        0, 7, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 20, 44, 31, 31, 31, 31, 31, 31, 31, 43, 22, 1, 2, 1, 94, 95,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 30, 31, 31, 31, 31, 31, 31, 31, 31, 31, 32, 1, 7, 1, 1, 84,
-        1, 1, 1, 1, 1, 1, 1, 1, 7, 1, 1, 1, 1, 20, 44, 31, 31, 31, 31, 31, 31, 31, 31, 31, 32, 1, 1, 1, 1, 94,
-        1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 30, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 43, 22, 1, 1, 1, 1,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 20, 44, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 32, 1, 1, 1, 1};
-
-    glImage tileset[10 * 10];
     const uint32_t screen_width = 256;
     const uint32_t screen_height = 192;
-
 };
