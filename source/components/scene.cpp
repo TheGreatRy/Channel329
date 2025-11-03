@@ -16,16 +16,28 @@ void Scene::AddTextConsole(TextConsole *text_con)
 
 void Scene::ScrollInput(uint16_t keys, int &scroll_x, int &scroll_y)
 {
-    if (can_move_up && keys & KEY_UP)
+    // if (can_move_up && keys & KEY_UP)
+    //     scroll_y++;
+
+    // if (can_move_down && keys & KEY_DOWN)
+    //     scroll_y--;
+
+    // if (can_move_left && keys & KEY_LEFT)
+    //     scroll_x++;
+
+    // if (can_move_right && keys & KEY_RIGHT)   
+    //     scroll_x--;
+    
+    if (keys & KEY_UP)
         scroll_y++;
 
-    if (can_move_down && keys & KEY_DOWN)
+    if (keys & KEY_DOWN)
         scroll_y--;
 
-    if (can_move_left && keys & KEY_LEFT)
+    if (keys & KEY_LEFT)
         scroll_x++;
 
-    if (can_move_right && keys & KEY_RIGHT)   
+    if (keys & KEY_RIGHT)   
         scroll_x--;
 }
 
@@ -34,6 +46,9 @@ void Scene::DrawLayers(std::vector<Tileset *> layers, int scroll_x, int scroll_y
     setBackdropColorSub(RGB15(5, 5, 5));
 
     touchPosition current_pos;
+
+    Map* bg_map = new Map(layers[0], 30, 20, map);
+    Map* col_map = new Map(layers[1], 30, 20, collisions_interaction);
 
     while (1)
     {
@@ -64,30 +79,15 @@ void Scene::DrawLayers(std::vector<Tileset *> layers, int scroll_x, int scroll_y
             switch (layer->m_tag)
             {
             case TS_TAG_BG:
-                // for (int j = 0; j < MAP_HEIGHT; j++)
-                // {
-                //     for (int i = 0; i < MAP_WIDTH; i++)
-                //     {
-                //         int x = scroll_x + i * 16;
-                //         int y = scroll_y + j * 16;
-                //         int tile_id = map[j * MAP_WIDTH + i];
+                
 
-                //         glSprite(x, y, GL_FLIP_NONE, &layer->m_tileset_img[tile_id]);
-                //     }
-                // }
+                bg_map->DrawMap(scroll_x, scroll_y);
+
                 break;
             case TS_TAG_COL:
-                // for (int j = 0; j < MAP_HEIGHT; j++)
-                // {
-                //     for (int i = 0; i < MAP_WIDTH; i++)
-                //     {
-                //         int x = scroll_x + i * 16;
-                //         int y = scroll_y + j * 16;
-                //         int tile_id = collisions_interaction[j * MAP_WIDTH + i];
+                
 
-                //         glSprite(x, y, GL_FLIP_NONE, &layer->m_tileset_img[tile_id]);
-                //     }
-                // }
+                col_map->DrawMap(scroll_x, scroll_y);
                 break;
             case TS_TAG_CHAR:
                 glSprite((screen_width / 2) - (layer->m_sprite_w / 2), (screen_height / 2) - (layer->m_sprite_h / 2), GL_FLIP_NONE, &layer->m_tileset_img[0]);

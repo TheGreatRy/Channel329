@@ -36,6 +36,7 @@ public:
     std::vector<glImage> m_tileset_img;
     TS_TAG m_tag = TS_TAG_BG;
 
+    Tileset() = default;
     Tileset(const int spr_num_x, const int spr_num_y, const int spr_w, const int spr_h, TS_TAG ts_tag);
     ~Tileset() = default;
 
