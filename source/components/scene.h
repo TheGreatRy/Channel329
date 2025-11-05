@@ -24,16 +24,11 @@ public:
     std::vector<TextConsole *> m_sub_consoles;
     std::map<int, int> m_row_col;
 
-    bool can_move_left = true;
-    bool can_move_right = true;
-    bool can_move_up = true;
-    bool can_move_down = true;
-
     void AddLayer(Tileset *layer);
     void AddTextConsole(TextConsole *text_con);
-    void DrawLayers(std::vector<Tileset *> layers, int scroll_x, int scroll_y);
+    void DrawLayers(std::vector<Tileset *> layers, int scroll_x, int scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right);
 
-    void ScrollInput(uint16_t keys, int &scroll_x, int &scroll_y);
+    void ScrollInput(uint16_t keys, int &scroll_x, int &scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right);
 
     const uint32_t screen_width = 256;
     const uint32_t screen_height = 192;

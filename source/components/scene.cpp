@@ -14,39 +14,38 @@ void Scene::AddTextConsole(TextConsole *text_con)
         m_sub_consoles.push_back(text_con);
 }
 
-void Scene::ScrollInput(uint16_t keys, int &scroll_x, int &scroll_y)
+void Scene::ScrollInput(uint16_t keys, int &scroll_x, int &scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right)
 {
-    // if (can_move_up && keys & KEY_UP)
-    //     scroll_y++;
-
-    // if (can_move_down && keys & KEY_DOWN)
-    //     scroll_y--;
-
-    // if (can_move_left && keys & KEY_LEFT)
-    //     scroll_x++;
-
-    // if (can_move_right && keys & KEY_RIGHT)   
-    //     scroll_x--;
-    
-    if (keys & KEY_UP)
+    if (can_move_up && keys & KEY_UP)
         scroll_y++;
 
-    if (keys & KEY_DOWN)
+    if (can_move_down && keys & KEY_DOWN)
         scroll_y--;
 
-    if (keys & KEY_LEFT)
+    if (can_move_left && keys & KEY_LEFT)
         scroll_x++;
 
-    if (keys & KEY_RIGHT)   
+    if (can_move_right && keys & KEY_RIGHT)   
         scroll_x--;
+    
+    // if (keys & KEY_UP)
+    //     scroll_y++;
+
+    // if (keys & KEY_DOWN)
+    //     scroll_y--;
+
+    // if (keys & KEY_LEFT)
+    //     scroll_x++;
+
+    // if (keys & KEY_RIGHT)   
+    //     scroll_x--;
 }
 
-void Scene::DrawLayers(std::vector<Tileset *> layers, int scroll_x, int scroll_y)
+void Scene::DrawLayers(std::vector<Tileset *> layers, int scroll_x, int scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right)
 {
     setBackdropColorSub(RGB15(5, 5, 5));
 
     touchPosition current_pos;
-
     Map* bg_map = new Map(layers[0], 30, 20, map);
     Map* col_map = new Map(layers[1], 30, 20, collisions_interaction);
 
@@ -60,7 +59,7 @@ void Scene::DrawLayers(std::vector<Tileset *> layers, int scroll_x, int scroll_y
 
         // if (keys & KEY_START) return GM_STATE_QUIT;
 
-        ScrollInput(keys, scroll_x, scroll_y);
+        ScrollInput(keys, scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
 
         // if (keys & KEY_A & KEY_B) return switch_gm_st;
 
@@ -79,15 +78,10 @@ void Scene::DrawLayers(std::vector<Tileset *> layers, int scroll_x, int scroll_y
             switch (layer->m_tag)
             {
             case TS_TAG_BG:
-                
-
-                bg_map->DrawMap(scroll_x, scroll_y);
-
+                bg_map->DrawMap(scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
                 break;
             case TS_TAG_COL:
-                
-
-                col_map->DrawMap(scroll_x, scroll_y);
+                col_map->DrawMap(scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
                 break;
             case TS_TAG_CHAR:
                 glSprite((screen_width / 2) - (layer->m_sprite_w / 2), (screen_height / 2) - (layer->m_sprite_h / 2), GL_FLIP_NONE, &layer->m_tileset_img[0]);
