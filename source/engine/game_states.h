@@ -1,3 +1,5 @@
+#pragma once
+
 enum GM_STATE
 {
     GM_STATE_TITLE,

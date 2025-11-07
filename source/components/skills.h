@@ -1,3 +1,5 @@
+#pragma once
+
 enum SKL_TONE
 {
     SKL_TONE_AUTHOR,

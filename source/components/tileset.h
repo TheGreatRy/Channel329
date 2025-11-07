@@ -1,3 +1,5 @@
+#pragma once
+
 //C++ Libraries
 #include <memory>
 #include <vector>

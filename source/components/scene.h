@@ -1,3 +1,5 @@
+#pragma once
+
 // C++ Classes
 #include <vector>
 #include <map>

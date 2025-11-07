@@ -1,3 +1,5 @@
+#pragma once
+
 #include <nds.h>
 #include <stdio.h>
 #include <errno.h>
@@ -6,7 +8,8 @@
 #include <gl2d.h>
 #include <vector>
 
-//includes characters and backgrounds
+
+#include "../components/tileset.h"
 #include "../components/scene.h"
 
 

@@ -1,3 +1,5 @@
+#pragma once
+
 //C++ Classes
 #include <map>
 
@@ -25,5 +27,6 @@ public:
 
     Map(Tileset* layer, int width, int height, const int16_t tile_id_arr[]);
     void DrawMap(int scroll_x, int scroll_y, bool& can_move_u, bool& can_move_d, bool& can_move_l, bool& can_move_r);
-    bool CheckCollision(int scroll_x, int scroll_y, int adjustment, bool& can_move);
+    bool CheckCollision(int tile_x_01, int tile_x_02, int adj_x_01, int adj_x_02);
+    void CheckOverlap(Tileset* overlap);
 };

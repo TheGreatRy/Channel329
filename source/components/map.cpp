@@ -1,18 +1,15 @@
 #include "map.h"
 
-// this method is a crime i am sorry for my sins
+// Crime method, but inputs correct coords
 Map::Map(Tileset *layer, int width, int height, const int16_t tile_id_arr[])
 {
     m_layer_info = *layer;
     m_width = width;
     m_height = height;
 
-    // this should be more efficent than a nested for loop, but could be more efficent
-    // again, leaving it for now
-
     // the algorithm is inputing (x,y)[value] down the column then across the row
     int current_y = 0;
-    for (int current_x = 0; current_x < (width * height); current_x++) //current x == 0 - 30*20
+    for (int current_x = 0; current_x < (width * height); current_x++) //current x == 0 - tile_id_arr size
     {
         // no need to mod the first row
         // also the first column is 0 and this prevents it from being incremented 1 past
@@ -32,9 +29,9 @@ Map::Map(Tileset *layer, int width, int height, const int16_t tile_id_arr[])
     }
 }
 
-void Map::DrawMap(int scroll_x, int scroll_y, bool &can_move_u, bool &can_move_d, bool &can_move_l, bool &can_move_r)
+void Map::DrawMap(int scroll_x, int scroll_y, bool& can_move_u, bool& can_move_d, bool& can_move_l, bool& can_move_r)
 {
-    // // so we only need to draw the necessary tiles
+    // so we only need to draw the necessary tiles
 
     int width_tile_amt = (SCREEN_WIDTH / m_layer_info.m_sprite_w);
 
@@ -51,7 +48,6 @@ void Map::DrawMap(int scroll_x, int scroll_y, bool &can_move_u, bool &can_move_d
     // int skip_tiles = width + 1 + (m_width - width - 1);
     // int counter = 0;
 
-    //draws the entire map, can be optimized but above attempt did not work
     int draw_x_pos = 0;
     int draw_y_pos = 0;
     int tile_id = 0;
@@ -73,6 +69,7 @@ void Map::DrawMap(int scroll_x, int scroll_y, bool &can_move_u, bool &can_move_d
         //     scale++; 
         // }
 
+        //draws entire map
         draw_x_pos = scroll_x + m_coordinates.at(current_x)->m_x * m_layer_info.m_sprite_h;
         draw_y_pos = scroll_y + m_coordinates.at(current_x)->m_y * m_layer_info.m_sprite_h;
 
@@ -80,48 +77,23 @@ void Map::DrawMap(int scroll_x, int scroll_y, bool &can_move_u, bool &can_move_d
         
         glSprite(draw_x_pos, draw_y_pos, GL_FLIP_NONE, &m_layer_info.m_tileset_img[tile_id]);
     }
-
-    //check collison square IF COLLISION MAP
-
-    if (m_layer_info.m_tag == TS_TAG_COL)
-    {
-    #pragma region Left Collision
-
-    #pragma endregion
-    //---------------------------------//
-
-    #pragma region Right Collision
-            
-    #pragma endregion
-    //---------------------------------//
-
-    #pragma region Up Collision
-            
-    #pragma endregion
-    //---------------------------------//
-
-    #pragma region Down Collision
-           
-    #pragma endregion
-
-    }
 }
 
-bool Map::CheckCollision(int scroll_x, int scroll_y, int adjustment_tile_x, bool &can_move)
+bool Map::CheckCollision(int tile_x_01, int tile_x_02, int adj_x_01, int adj_x_02)
 {
-    // int top_right_x = scroll_x + (width_tile_amt / 2) + 1;
-            // //int top_right_y = scroll_y + (height_tile_amt / 2) - 1;
+    int tile_01 = tile_x_01 + adj_x_01;
+    int tile_id_01 = m_coordinates.at(tile_01)->m_value;
+    
+    int tile_02 = tile_x_02 + adj_x_02;
+    int tile_id_02 = m_coordinates.at(tile_02)->m_value;
 
-            // int tile_id_TR = m_coordinates.at(top_right_x)->m_value;
+    if (tile_id_01 == 1 || tile_id_02 == 1)
+        return false;
 
-            // int bot_right_x = scroll_x + (width_tile_amt / 2) + 1;
-            // //int bot_right_y = scroll_y + (height_tile_amt / 2);
+    return true;
+}
 
-            // int tile_id_BR = m_coordinates.at(bot_right_x)->m_value;
-
-            // if (tile_id_TR == 1 || tile_id_BR == 1)
-            //     can_move_r = false;
-            // else if (tile_id_TR == 0 && tile_id_BR == 0)
-            //     can_move_r = true;
-    return false;
+void Map::CheckOverlap(Tileset *overlap)
+{
+    
 }

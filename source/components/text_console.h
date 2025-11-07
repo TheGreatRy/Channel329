@@ -1,3 +1,5 @@
+#pragma once
+
 #include <nds.h>
 #include <stdio.h>
 #include <gl2d.h>
