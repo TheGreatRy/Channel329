@@ -66,6 +66,45 @@ void Scene::DeleteAllTextures()
         }
 }
 
+void Scene::DeleteAllSceneComponents()
+{
+    // Maps
+    for (Map *map : m_maps)
+    {
+        delete map;
+    }
+
+    // Actors
+    for (Character *actor : m_actors)
+    {
+        delete actor;
+    }
+
+    //TextConsoles
+    for (TextConsole *console : m_main_consoles)
+    {
+        delete console;
+    }
+
+    for (TextConsole *console : m_sub_consoles)
+    {
+        delete console;
+    }
+}
+
+void Scene::ClearAllTextConsoles()
+{
+    for (TextConsole* console : m_main_consoles)
+    {
+        console->ClearTextConsole(&console->m_print_console);
+    }
+    
+    for (TextConsole* console : m_sub_consoles)
+    {
+        console->ClearTextConsole(&console->m_print_console);
+    }
+}
+
 void Scene::DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right)
 {
     touchPosition current_pos;

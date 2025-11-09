@@ -41,6 +41,8 @@ public:
     void DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right);
     void ScrollInput(uint16_t keys, int &scroll_x, int &scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right);
     void DeleteAllTextures();
+    void DeleteAllSceneComponents();
+    void ClearAllTextConsoles();
 
     const uint32_t screen_width = 256;
     const uint32_t screen_height = 192;
