@@ -34,13 +34,9 @@ void Game::RunCurrentScene(Scene *scene)
     bool can_move_left = true;
     bool can_move_right = true;
 
-    scene->DrawLayers(scene->m_drawing_layers, scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
-    
-    // delete textures post game
-    for (Tileset *layer : scene->m_drawing_layers)
-    {
-        glDeleteTextures(1, &layer->m_texture_id);
-    }
+    scene->DrawScene(scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
+
+    scene->DeleteAllTextures();
 }
 
 void Game::RunCurrentScene(Scene *scene, TextConsole *TextConsole)
@@ -49,7 +45,7 @@ void Game::RunCurrentScene(Scene *scene, TextConsole *TextConsole)
     // int scroll_x = 0;
     // int scroll_y = 0;
 
-    // scene->DrawLayers(scene->m_drawing_layers, TextConsole, scroll_x, scroll_y);
+    // scene->DrawScene(scene->m_drawing_layers, TextConsole, scroll_x, scroll_y);
     
     // // delete textures post game
     // for (Tileset *layer : scene->m_drawing_layers)

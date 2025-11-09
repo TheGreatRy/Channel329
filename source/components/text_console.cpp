@@ -1,7 +1,7 @@
 #include "text_console.h"
 
 void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned int main_cons_size, const unsigned int sub_cons_size,
-                                        PrintConsole* text_con, const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int tile_base, 
+                                        PrintConsole *text_con, const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int tile_base,
                                         const unsigned int pal_index, const unsigned int start_char, bool is_main, bool load_gr)
 {
     // internally set map base to prevent bases from being shared
@@ -42,7 +42,7 @@ void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned i
     InitializeTextConsole(con_type, main_cons_size, sub_cons_size, text_con, layer, bg_type, bg_size, tile_base, pal_index, start_char, is_main, load_gr);
 
     // Set custom graphics
-    consoleSetFont(&m_print_console, &font_cellphone);
+    consoleSetFont(&m_print_console, font);
 
     // Set custom window size
     // The screen size for the DS is 256:192

@@ -52,38 +52,5 @@ public:
     // void GetWordsFromString(std::vector<std::string> sentence);
     // void UpdateOptionText();
 
-    // Size of a color in bytes
-    const size_t size_color = 2;
-
-    // Size of a font character in 4 and 8 BPP modes in bytes
-    const size_t size_char_4bpp = (8 * 8) / 2;
-    const size_t size_char_8bpp = 8 * 8;
-
-
-    ConsoleFont font_anuvverbubbla = {
-        .gfx = anuvverbubbla_8x8Tiles,
-        .pal = anuvverbubbla_8x8Pal,
-        .numColors = anuvverbubbla_8x8PalLen / size_color,
-        .bpp = 8,
-        .asciiOffset = 32,
-        .numChars = anuvverbubbla_8x8TilesLen / size_char_8bpp,
-    };
-
-    ConsoleFont font_cellphone = {
-        .gfx = charmap_cellphoneTiles,
-        .pal = charmap_cellphonePal,
-        .numColors = charmap_cellphonePalLen / size_color,
-        .bpp = 4,
-        .asciiOffset = 32,
-        .numChars = charmap_cellphoneTilesLen / size_char_4bpp,
-    };
-
-    ConsoleFont font_futuristic = {
-        .gfx = charmap_futuristicTiles,
-        .pal = charmap_futuristicPal,
-        .numColors = charmap_futuristicPalLen / size_color,
-        .bpp = 4,
-        .asciiOffset = 32,
-        .numChars = charmap_futuristicTilesLen / size_char_4bpp,
-    };
+    
 };

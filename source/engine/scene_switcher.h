@@ -1,7 +1,8 @@
 #pragma once
 
+// Components Folder
+#include "../components/scene.h"
 
 class SceneSwitcher
 {
-    void SwitchScenes();
 };

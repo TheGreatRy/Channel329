@@ -10,13 +10,6 @@
 #include <dlfcn.h>
 #include <gl2d.h>
 
-enum TS_TAG
-{
-    TS_TAG_CHAR,
-    TS_TAG_BG,
-    TS_TAG_COL
-};
-
 enum TS_SIZE
 {
     TS_SIZE_FULL_TEX,
@@ -36,14 +29,14 @@ public:
     int m_offset_y = 0;
 
     std::vector<glImage> m_tileset_img;
-    TS_TAG m_tag = TS_TAG_BG;
 
     Tileset() = default;
-    Tileset(const int spr_num_x, const int spr_num_y, const int spr_w, const int spr_h, TS_TAG ts_tag);
     ~Tileset() = default;
+    
+    Tileset(const int spr_num_x, const int spr_num_y, const int spr_w, const int spr_h);
 
     void LoadTileset(glImage tileset_arr[], const unsigned short pal_dt[], const unsigned int tex_dt[], GL_TEXTURE_TYPE_ENUM tex_type, const unsigned int pal_len);
-
+    
 private:
     int PaddingForPowerOfTwo(int x, int y, TS_SIZE ts_size);
 };

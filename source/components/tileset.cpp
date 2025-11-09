@@ -2,8 +2,19 @@
 #include <string>
 #include <math.h>
 
-Tileset::Tileset(const int spr_num_x, const int spr_num_y, const int spr_w, const int spr_h, TS_TAG ts_tag)
+Tileset::Tileset(const int spr_num_x, const int spr_num_y, const int spr_w, const int spr_h)
 {
+     if (spr_num_x >= 1)
+        m_sprites_num_x = spr_num_x;
+    if (spr_num_y >= 1)
+        m_sprites_num_y = spr_num_y;
+
+    if (spr_w >= 4)
+        m_sprite_w = spr_w;
+    if (spr_h >= 4)
+        m_sprite_h = spr_h;
+
+    m_img_dimensions = m_sprites_num_x * m_sprites_num_y;
     if (spr_num_x >= 1)
         m_sprites_num_x = spr_num_x;
     if (spr_num_y >= 1)
@@ -14,14 +25,12 @@ Tileset::Tileset(const int spr_num_x, const int spr_num_y, const int spr_w, cons
     if (spr_h >= 4)
         m_sprite_h = spr_h;
 
-    m_tag = ts_tag;
-
     m_img_dimensions = m_sprites_num_x * m_sprites_num_y;
 }
 
 void Tileset::LoadTileset(glImage tileset_arr[], const unsigned short pal_dt[], const unsigned int tex_dt[], GL_TEXTURE_TYPE_ENUM tex_type, const unsigned int pal_len)
 {
-    m_texture_id =
+     m_texture_id =
         glLoadTileSet(tileset_arr,                                                        // Pointer to glImage array
                       m_sprite_w,                                                         // Sprite width
                       m_sprite_h,                                                         // Sprite height

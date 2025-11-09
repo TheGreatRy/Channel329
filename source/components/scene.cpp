@@ -1,8 +1,13 @@
 #include "scene.h"
 
-void Scene::AddLayer(Tileset *layer)
+void Scene::AddActor(Character *character)
 {
-    m_drawing_layers.push_back(layer);
+    m_actors.push_back(character);
+}
+
+void Scene::AddMap(Map *map)
+{
+    m_maps.push_back(map);
 }
 
 void Scene::AddTextConsole(TextConsole *text_con)
@@ -41,14 +46,25 @@ void Scene::ScrollInput(uint16_t keys, int &scroll_x, int &scroll_y, bool& can_m
     //     scroll_x--;
 }
 
-void Scene::DrawLayers(std::vector<Tileset *> layers, int scroll_x, int scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right)
+void Scene::DeleteAllTextures()
 {
-    setBackdropColorSub(RGB15(5, 5, 5));
+       //Maps
+        for (Map* map : m_maps)
+        {
+            glDeleteTextures(1, &map->m_tileset_info.m_texture_id);
+        }
 
+        //Actors
+        for (Character *actor : m_actors)
+        {
+            glDeleteTextures(1, &actor->m_tileset_info.m_texture_id);  
+        }
+}
+
+void Scene::DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right)
+{
     touchPosition current_pos;
-    Map* bg_map = new Map(layers[0], 30, 20, map);
-    Map* col_map = new Map(layers[1], 30, 20, collisions_interaction);
-
+    
     while (1)
     {
         swiWaitForVBlank();
@@ -70,23 +86,29 @@ void Scene::DrawLayers(std::vector<Tileset *> layers, int scroll_x, int scroll_y
         if (keysHeld() & KEY_START)
             break;
 
-        
-        m_sub_consoles[0]->DisplayTextConsole(&m_sub_consoles[0]->m_print_console, current_pos);
-
-        for (Tileset *layer : m_drawing_layers)
+        //Main Screen Text Consoles
+        for (TextConsole* main_con : m_main_consoles)
         {
-            switch (layer->m_tag)
-            {
-            case TS_TAG_BG:
-                bg_map->DrawMap(scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
-                break;
-            case TS_TAG_COL:
-                col_map->DrawMap(scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
-                break;
-            case TS_TAG_CHAR:
-                glSprite((screen_width / 2) - (layer->m_sprite_w / 2), (screen_height / 2) - (layer->m_sprite_h / 2), GL_FLIP_NONE, &layer->m_tileset_img[0]);
-                break;
-            }
+            main_con->DisplayTextConsole(&main_con->m_print_console, current_pos);
+        }
+        
+        //Sub Screen Text Consoles
+        for (TextConsole* sub_con : m_sub_consoles)
+        {
+            sub_con->DisplayTextConsole(&sub_con->m_print_console, current_pos);
+        }
+
+        //Maps
+        for (Map* map : m_maps)
+        {
+            map->DrawMap(scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
+        }
+
+        //Actors
+        for (Character *actor : m_actors)
+        {
+            glSprite((screen_width / 2) - (actor->m_tileset_info.m_sprite_w / 2), (screen_height / 2) - (actor->m_tileset_info.m_sprite_h / 2), 
+            GL_FLIP_NONE, &actor->m_tileset_info.m_tileset_img[0]);   
         }
        
         // end drawing 2D graphics
