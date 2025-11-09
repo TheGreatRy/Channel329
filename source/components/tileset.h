@@ -20,6 +20,7 @@ class Tileset
 {
 public:
 
+    Tileset();
     Tileset(const int spr_num_x, const int spr_num_y, const int spr_w, const int spr_h);
     ~Tileset() = default;
 
