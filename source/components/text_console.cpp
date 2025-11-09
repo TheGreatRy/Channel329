@@ -103,3 +103,9 @@ void TextConsole::DisplayTextConsole(PrintConsole* text_con, touchPosition curre
         printf("Not the box dummy!");
     }
 }
+
+void TextConsole::ClearTextConsole(PrintConsole *text_con)
+{
+    consoleSelect(text_con);
+    consoleClear();
+}

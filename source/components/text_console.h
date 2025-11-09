@@ -48,6 +48,7 @@ public:
     
     //display text console to screen
     void DisplayTextConsole(PrintConsole* text_con, touchPosition current_pos);
+    void ClearTextConsole(PrintConsole* text_con);
 
     // void GetWordsFromString(std::vector<std::string> sentence);
     // void UpdateOptionText();

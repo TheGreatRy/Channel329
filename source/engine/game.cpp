@@ -37,6 +37,17 @@ void Game::RunCurrentScene(Scene *scene)
     scene->DrawScene(scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
 
     scene->DeleteAllTextures();
+    for (TextConsole* console : scene->m_main_consoles)
+    {
+        console->ClearTextConsole(&console->m_print_console);
+        delete console;
+    }
+    
+    for (TextConsole* console : scene->m_sub_consoles)
+    {
+        console->ClearTextConsole(&console->m_print_console);
+        delete console;
+    }
 }
 
 void Game::AddScene(Scene *scene)
