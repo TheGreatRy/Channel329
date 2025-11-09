@@ -12,7 +12,6 @@
 #include "../actors/character.h"
 
 // Components Folder
-#include "text_console.h"
 #include "map.h"
 
 // Graphics Folder
@@ -20,6 +19,8 @@
 
 // Engine Folder
 #include "../engine/game_states.h"
+#include "../engine/text_console.h"
+#include "../engine/battle.h"
 
 class Scene
 {
@@ -32,14 +33,18 @@ public:
     std::vector<TextConsole *> m_sub_consoles;
     std::vector<Character *> m_actors;
     std::vector<Map *> m_maps;
+    std::vector<Battle*> m_battles;
 
     GM_STATE m_scene_gm_state;
 
     void AddActor(Character* character);
     void AddMap(Map* map);
     void AddTextConsole(TextConsole *text_con);
+    void AddBattle(Battle* battle);
 
     void DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right);
+    //void DrawScene();
+
     void ScrollInput(uint16_t keys, int &scroll_x, int &scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right);
     void DeleteAllTextures();
     void DeleteAllSceneComponents();

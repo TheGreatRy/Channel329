@@ -24,6 +24,11 @@ void Scene::AddTextConsole(TextConsole *text_con)
         m_sub_consoles.push_back(text_con);
 }
 
+void Scene::AddBattle(Battle *battle)
+{
+    m_battles.push_back(battle);
+}
+
 void Scene::ScrollInput(uint16_t keys, int &scroll_x, int &scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right)
 {
     if (can_move_up && keys & KEY_UP)
@@ -53,17 +58,17 @@ void Scene::ScrollInput(uint16_t keys, int &scroll_x, int &scroll_y, bool& can_m
 
 void Scene::DeleteAllTextures()
 {
-       //Maps
-        for (Map* map : m_maps)
-        {
-            glDeleteTextures(1, &map->m_tileset_info.m_texture_id);
-        }
+    //Maps
+    for (Map* map : m_maps)
+    {
+        glDeleteTextures(1, &map->m_tileset_info.m_texture_id);
+    }
 
-        //Actors
-        for (Character *actor : m_actors)
-        {
-            glDeleteTextures(1, &actor->m_tileset_info.m_texture_id);  
-        }
+    //Actors
+    for (Character *actor : m_actors)
+    {
+        glDeleteTextures(1, &actor->m_tileset_info.m_texture_id);  
+    }
 }
 
 void Scene::DeleteAllSceneComponents()
@@ -93,6 +98,13 @@ void Scene::DeleteAllSceneComponents()
     {
         console->~TextConsole();
         delete console;
+    }
+    
+    //Battles
+    for (Battle *battle : m_battles)
+    {
+        battle->~Battle();
+        delete battle;
     }
 }
 
