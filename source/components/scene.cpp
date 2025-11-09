@@ -1,5 +1,10 @@
 #include "scene.h"
 
+Scene::Scene(GM_STATE scene_gm_st)
+{
+    m_scene_gm_state = scene_gm_st;
+}
+
 void Scene::AddActor(Character *character)
 {
     m_actors.push_back(character);
@@ -83,7 +88,7 @@ void Scene::DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_m
         glColor(RGB15(31, 31, 31));
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE);
 
-        if (keysHeld() & KEY_START)
+        if (keysDown() & KEY_START)
             break;
 
         //Main Screen Text Consoles

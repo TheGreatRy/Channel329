@@ -26,8 +26,10 @@ class Game
 
     void InitializeGame();
 
+    void AddScene(Scene* scene);
+    void RunGame();
+    
+    private:
     void RunCurrentScene(Scene* scene);
-    void RunCurrentScene(Scene* scene, TextConsole* TextConsole);
 
-    void RunGame(std::vector<Scene*> scenes);
 };

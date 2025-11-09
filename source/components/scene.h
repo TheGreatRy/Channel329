@@ -10,7 +10,6 @@
 
 // Actors Folder
 #include "../actors/character.h"
-#include "../actors/npc.h"
 
 // Components Folder
 #include "text_console.h"
@@ -32,6 +31,8 @@ public:
     std::vector<TextConsole *> m_sub_consoles;
     std::vector<Character *> m_actors;
     std::vector<Map *> m_maps;
+
+    GM_STATE m_scene_gm_state;
 
     void AddActor(Character* character);
     void AddMap(Map* map);

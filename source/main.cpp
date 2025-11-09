@@ -137,15 +137,19 @@ int main(int argc, char **argv)
     demo->AddTextConsole(text_console);
     
     // Multiple scenes doesnt work yet
-    // Scene* battle = new Scene();
+    Scene* battle = new Scene();
 
-    // Tileset* enemy = new Tileset(1,1,64,64,TS_TAG_CHAR);
+    Tileset* enemy = new Tileset(1,1,64,64);
+    enemy->LoadTileset({new glImage[enemy->m_img_dimensions]}, talkingnpcPal, talkingnpcBitmap, GL_RGB256, 256);
 
-    // enemy->LoadTileset({new glImage[enemy->m_img_dimensions]}, talkingnpcPal, talkingnpcBitmap, GL_RGB256, 256);
+    Character* npc = new Character(enemy);
 
-    // battle->AddLayer(enemy);
+    battle->AddActor(npc);
+
+    game->AddScene(demo);
+    game->AddScene(battle);
     
-    game->RunCurrentScene(demo);
+    game->RunGame();
     
     // Test methods to run
     // BlockDSExamples *DSeX = new BlockDSExamples();

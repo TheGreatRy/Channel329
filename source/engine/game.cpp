@@ -39,17 +39,15 @@ void Game::RunCurrentScene(Scene *scene)
     scene->DeleteAllTextures();
 }
 
-void Game::RunCurrentScene(Scene *scene, TextConsole *TextConsole)
+void Game::AddScene(Scene *scene)
 {
-    // // tileset variables
-    // int scroll_x = 0;
-    // int scroll_y = 0;
+    m_scenes.push_back(scene);
+}
 
-    // scene->DrawScene(scene->m_drawing_layers, TextConsole, scroll_x, scroll_y);
-    
-    // // delete textures post game
-    // for (Tileset *layer : scene->m_drawing_layers)
-    // {
-    //     glDeleteTextures(1, &layer->m_texture_id);
-    // }
+void Game::RunGame()
+{
+    for (Scene* scene : m_scenes)
+    {
+        RunCurrentScene(scene);
+    }
 }
