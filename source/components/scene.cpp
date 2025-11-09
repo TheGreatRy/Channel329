@@ -71,23 +71,27 @@ void Scene::DeleteAllSceneComponents()
     // Maps
     for (Map *map : m_maps)
     {
+        map->~Map();
         delete map;
     }
 
     // Actors
     for (Character *actor : m_actors)
     {
+        actor->~Character();
         delete actor;
     }
 
     //TextConsoles
     for (TextConsole *console : m_main_consoles)
     {
+        console->~TextConsole();
         delete console;
     }
 
     for (TextConsole *console : m_sub_consoles)
     {
+        console->~TextConsole();
         delete console;
     }
 }

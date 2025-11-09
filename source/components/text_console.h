@@ -28,6 +28,7 @@ class TextConsole
 public:
 
     TextConsole() = default;
+    ~TextConsole() = default;
 
     PrintConsole m_print_console;
     TEXT_CON_TYPE m_text_console_type;

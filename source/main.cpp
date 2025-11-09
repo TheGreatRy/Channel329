@@ -136,7 +136,6 @@ int main(int argc, char **argv)
 
     demo->AddTextConsole(text_console);
     
-    // Multiple scenes doesnt work yet
     Scene* battle = new Scene();
 
     Tileset* enemy = new Tileset(1,1,64,64);
@@ -151,10 +150,7 @@ int main(int argc, char **argv)
     
     game->RunGame();
     
-    // Test methods to run
-    // BlockDSExamples *DSeX = new BlockDSExamples();
-
-    // DSeX->CustomFonts();
-
+    //i may have multiple game instances so i could call the destructor, but not rn
+    
     return 0;
 }

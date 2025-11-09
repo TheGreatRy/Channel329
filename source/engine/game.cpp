@@ -52,4 +52,11 @@ void Game::RunGame()
     {
         RunCurrentScene(scene);
     }
+
+    //Clear all scenes from memory once done
+    for (Scene* scene : m_scenes)
+    {
+        scene->~Scene();
+        delete scene;
+    }
 }

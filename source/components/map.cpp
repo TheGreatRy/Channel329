@@ -96,8 +96,3 @@ bool Map::CheckCollision(int tile_x_01, int tile_x_02, int adj_x_01, int adj_x_0
 
     return true;
 }
-
-void Map::CheckOverlap(Tileset *overlap)
-{
-    
-}

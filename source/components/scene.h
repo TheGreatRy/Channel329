@@ -26,6 +26,7 @@ class Scene
 public:
     Scene() = default;
     Scene(GM_STATE scene_gm_st);
+    ~Scene() = default;
 
     std::vector<TextConsole *> m_main_consoles;
     std::vector<TextConsole *> m_sub_consoles;

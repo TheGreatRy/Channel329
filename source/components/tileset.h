@@ -19,6 +19,10 @@ enum TS_SIZE
 class Tileset
 {
 public:
+
+    Tileset(const int spr_num_x, const int spr_num_y, const int spr_w, const int spr_h);
+    ~Tileset() = default;
+
     int m_texture_id = 0;
     int m_sprites_num_x = 1;
     int m_sprites_num_y = 1;
@@ -29,11 +33,6 @@ public:
     int m_offset_y = 0;
 
     std::vector<glImage> m_tileset_img;
-
-    Tileset() = default;
-    ~Tileset() = default;
-    
-    Tileset(const int spr_num_x, const int spr_num_y, const int spr_w, const int spr_h);
 
     void LoadTileset(glImage tileset_arr[], const unsigned short pal_dt[], const unsigned int tex_dt[], GL_TEXTURE_TYPE_ENUM tex_type, const unsigned int pal_len);
     
