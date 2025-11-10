@@ -22,7 +22,6 @@ struct Phrase
     Topic m_topic;
     PHRASE_TYPE m_type;
 
-    Phrase() = default;
     Phrase(std::string text, Tone tone, Topic topic, PHRASE_TYPE type) :
         m_text{text},
         m_tone{tone},

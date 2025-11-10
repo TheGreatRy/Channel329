@@ -22,7 +22,6 @@ struct Topic
     TOPIC_SKILL m_skill;
     TOPIC_TYPE m_type;
 
-    Topic() = default;
     Topic(TOPIC_SKILL skill, TOPIC_TYPE type) :
         m_skill{skill},
         m_type{type}

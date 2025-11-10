@@ -28,7 +28,5 @@ class Battle
     void AddSinglePhrase(Phrase* phrase);
     void AddMultiplePhrases(Phrase* phrases[]);
 
-    void ResolveTone(); 
-    void ResovleTopic();
-
+    Character* ResolveTurn(Phrase* attack_phrase); 
 };

@@ -47,7 +47,6 @@ struct Tone
     TONE_SKILL m_skill;
     TONE_TYPE m_type;
 
-    Tone() = default;
     Tone(TONE_SKILL skill, TONE_TYPE type) :
         m_skill{skill},
         m_type{type}
