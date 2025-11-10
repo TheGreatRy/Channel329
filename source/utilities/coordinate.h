@@ -2,7 +2,7 @@
 
 template <typename T>
 
-class Coordinate
+struct Coordinate
 {
 public:
     int m_x;
@@ -11,8 +11,9 @@ public:
 
     Coordinate() = default;
     Coordinate(int x, int y, T value) : 
-    m_x{x}, 
-    m_y{y}, 
-    m_value{value}
+        m_x{x}, 
+        m_y{y}, 
+        m_value{value}
     {}
+    ~Coordinate() = default;
 };
