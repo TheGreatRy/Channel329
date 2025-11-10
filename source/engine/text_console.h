@@ -8,10 +8,8 @@
 #include <vector>
 #include <string>
 
-// Graphics Folder
-#include <../graphics/test_graphics/anuvverbubbla_8x8.h>
-#include <../graphics/test_graphics/charmap_cellphone.h>
-#include <../graphics/test_graphics/charmap_futuristic.h>
+// Engine Folder
+#include "battle.h"
 
 #define TOUCH_BOX_RADIUS 4
 
@@ -49,6 +47,8 @@ public:
     
     //display text console to screen
     void DisplayTextConsole(PrintConsole* text_con, touchPosition current_pos);
+    void DisplayTextConsole(PrintConsole* text_con, touchPosition current_pos, Battle* battle, int index);
+
     void ClearTextConsole(PrintConsole* text_con);
 
     // void GetWordsFromString(std::vector<std::string> sentence);

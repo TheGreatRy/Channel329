@@ -24,6 +24,8 @@ public:
     Character(Tileset* tileset_info);
     ~Character() = default;
 
+    std::string m_name;
+
     Tileset m_tileset_info;
     std::vector<Tileset *> m_sprite_animations;
     std::vector<Tone*> m_tones;

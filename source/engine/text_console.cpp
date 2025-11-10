@@ -104,6 +104,30 @@ void TextConsole::DisplayTextConsole(PrintConsole* text_con, touchPosition curre
     }
 }
 
+void TextConsole::DisplayTextConsole(PrintConsole *text_con, touchPosition current_pos, Battle *battle, int index)
+{
+    consoleSelect(text_con);
+
+    Character* winner = battle->ResolveTurn(battle->m_attack_phrases[index]);
+    std::string win_text = winner->m_name + " wins!";
+
+    if (keysHeld() & KEY_TOUCH)
+    {
+        touchRead(&current_pos);
+    }
+
+    if (current_pos.px >= left_x && current_pos.px <= right_x && current_pos.py >= top_y && current_pos.py <= bottom_y)
+    {
+        printf("\x1b[2J");
+        printf(win_text.c_str());
+    }
+    else
+    {
+        printf("\x1b[2J");
+        printf(battle->m_attack_phrases[index]->m_text.c_str());
+    }
+}
+
 void TextConsole::ClearTextConsole(PrintConsole *text_con)
 {
     consoleSelect(text_con);

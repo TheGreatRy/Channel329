@@ -12,8 +12,9 @@
 class Battle
 {
     public:
+
     Battle() = default;
-    ~Battle() = default;
+    //~Battle() = default;
 
     std::vector<Phrase*> m_attack_phrases;
     std::vector<Phrase*> m_defend_phrases;

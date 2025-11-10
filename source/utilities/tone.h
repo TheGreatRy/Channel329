@@ -1,3 +1,5 @@
+#pragma once
+
 enum TONE_TYPE
 {
     TONE_TYPE_POSITIVE,

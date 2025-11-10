@@ -4,8 +4,8 @@
 #include <string>
 
 // Utilities Folder
-#include "../utilities/tone.h"
-#include "../utilities/topic.h"
+#include "tone.h"
+#include "topic.h"
 
 enum PHRASE_TYPE
 {

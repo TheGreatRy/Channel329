@@ -133,8 +133,6 @@ int main(int argc, char **argv)
     demo->AddMap(coll_inter);
     demo->AddActor(cam);
     demo->AddTextConsole(text_console);
-
-    demo->AddTextConsole(text_console);
     
     Scene* battle = new Scene();
 
@@ -142,6 +140,8 @@ int main(int argc, char **argv)
     enemy->LoadTileset({new glImage[enemy->m_img_dimensions]}, talkingnpcPal, talkingnpcBitmap, GL_RGB256, 256);
 
     Character* npc = new Character(enemy);
+
+    Battle* b = new Battle();
 
     battle->AddActor(npc);
 
