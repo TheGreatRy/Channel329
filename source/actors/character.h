@@ -21,6 +21,7 @@ enum CHARACTER_TYPE
 class Character
 {
 public:
+    Character() = default;
     Character(Tileset* tileset_info);
     ~Character() = default;
 

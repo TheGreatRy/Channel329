@@ -1,33 +1,32 @@
 #pragma once
 
-//C++ includes
+// C++ includes
 #include <vector>
 
-//Actors Folder
+// Actors Folder
 #include "../actors/character.h"
- 
-//Utilites Folder
+
+// Utilites Folder
 #include "../utilities/phrase.h"
 
 class Battle
 {
-    public:
-
+public:
     Battle() = default;
-    //~Battle() = default;
+    ~Battle() = default;
 
-    std::vector<Phrase*> m_attack_phrases;
-    std::vector<Phrase*> m_defend_phrases;
-    std::vector<Phrase*> m_boss_phrases;
+    std::vector<Phrase *> m_attack_phrases;
+    std::vector<Phrase *> m_defend_phrases;
+    std::vector<Phrase *> m_boss_phrases;
 
     Character m_attacker;
     Character m_defender;
 
-    void SetAttacker(Character* attacker);
-    void SetDefender(Character* defender);
+    void SetAttacker(Character *attacker);
+    void SetDefender(Character *defender);
 
-    void AddSinglePhrase(Phrase* phrase);
-    void AddMultiplePhrases(Phrase* phrases[]);
+    void AddSinglePhrase(Phrase *phrase);
+    void AddMultiplePhrases(Phrase *phrases[]);
 
-    Character* ResolveTurn(Phrase* attack_phrase); 
+    Character *ResolveTurn(Phrase *attack_phrase);
 };

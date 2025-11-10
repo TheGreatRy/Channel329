@@ -112,4 +112,6 @@ Character *Battle::ResolveTurn(Phrase *attack_phrase)
     // defender does not have this topic in their list, defender wins
     else
         return &m_defender;
+
+    return &m_defender;
 }
