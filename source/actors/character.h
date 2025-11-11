@@ -22,7 +22,7 @@ class Character
 {
 public:
     Character() = default;
-    Character(Tileset* tileset_info);
+    Character(Tileset* tileset_info, std::string name);
     ~Character() = default;
 
     std::string m_name;

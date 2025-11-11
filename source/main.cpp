@@ -7,10 +7,14 @@
 //Only uncomment for testing
 //#include "test_files/blockds_examples.h"
 
+// Graphics Folder
 #include "../graphics/characters/cam.h"
 #include "../graphics/test_graphics/tiny_16.h"
 #include "../graphics/characters/talkingnpc.h"
 #include "../graphics/map/collision.h"
+#include <../graphics/test_graphics/anuvverbubbla_8x8.h>
+#include <../graphics/test_graphics/charmap_cellphone.h>
+#include <../graphics/test_graphics/charmap_futuristic.h>
 
 #include <nds/arm9/dldi.h>
 
@@ -121,10 +125,10 @@ int main(int argc, char **argv)
     c_i_ts->LoadTileset({new glImage[c_i_ts->m_img_dimensions]}, collisionPal, collisionBitmap, GL_RGB256, 256);
 
     //this is a crime im so sorry
-    text_console->InitializeTextConsole(TEXT_CON_TYPE_SUB_OPT, demo->m_main_consoles.size(), demo->m_sub_consoles.size(), {new PrintConsole}, 0, BgType_Text4bpp,
+    text_console->InitializeTextConsole(TEXT_CON_TYPE_SUB_TALK, demo->m_main_consoles.size(), demo->m_sub_consoles.size(), {new PrintConsole}, 0, BgType_Text4bpp,
     BgSize_T_256x256, 3, 4, 0, false, false, &font_cellphone, 1, 1, 10, 5);
     
-    Character* cam = new Character(cam_ts);
+    Character* cam = new Character(cam_ts, "CAMERON");
     Map* town = new Map(town_ts, 30, 20, map);
     Map* coll_inter = new Map(c_i_ts, 30, 20, collisions_interaction);
 
@@ -134,23 +138,72 @@ int main(int argc, char **argv)
     demo->AddActor(cam);
     demo->AddTextConsole(text_console);
     
+    //object are deleted between scenes, DO NOT REUSE
     Scene* battle = new Scene();
+    TextConsole* battle_console = new TextConsole();
 
-    Tileset* enemy = new Tileset(1,1,64,64);
+    Tileset* enemy = new Tileset(1,1,64,64);    
+    Tileset* cam_att = new Tileset(1, 1, 32, 32);    
+
+    Battle* test_battle = new Battle();
+
     enemy->LoadTileset({new glImage[enemy->m_img_dimensions]}, talkingnpcPal, talkingnpcBitmap, GL_RGB256, 256);
 
-    Character* npc = new Character(enemy);
-
-    Battle* b = new Battle();
-
+    cam_att->LoadTileset({new glImage[cam_att->m_img_dimensions]},camPal, camBitmap, GL_RGB256, 256);
+    
+    battle_console->InitializeTextConsole(TEXT_CON_TYPE_SUB_OPT, battle->m_main_consoles.size(), battle->m_sub_consoles.size(), {new PrintConsole}, 0, BgType_Text4bpp,
+    BgSize_T_256x256, 3, 4, 0, false, false, &font_cellphone, 1, 1, 32, 24);
+    
+    Character* npc = new Character(enemy, "JOHN NPC");
+    Character* cam_char_att = new Character(cam_att, "CAMERON");
+    
+    Tone* npc_tones[4] = {
+        new Tone{TONE_SKILL_CASUAL, TONE_TYPE_POSITIVE},
+        new Tone{TONE_SKILL_DIRECT, TONE_TYPE_NEGATIVE},
+        new Tone{TONE_SKILL_PROFESS, TONE_TYPE_NEUTRAL},
+        new Tone{TONE_SKILL_AUTHOR, TONE_TYPE_NEUTRAL},
+    };
+    
+    Topic* npc_topics[4] = {
+        new Topic{TOPIC_SKILL_PEOPLE, TOPIC_TYPE_KNOWN},
+        new Topic{TOPIC_SKILL_CRIME, TOPIC_TYPE_UNKNOWN},
+        new Topic{TOPIC_SKILL_HISTORY, TOPIC_TYPE_INDIFF},
+        new Topic{TOPIC_SKILL_MAGIC, TOPIC_TYPE_INDIFF},
+    };
+    
+    Phrase* cam_attack_phrases[6] = {
+        //defender wins (neg)
+        new Phrase{"Tell me everything you know about this person", TONE_SKILL_DIRECT, TOPIC_SKILL_PEOPLE, PHRASE_TYPE_ATTACK},
+        //defender wins (neutral and indiff)
+        new Phrase{"Hello Mx. I wanted to ask if you knew anything about how magic works?", TONE_SKILL_PROFESS, TOPIC_SKILL_MAGIC, PHRASE_TYPE_ATTACK},
+        //defender wins (neutral and unknown)
+        new Phrase{"I request you give any information regarding the crime in this area", TONE_SKILL_AUTHOR, TOPIC_SKILL_CRIME, PHRASE_TYPE_ATTACK},
+        //attacker wins (positive and indiff)
+        new Phrase{"Hey buddy, great town right? I wonder how it came to be... say, do you know anything about this town?", TONE_SKILL_CASUAL, TOPIC_SKILL_HISTORY, PHRASE_TYPE_ATTACK},
+        //defender wins (positive and unknown)
+        new Phrase{"Hey buddy, this town seems pretty peaceful... I wonder if it was always like that?", TONE_SKILL_CASUAL, TOPIC_SKILL_CRIME, PHRASE_TYPE_ATTACK},
+        //attacker wins (positive and known)
+        new Phrase{"Hey buddy, do you get around often? I'd love to know more about the people here.", TONE_SKILL_CASUAL, TOPIC_SKILL_HISTORY, PHRASE_TYPE_ATTACK},
+    };
+    
+    npc->AddMultipleTones(npc_tones);
+    npc->AddMultipleTopics(npc_topics);
+    
+    test_battle->AddMultiplePhrases(cam_attack_phrases);
+    //test_battle->SetAttacker(cam_char_att);
+    test_battle->SetDefender(npc);
+    
     battle->AddActor(npc);
-
+    //battle->AddActor(cam_char_att);
+    battle->AddBattle(test_battle);
+    battle->AddTextConsole(battle_console);
+    
     game->AddScene(demo);
     game->AddScene(battle);
     
     game->RunGame();
     
-    //i may have multiple game instances so i could call the destructor, but not rn
+    delete game;
     
     return 0;
 }

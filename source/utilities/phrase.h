@@ -14,18 +14,18 @@ enum PHRASE_TYPE
     PHRASE_TYPE_BOSS
 };
 
-struct Phrase
+class Phrase
 {
     public:
     std::string m_text;
-    Tone m_tone;
-    Topic m_topic;
+    TONE_SKILL m_tone_skill;
+    TOPIC_SKILL m_topic_skill;
     PHRASE_TYPE m_type;
 
-    Phrase(std::string text, Tone tone, Topic topic, PHRASE_TYPE type) :
+    Phrase(std::string text, TONE_SKILL tone, TOPIC_SKILL topic, PHRASE_TYPE type) :
         m_text{text},
-        m_tone{tone},
-        m_topic{topic},
+        m_tone_skill{tone},
+        m_topic_skill{topic},
         m_type{type}
     {}
     ~Phrase() = default;

@@ -43,7 +43,7 @@ enum TONE_SKILL
     TONE_SKILL_WITTY
 };
 
-struct Tone
+class Tone
 {
     public:
     TONE_SKILL m_skill;
@@ -53,5 +53,10 @@ struct Tone
         m_skill{skill},
         m_type{type}
     {}
+
+    Tone(TONE_SKILL skill) :
+        m_skill{skill}
+    {}
+    
     ~Tone() = default;
 };

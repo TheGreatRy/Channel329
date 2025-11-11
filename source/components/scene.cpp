@@ -76,34 +76,34 @@ void Scene::DeleteAllSceneComponents()
     // Maps
     for (Map *map : m_maps)
     {
-        map->~Map();
+        //map->~Map();
         delete map;
     }
 
     // Actors
     for (Character *actor : m_actors)
     {
-        actor->~Character();
+        //actor->~Character();
         delete actor;
     }
 
     //TextConsoles
     for (TextConsole *console : m_main_consoles)
     {
-        console->~TextConsole();
+        //console->~TextConsole();
         delete console;
     }
 
     for (TextConsole *console : m_sub_consoles)
     {
-        console->~TextConsole();
+        //console->~TextConsole();
         delete console;
     }
     
     //Battles
     for (Battle *battle : m_battles)
     {
-        battle->~Battle();
+        //battle->~Battle();
         delete battle;
     }
 }
@@ -121,7 +121,7 @@ void Scene::ClearAllTextConsoles()
     }
 }
 
-void Scene::DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right)
+void Scene::DrawScene(int index, int scroll_x, int scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right)
 {
     touchPosition current_pos;
     
@@ -155,7 +155,9 @@ void Scene::DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_m
         //Sub Screen Text Consoles
         for (TextConsole* sub_con : m_sub_consoles)
         {
-            sub_con->DisplayTextConsole(&sub_con->m_print_console, current_pos);
+            if (sub_con->m_text_console_type == TEXT_CON_TYPE_SUB_TALK) sub_con->DisplayTextConsole(&sub_con->m_print_console, current_pos);
+            else if (sub_con->m_text_console_type == TEXT_CON_TYPE_SUB_OPT) sub_con->DisplayTextConsole(&sub_con->m_print_console, 
+                current_pos, m_battles[0], index);
         }
 
         //Maps
@@ -170,7 +172,11 @@ void Scene::DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_m
             glSprite((screen_width / 2) - (actor->m_tileset_info.m_sprite_w / 2), (screen_height / 2) - (actor->m_tileset_info.m_sprite_h / 2), 
             GL_FLIP_NONE, &actor->m_tileset_info.m_tileset_img[0]);   
         }
-       
+        for (Battle* battle : m_battles)
+        {
+            battle->ResolveTurn(battle->m_attack_phrases[index]);
+        }
+
         // end drawing 2D graphics
         glEnd2D();
         glFlush(0);

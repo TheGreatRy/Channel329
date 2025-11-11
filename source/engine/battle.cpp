@@ -42,8 +42,8 @@ Character *Battle::ResolveTurn(Phrase *attack_phrase)
     int found_tone = -1;
     for (int i = 0; i < m_defender.m_tones.size(); i++)
     {
-        found_tone = (&attack_phrase->m_tone == m_defender.m_tones[i]) ? i : -1;
-        if (&attack_phrase->m_tone == m_defender.m_tones[i])
+        found_tone = (attack_phrase->m_tone_skill == m_defender.m_tones[i]->m_skill) ? i : -1;
+        if (attack_phrase->m_tone_skill == m_defender.m_tones[i]->m_skill)
             break;
     }
 
@@ -80,8 +80,8 @@ Character *Battle::ResolveTurn(Phrase *attack_phrase)
     int found_topic = -1;
     for (int i = 0; i < m_defender.m_topics.size(); i++)
     {
-        found_topic = (&attack_phrase->m_topic == m_defender.m_topics[i]) ? i : -1;
-        if (&attack_phrase->m_topic == m_defender.m_topics[i])
+        found_topic = (attack_phrase->m_topic_skill == m_defender.m_topics[i]->m_skill) ? i : -1;
+        if (attack_phrase->m_topic_skill == m_defender.m_topics[i]->m_skill)
             break;
     }
     // if tone is valid

@@ -42,7 +42,7 @@ public:
     void AddTextConsole(TextConsole *text_con);
     void AddBattle(Battle* battle);
 
-    void DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right);
+    void DrawScene(int index, int scroll_x, int scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right);
     //void DrawScene();
 
     void ScrollInput(uint16_t keys, int &scroll_x, int &scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right);

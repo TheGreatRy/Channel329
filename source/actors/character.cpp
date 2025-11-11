@@ -1,8 +1,9 @@
 #include "character.h"
 
-Character::Character(Tileset* tileset_info)
+Character::Character(Tileset* tileset_info, std::string name)
 {
     m_tileset_info = *tileset_info;
+    m_name = name;
 }
 
 void Character::AddSingleTone(Tone *tone)

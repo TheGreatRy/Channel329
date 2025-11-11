@@ -16,7 +16,7 @@ enum TOPIC_TYPE
     TOPIC_TYPE_UNKNOWN
 };
 
-struct Topic
+class Topic
 {
     public:
     TOPIC_SKILL m_skill;
@@ -26,6 +26,11 @@ struct Topic
         m_skill{skill},
         m_type{type}
     {}
+
+    Topic(TOPIC_SKILL skill) :
+        m_skill{skill}
+    {}
+    
     ~Topic() = default;
 
 };

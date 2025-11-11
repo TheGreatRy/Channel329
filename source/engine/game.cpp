@@ -26,6 +26,7 @@ void Game::InitializeGame()
 void Game::RunCurrentScene(Scene *scene)
 {
     // tileset variables
+    int index = 0;
     int scroll_x = 0;
     int scroll_y = 0;
 
@@ -34,7 +35,7 @@ void Game::RunCurrentScene(Scene *scene)
     bool can_move_left = true;
     bool can_move_right = true;
 
-    scene->DrawScene(scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
+    scene->DrawScene(index, scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
 
     scene->ClearAllTextConsoles();
     scene->DeleteAllTextures();
