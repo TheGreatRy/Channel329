@@ -28,7 +28,7 @@ public:
 
     std::string m_name;
     CHARACTER_TYPE m_character_type;
-    Coordinate m_draw_position;
+    Coordinate<uint16_t> m_draw_position;
 
     Tileset m_tileset_info;
     std::vector<Tileset *> m_sprite_animations;

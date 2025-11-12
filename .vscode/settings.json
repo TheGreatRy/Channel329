@@ -118,5 +118,6 @@
         "flat_map": "cpp",
         "flat_set": "cpp",
         "text_encoding": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "enabledIfIncludesResolve"
 }

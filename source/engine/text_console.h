@@ -7,6 +7,8 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <sstream>
+#include <chrono>
 
 // Engine Folder
 #include "battle.h"
@@ -30,6 +32,11 @@ public:
 
     PrintConsole m_print_console;
     TEXT_CON_TYPE m_text_console_type;
+    std::vector<std::string> m_words_per_line;
+
+    int m_console_width = 16;
+    int m_console_height = 12;
+
     u16 left_x;
     u16 right_x;
     u16 top_y;
@@ -51,8 +58,7 @@ public:
 
     void ClearTextConsole(PrintConsole* text_con);
 
-    // void GetWordsFromString(std::vector<std::string> sentence);
-    // void UpdateOptionText();
+    void WriteWordsPerLine(std::string sentence, int bpp);
 
     
 };

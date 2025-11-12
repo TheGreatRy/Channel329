@@ -18,18 +18,7 @@
 
 #include <nds/arm9/dldi.h>
 
-int main(int argc, char **argv)
-{
-    // Set the DLDI mode
-    //dldiSetMode(DLDI_MODE_ARM9); // or DLDI_MODE_AUTODETECT or DLDI_MODE_ARM7
-
-    Game* game = new Game();
-
-    game->InitializeGame();
-
-    Scene* demo = new Scene();
-    
-    // Size of a color in bytes
+// Size of a color in bytes
     const size_t size_color = 2;
     
     // Size of a font character in 4 and 8 BPP modes in bytes
@@ -85,7 +74,8 @@ int main(int argc, char **argv)
     };
     
     
-    ConsoleFont font_anuvverbubbla = {
+    ConsoleFont font_anuvverbubbla = 
+    {
         .gfx = anuvverbubbla_8x8Tiles,
         .pal = anuvverbubbla_8x8Pal,
         .numColors = anuvverbubbla_8x8PalLen / size_color,
@@ -94,7 +84,8 @@ int main(int argc, char **argv)
         .numChars = anuvverbubbla_8x8TilesLen / size_char_8bpp,
     };
     
-    ConsoleFont font_cellphone = {
+    ConsoleFont font_cellphone = 
+    {
         .gfx = charmap_cellphoneTiles,
         .pal = charmap_cellphonePal,
         .numColors = charmap_cellphonePalLen / size_color,
@@ -103,7 +94,8 @@ int main(int argc, char **argv)
         .numChars = charmap_cellphoneTilesLen / size_char_4bpp,
     };
     
-    ConsoleFont font_futuristic = {
+    ConsoleFont font_futuristic = 
+    {
         .gfx = charmap_futuristicTiles,
         .pal = charmap_futuristicPal,
         .numColors = charmap_futuristicPalLen / size_color,
@@ -111,6 +103,18 @@ int main(int argc, char **argv)
         .asciiOffset = 32,
         .numChars = charmap_futuristicTilesLen / size_char_4bpp,
     };
+    
+
+int main(int argc, char **argv)
+{
+    // Set the DLDI mode
+    //dldiSetMode(DLDI_MODE_ARM9); // or DLDI_MODE_AUTODETECT or DLDI_MODE_ARM7
+
+    Game* game = new Game();
+
+    game->InitializeGame();
+
+    Scene* demo = new Scene();
     
     //We need to initialize all objects that use a tileset
     TextConsole* text_console = new TextConsole();
@@ -140,7 +144,13 @@ int main(int argc, char **argv)
     
     //object are deleted between scenes, DO NOT REUSE
     Scene* battle = new Scene();
-    TextConsole* battle_console = new TextConsole();
+    TextConsole* battle_cons[4]
+    {
+        new TextConsole(),
+        new TextConsole(),
+        new TextConsole(),
+        new TextConsole()
+    };
 
     Tileset* enemy = new Tileset(1,1,64,64);    
     Tileset* cam_att = new Tileset(1, 1, 32, 32);    
@@ -151,8 +161,12 @@ int main(int argc, char **argv)
 
     cam_att->LoadTileset({new glImage[cam_att->m_img_dimensions]},camPal, camBitmap, GL_RGB256, 256);
     
-    battle_console->InitializeTextConsole(TEXT_CON_TYPE_SUB_OPT, battle->m_main_consoles.size(), battle->m_sub_consoles.size(), {new PrintConsole}, 0, BgType_Text4bpp,
-    BgSize_T_256x256, 3, 4, 0, false, false, &font_cellphone, 1, 1, 32, 24);
+    for (int i = 0; i < 4; i++)
+    {
+        battle_cons[i]->InitializeTextConsole(TEXT_CON_TYPE_SUB_OPT, battle->m_main_consoles.size(), battle->m_sub_consoles.size(), {new PrintConsole}, 0, BgType_Text4bpp,
+        BgSize_T_256x256, 3, 4, 0, false, false, &font_cellphone, 1, (i * 4) + 6, 28, 4);
+    }
+    
     
     Character* npc = new Character(enemy, "JOHN NPC");
     Character* cam_char_att = new Character(cam_att, "CAMERON");
@@ -196,7 +210,10 @@ int main(int argc, char **argv)
     battle->AddBattle(test_battle);
     battle->AddActor(npc);
     //battle->AddActor(cam_char_att);
-    battle->AddTextConsole(battle_console);
+    for (int i = 0; i < 4; i++)
+    {
+        battle->AddTextConsole(battle_cons[i]);
+    }
     
     game->AddScene(demo);
     game->AddScene(battle);

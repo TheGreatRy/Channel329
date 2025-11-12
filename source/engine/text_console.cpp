@@ -55,19 +55,19 @@ void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned i
 
     int x_corner = 0;
     int y_corner = 0;
-    int screen_width = x_pos + width;
-    int screen_height = y_pos + height;
+    m_console_width = x_pos + width;
+    m_console_height = y_pos + height;
 
     // setting the console position to x = 0 and/or y = 0 if they go past the limit
     x_corner = (x_corner > 32) ? 0 : x_pos;
     y_corner = (y_corner > 24) ? 0 : y_pos;
 
     // setting the window size to width = 1 (if 0) or 32 (if past limit) and/or height = 1 (if 0) or 24 (if past limit)
-    screen_width = (screen_width < 1) ? 1 : (screen_width > 32) ? 32 : screen_width;
+    m_console_width = (m_console_width < 1) ? 1 : (m_console_width > 32) ? 32 : m_console_width;
     
-    screen_height = (screen_height < 1) ? 1 : (screen_height > 24) ? 24 : screen_height;
+    m_console_height = (m_console_height < 1) ? 1 : (m_console_height > 24) ? 24 : m_console_height;
 
-    consoleSetWindow(&m_print_console, x_corner, y_corner, screen_width, screen_height);
+    consoleSetWindow(&m_print_console, x_corner, y_corner, m_console_width, m_console_height);
 
     // Detecting touch to the console will use the processed pixel value (0-256 x && 0-192 y)
     // Due to the consoleSetWindow, we need to scale up the values by 8
@@ -76,11 +76,11 @@ void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned i
     // the leftmost x position of the console
     left_x = 8 * x_corner;
     // the rightmost x position of the console
-    right_x = 8 * screen_width;
+    right_x = 8 * m_console_width;
     // the topmost y position of the console
     top_y = 8 * y_corner;
     // the furthest down y position of the console
-    bottom_y = 8 * screen_height;
+    bottom_y = 8 * m_console_height;
 }
 
 void TextConsole::DisplayTextConsole(PrintConsole* text_con, touchPosition current_pos)
@@ -123,7 +123,7 @@ void TextConsole::DisplayTextConsole(PrintConsole *text_con, touchPosition curre
     }
     else
     {
-        printf("\x1b[2J");
+        printf("\x1b[2J"); 
         printf(battle->m_attack_phrases[index]->m_text.c_str());
     }
 }
@@ -132,4 +132,20 @@ void TextConsole::ClearTextConsole(PrintConsole *text_con)
 {
     consoleSelect(text_con);
     consoleClear();
+}
+
+void TextConsole::WriteWordsPerLine(std::string sentence, int bpp)
+{
+    //separate the words in a sentence by space
+    std::stringstream str_stm(sentence);
+    std::vector<std::string> words;
+    std::string line;
+
+    while (getline(str_stm, line, ' '))
+    {
+        words.push_back(line);
+    }
+
+    std::string current_line;
+
 }

@@ -17,7 +17,7 @@
             "compilerPath": "cl.exe",
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "intelliSenseMode": "windows-msvc-x64",
+            "intelliSenseMode": "${default}",
             "configurationProvider": "ms-vscode.makefile-tools"
         }
     ],

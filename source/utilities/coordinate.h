@@ -3,7 +3,6 @@
 #include <nds.h>
 #include <stdio.h>
 
-
 template < typename T = uint16_t >
 class Coordinate
 {

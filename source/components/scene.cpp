@@ -121,7 +121,7 @@ void Scene::ClearAllTextConsoles()
     }
 }
 
-void Scene::DrawScene(int index, int scroll_x, int scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right)
+void Scene::DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right)
 {
     touchPosition current_pos;
     
@@ -152,12 +152,15 @@ void Scene::DrawScene(int index, int scroll_x, int scroll_y, bool& can_move_up, 
             main_con->DisplayTextConsole(&main_con->m_print_console, current_pos);
         }
         
+        int index = 0;
         //Sub Screen Text Consoles
         for (TextConsole* sub_con : m_sub_consoles)
         {
             if (sub_con->m_text_console_type == TEXT_CON_TYPE_SUB_TALK) sub_con->DisplayTextConsole(&sub_con->m_print_console, current_pos);
             else if (sub_con->m_text_console_type == TEXT_CON_TYPE_SUB_OPT) sub_con->DisplayTextConsole(&sub_con->m_print_console, 
                 current_pos, m_battles[0], index);
+
+            index++;
         }
 
         //Maps
