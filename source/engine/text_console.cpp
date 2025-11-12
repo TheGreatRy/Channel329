@@ -108,7 +108,7 @@ void TextConsole::DisplayTextConsole(PrintConsole *text_con, touchPosition curre
 {
     consoleSelect(text_con);
 
-    Character* winner = battle->ResolveTurn(battle->m_attack_phrases[index]);
+    Character* winner = battle->ResolveTurn(index);
     std::string win_text = winner->m_name + " wins!";
 
     if (keysHeld() & KEY_TOUCH)

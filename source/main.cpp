@@ -189,13 +189,13 @@ int main(int argc, char **argv)
     npc->AddMultipleTones(npc_tones);
     npc->AddMultipleTopics(npc_topics);
     
-    test_battle->AddMultiplePhrases(cam_attack_phrases);
+    test_battle->AddMultiplePhrases(cam_attack_phrases, 6);
     //test_battle->SetAttacker(cam_char_att);
     test_battle->SetDefender(npc);
     
+    battle->AddBattle(test_battle);
     battle->AddActor(npc);
     //battle->AddActor(cam_char_att);
-    battle->AddBattle(test_battle);
     battle->AddTextConsole(battle_console);
     
     game->AddScene(demo);

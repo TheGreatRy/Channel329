@@ -26,15 +26,15 @@ void Battle::AddSinglePhrase(Phrase *phrase)
     }
 }
 
-void Battle::AddMultiplePhrases(Phrase *phrases[])
+void Battle::AddMultiplePhrases(Phrase *phrases[], int size)
 {
-    for (int i = 0; i < sizeof(phrases) / sizeof(*phrases); i++)
+    for (int i = 0; i < size; i++)
     {
         AddSinglePhrase(phrases[i]);
     }
 }
 
-Character *Battle::ResolveTurn(Phrase *attack_phrase)
+Character *Battle::ResolveTurn(int index)
 {
     bool attacker_adv = false;
 
@@ -42,8 +42,8 @@ Character *Battle::ResolveTurn(Phrase *attack_phrase)
     int found_tone = -1;
     for (int i = 0; i < m_defender.m_tones.size(); i++)
     {
-        found_tone = (attack_phrase->m_tone_skill == m_defender.m_tones[i]->m_skill) ? i : -1;
-        if (attack_phrase->m_tone_skill == m_defender.m_tones[i]->m_skill)
+        found_tone = (m_attack_phrases[index]->m_tone_skill == m_defender.m_tones[i]->m_skill) ? i : -1;
+        if (m_attack_phrases[index]->m_tone_skill == m_defender.m_tones[i]->m_skill)
             break;
     }
 
@@ -80,8 +80,8 @@ Character *Battle::ResolveTurn(Phrase *attack_phrase)
     int found_topic = -1;
     for (int i = 0; i < m_defender.m_topics.size(); i++)
     {
-        found_topic = (attack_phrase->m_topic_skill == m_defender.m_topics[i]->m_skill) ? i : -1;
-        if (attack_phrase->m_topic_skill == m_defender.m_topics[i]->m_skill)
+        found_topic = (m_attack_phrases[index]->m_topic_skill == m_defender.m_topics[i]->m_skill) ? i : -1;
+        if (m_attack_phrases[index]->m_topic_skill == m_defender.m_topics[i]->m_skill)
             break;
     }
     // if tone is valid

@@ -26,7 +26,7 @@ void Game::InitializeGame()
 void Game::RunCurrentScene(Scene *scene)
 {
     // tileset variables
-    int index = 0;
+    int index = 1;
     int scroll_x = 0;
     int scroll_y = 0;
 
@@ -57,7 +57,6 @@ void Game::RunGame()
     //Clear all scenes from memory once done
     for (Scene* scene : m_scenes)
     {
-        scene->~Scene();
         delete scene;
     }
 }

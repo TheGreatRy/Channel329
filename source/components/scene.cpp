@@ -172,10 +172,6 @@ void Scene::DrawScene(int index, int scroll_x, int scroll_y, bool& can_move_up, 
             glSprite((screen_width / 2) - (actor->m_tileset_info.m_sprite_w / 2), (screen_height / 2) - (actor->m_tileset_info.m_sprite_h / 2), 
             GL_FLIP_NONE, &actor->m_tileset_info.m_tileset_img[0]);   
         }
-        for (Battle* battle : m_battles)
-        {
-            battle->ResolveTurn(battle->m_attack_phrases[index]);
-        }
 
         // end drawing 2D graphics
         glEnd2D();

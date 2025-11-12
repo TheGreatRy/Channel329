@@ -26,7 +26,7 @@ public:
     void SetDefender(Character *defender);
 
     void AddSinglePhrase(Phrase *phrase);
-    void AddMultiplePhrases(Phrase *phrases[]);
+    void AddMultiplePhrases(Phrase *phrases[], int size);
 
-    Character *ResolveTurn(Phrase *attack_phrase);
+    Character* ResolveTurn(int index);
 };
