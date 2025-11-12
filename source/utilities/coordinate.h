@@ -1,8 +1,11 @@
 #pragma once
 
-template <typename T>
+#include <nds.h>
+#include <stdio.h>
 
-struct Coordinate
+
+template < typename T = uint16_t >
+class Coordinate
 {
 public:
     int m_x;

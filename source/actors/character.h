@@ -7,6 +7,7 @@
 // Utilities Folder
 #include "../utilities/tone.h"
 #include "../utilities/topic.h"
+#include "../utilities/coordinate.h"
 
 // Componenets Folder
 #include "../components/tileset.h"
@@ -26,13 +27,13 @@ public:
     ~Character() = default;
 
     std::string m_name;
+    CHARACTER_TYPE m_character_type;
+    Coordinate m_draw_position;
 
     Tileset m_tileset_info;
     std::vector<Tileset *> m_sprite_animations;
     std::vector<Tone*> m_tones;
     std::vector<Topic*> m_topics;
-
-    CHARACTER_TYPE m_character_type;
 
     void AddSingleTone(Tone* tone);
     void AddSingleTopic(Topic* topic);
