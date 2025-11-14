@@ -26,7 +26,7 @@ class Scene
 {
 public:
     Scene() = default;
-    Scene(GM_STATE scene_gm_st);
+    Scene(GM_STATE scene_gm_st, int switch_id);
     ~Scene() = default;
 
     std::vector<TextConsole *> m_main_consoles;
@@ -36,6 +36,10 @@ public:
     std::vector<Battle*> m_battles;
 
     GM_STATE m_scene_gm_state;
+    GM_STATE m_switch_gm_state;
+    
+    int m_switch_id = 0;
+    bool m_player_quit = false;
 
     void AddActor(Character* character);
     void AddMap(Map* map);
@@ -43,9 +47,8 @@ public:
     void AddBattle(Battle* battle);
 
     void DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right);
-    //void DrawScene();
 
-    void ScrollInput(uint16_t keys, int &scroll_x, int &scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right);
+    void DetectInput(int &scroll_x, int &scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right);
     void DeleteAllTextures();
     void DeleteAllSceneComponents();
     void ClearAllTextConsoles();

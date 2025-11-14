@@ -1,8 +1,9 @@
 #include "scene.h"
 
-Scene::Scene(GM_STATE scene_gm_st)
+Scene::Scene(GM_STATE scene_gm_st, int switch_id)
 {
     m_scene_gm_state = scene_gm_st;
+    m_switch_id = switch_id;
 }
 
 void Scene::AddActor(Character *character)
@@ -29,31 +30,19 @@ void Scene::AddBattle(Battle *battle)
     m_battles.push_back(battle);
 }
 
-void Scene::ScrollInput(uint16_t keys, int &scroll_x, int &scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right)
+void Scene::DetectInput(int &scroll_x, int &scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right)
 {
-    if (can_move_up && keys & KEY_UP)
+    if (can_move_up && keysHeld() & KEY_UP)
         scroll_y++;
 
-    if (can_move_down && keys & KEY_DOWN)
+    if (can_move_down && keysHeld() & KEY_DOWN)
         scroll_y--;
 
-    if (can_move_left && keys & KEY_LEFT)
+    if (can_move_left && keysHeld() & KEY_LEFT)
         scroll_x++;
 
-    if (can_move_right && keys & KEY_RIGHT)   
+    if (can_move_right && keysHeld() & KEY_RIGHT)   
         scroll_x--;
-    
-    // if (keys & KEY_UP)
-    //     scroll_y++;
-
-    // if (keys & KEY_DOWN)
-    //     scroll_y--;
-
-    // if (keys & KEY_LEFT)
-    //     scroll_x++;
-
-    // if (keys & KEY_RIGHT)   
-    //     scroll_x--;
 }
 
 void Scene::DeleteAllTextures()
@@ -131,20 +120,34 @@ void Scene::DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_m
 
         scanKeys();
 
-        uint16_t keys = keysHeld();
-
-        // if (keys & KEY_START) return GM_STATE_QUIT;
-
-        ScrollInput(keys, scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
-
-        // if (keys & KEY_A & KEY_B) return switch_gm_st;
+        DetectInput(scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
 
         glBegin2D();
         glColor(RGB15(31, 31, 31));
         glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE);
 
+        //quit game
         if (keysDown() & KEY_START)
+        {  
+            m_player_quit = true;
             break;
+        }
+        
+        //switch to game
+        if ((m_scene_gm_state != GM_STATE_BATTLE) && keysUp() & KEY_A)
+        {    
+            m_switch_gm_state = GM_STATE_BATTLE;
+            m_player_quit = false;
+            break;
+        }
+        
+        //switch to main
+        if ((m_scene_gm_state != GM_STATE_MAIN) && keysUp() & KEY_B)
+        {    
+            m_switch_gm_state = GM_STATE_MAIN;
+            m_player_quit = false;
+            break;
+        }
 
         //Main Screen Text Consoles
         for (TextConsole* main_con : m_main_consoles)

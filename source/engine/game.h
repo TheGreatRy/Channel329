@@ -20,9 +20,16 @@ class Game
     Game() = default;
     ~Game() = default;
 
-    std::vector<Scene*> m_scenes;
+    bool is_running = true;
 
-    //GM_STATE* m_current_game_state;
+    GM_STATE m_current_game_state = GM_STATE_MAIN;
+
+    Scene* m_title_scene;
+    Scene* m_menu_scene;
+    std::vector<Scene*> m_main_scenes;
+    std::vector<Scene*> m_battle_scenes;
+
+    int m_current_scene_index = 0;
 
     void InitializeGame();
 
@@ -31,5 +38,4 @@ class Game
     
     private:
     void RunCurrentScene(Scene* scene);
-
 };

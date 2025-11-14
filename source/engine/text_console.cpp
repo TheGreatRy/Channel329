@@ -119,11 +119,22 @@ void TextConsole::DisplayTextConsole(PrintConsole *text_con, touchPosition curre
     if (current_pos.px >= left_x && current_pos.px <= right_x && current_pos.py >= top_y && current_pos.py <= bottom_y)
     {
         printf("\x1b[2J");
+        //WriteWordsPerLine(win_text, 4);
+
+        // for (std::string line : m_words_per_line)
+        // {
+        //     printf(line.c_str());
+        // }
         printf(win_text.c_str());
     }
     else
     {
         printf("\x1b[2J"); 
+        // WriteWordsPerLine(battle->m_attack_phrases[index]->m_text, 4);
+        // for (std::string line : m_words_per_line)
+        // {
+        //     printf(line.c_str());
+        // }
         printf(battle->m_attack_phrases[index]->m_text.c_str());
     }
 }
@@ -148,4 +159,12 @@ void TextConsole::WriteWordsPerLine(std::string sentence, int bpp)
 
     std::string current_line;
 
+    for (int i = 0; i < words.size(); i++)
+    {
+        std::string compare = current_line + words[i] + ' ';
+
+        if (compare.length() <= m_console_width * bpp) current_line = compare;
+           
+        m_words_per_line.push_back(current_line + "\n");
+    }
 }

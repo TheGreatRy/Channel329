@@ -107,14 +107,12 @@
 
 int main(int argc, char **argv)
 {
-    // Set the DLDI mode
-    //dldiSetMode(DLDI_MODE_ARM9); // or DLDI_MODE_AUTODETECT or DLDI_MODE_ARM7
-
     Game* game = new Game();
 
     game->InitializeGame();
 
-    Scene* demo = new Scene();
+    #pragma region Main Scene
+    Scene* demo = new Scene(GM_STATE_MAIN, 0);
     
     //We need to initialize all objects that use a tileset
     TextConsole* text_console = new TextConsole();
@@ -142,8 +140,12 @@ int main(int argc, char **argv)
     demo->AddActor(cam);
     demo->AddTextConsole(text_console);
     
+    #pragma endregion
+
     //object are deleted between scenes, DO NOT REUSE
-    Scene* battle = new Scene();
+
+    #pragma region Battle Scene
+    Scene* battle = new Scene(GM_STATE_BATTLE, 0);
     TextConsole* battle_cons[4]
     {
         new TextConsole(),
@@ -214,7 +216,8 @@ int main(int argc, char **argv)
     {
         battle->AddTextConsole(battle_cons[i]);
     }
-    
+    #pragma endregion
+
     game->AddScene(demo);
     game->AddScene(battle);
     

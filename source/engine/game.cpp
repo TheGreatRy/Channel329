@@ -36,25 +36,65 @@ void Game::RunCurrentScene(Scene *scene)
     scene->DrawScene(scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
 
     scene->ClearAllTextConsoles();
-    scene->DeleteAllTextures();
-    scene->DeleteAllSceneComponents();
+    // scene->DeleteAllTextures();
+    // scene->DeleteAllSceneComponents();
 }
 
 void Game::AddScene(Scene *scene)
 {
-    m_scenes.push_back(scene);
+    switch (scene->m_scene_gm_state)
+    {
+        case GM_STATE_TITLE:
+        m_title_scene = scene;
+        break;
+        case GM_STATE_MAIN:
+        m_main_scenes.push_back(scene);
+        break;
+        case GM_STATE_BATTLE:
+        m_battle_scenes.push_back(scene);
+        break;
+        case GM_STATE_MENU:
+        m_menu_scene = scene;
+        break;
+    }
 }
 
 void Game::RunGame()
 {
-    for (Scene* scene : m_scenes)
+    while (is_running)
     {
-        RunCurrentScene(scene);
+        switch (m_current_game_state)
+        {
+        case GM_STATE_TITLE:
+            RunCurrentScene(m_title_scene);
+            break;
+        case GM_STATE_MAIN:
+            RunCurrentScene(m_main_scenes[m_current_scene_index]);
+            (m_main_scenes[m_current_scene_index]->m_player_quit) 
+            ? is_running = false 
+            : m_current_game_state = m_main_scenes[m_current_scene_index]->m_switch_gm_state; 
+            m_current_scene_index = m_main_scenes[m_current_scene_index]->m_switch_id;
+
+            break;
+        case GM_STATE_BATTLE:
+            RunCurrentScene(m_battle_scenes[m_current_scene_index]);
+            (m_battle_scenes[m_current_scene_index]->m_player_quit) 
+            ? is_running = false 
+            : m_current_game_state = m_battle_scenes[m_current_scene_index]->m_switch_gm_state; 
+            m_current_scene_index = m_battle_scenes[m_current_scene_index]->m_switch_id;
+
+            break;
+        case GM_STATE_MENU:
+            RunCurrentScene(m_menu_scene);
+            break;
+        default:
+            is_running = false;
+        }
     }
 
-    //Clear all scenes from memory once done
-    for (Scene* scene : m_scenes)
-    {
-        delete scene;
-    }
+    // //Clear all scenes from memory once done
+    // for (Scene* scene : m_scenes)
+    // {
+    //     delete scene;
+    // }
 }
