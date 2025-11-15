@@ -18,6 +18,9 @@
 
 #include <nds/arm9/dldi.h>
 
+#include "chacha_bin.h"
+#include "teapot_bin.h"
+
 // Size of a color in bytes
     const size_t size_color = 2;
     
@@ -107,123 +110,210 @@
 
 int main(int argc, char **argv)
 {
-    Game* game = new Game();
+    glInit();
+    consoleDemoInit();
 
-    game->InitializeGame();
+    videoSetMode(MODE_0_3D);
 
-    #pragma region Main Scene
-    Scene* demo = new Scene(GM_STATE_MAIN, 0);
-    
-    //We need to initialize all objects that use a tileset
-    TextConsole* text_console = new TextConsole();
-    Tileset* cam_ts = new Tileset(1, 1, 32, 32);
-    Tileset* town_ts = new Tileset(10, 10, 16, 16);
-    Tileset* c_i_ts = new Tileset(4, 1, 16, 16);
+    // Setup the rear plane
+    glClearColor(0, 0, 0, 0); // Set BG to black
+    // The BG and polygons will have the same ID unless a polygon is highlighted
+    glClearPolyID(0);
+    glClearDepth(0x7FFF);
 
+    // Setup the camera
+    gluLookAt(0.0, 0.0, 4.0,  // Camera position
+              0.0, 0.0, 0.0,  // Look at
+              0.0, 1.0, 0.0); // Up
 
-    //Now that the objects exist, we can load the graphics
-    cam_ts->LoadTileset({new glImage[cam_ts->m_img_dimensions]},camPal, camBitmap, GL_RGB256, 256);
-    town_ts->LoadTileset({new glImage[town_ts->m_img_dimensions]}, tiny_16Pal, tiny_16Bitmap, GL_RGB256, 256);
-    c_i_ts->LoadTileset({new glImage[c_i_ts->m_img_dimensions]}, collisionPal, collisionBitmap, GL_RGB256, 256);
+    // Setup the light
+    glLight(0, RGB15(31, 31, 31),
+            floattov10(0.58), floattov10(-0.58), floattov10(-0.58));
 
-    //this is a crime im so sorry
-    text_console->InitializeTextConsole(TEXT_CON_TYPE_SUB_TALK, demo->m_main_consoles.size(), demo->m_sub_consoles.size(), {new PrintConsole}, 0, BgType_Text4bpp,
-    BgSize_T_256x256, 3, 4, 0, false, false, &font_cellphone, 1, 1, 10, 5);
-    
-    Character* cam = new Character(cam_ts, "CAMERON");
-    Map* town = new Map(town_ts, 30, 20, map);
-    Map* coll_inter = new Map(c_i_ts, 30, 20, collisions_interaction);
+    // Set the viewport to fullscreen
+    glViewport(0, 0, 255, 191);
 
-    //FIFO
-    demo->AddMap(town);
-    demo->AddMap(coll_inter);
-    demo->AddActor(cam);
-    demo->AddTextConsole(text_console);
-    
-    #pragma endregion
+    // Setup the projection matrix for regular drawing
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(60, 256.0 / 192.0, 0.1, 20);
 
-    //object are deleted between scenes, DO NOT REUSE
+    // Use the modelview matrix while drawing
+    glMatrixMode(GL_MODELVIEW);
 
-    #pragma region Battle Scene
-    Scene* battle = new Scene(GM_STATE_BATTLE, 0);
-    TextConsole* battle_cons[4]
+    // Define two ranges in the table. The first range is for pixels with less
+    // than half the maximum light intensity, and the second one is for pixels
+    // that have over half the maximum light intensity. This way the regular
+    // smooth shading is reduced to two shades.
+    glSetToonTableRange(0, 15, RGB15(8, 8, 8));
+    glSetToonTableRange(16, 31, RGB15(28, 28, 28));
+
+    // Setup some material properties
+    glMaterialf(GL_AMBIENT, RGB15(8, 8, 8));
+    glMaterialf(GL_DIFFUSE, RGB15(24, 24, 24));
+    glMaterialf(GL_SPECULAR, RGB15(0, 0, 0));
+    glMaterialf(GL_EMISSION, RGB15(0, 0, 0));
+
+    u32 rotateX = 0;
+    u32 rotateY = 0;
+
+    printf("PAD: Rotate\n");
+    printf("A: Disable toon shading\n");
+    printf("START: Exit to loader\n");
+
+    while (1)
     {
-        new TextConsole(),
-        new TextConsole(),
-        new TextConsole(),
-        new TextConsole()
-    };
+        // Handle key input
+        scanKeys();
+        u16 keys = keysHeld();
+        if (keys & KEY_UP)
+            rotateX += 3 << 5;
+        if (keys & KEY_DOWN)
+            rotateX -= 3 << 5;
+        if (keys & KEY_LEFT)
+            rotateY += 3 << 5;
+        if (keys & KEY_RIGHT)
+            rotateY -= 3 << 5;
 
-    Tileset* enemy = new Tileset(1,1,64,64);    
-    Tileset* cam_att = new Tileset(1, 1, 32, 32);    
+        glPolyFmt(POLY_ALPHA(31) | POLY_CULL_BACK | POLY_FORMAT_LIGHT0 |
+            POLY_ID(0) | POLY_DECAL);
+        
+        glPushMatrix();
+        {
+            glRotateXi(rotateX);
+            glRotateYi(rotateY);
 
-    Battle* test_battle = new Battle();
+            glCallList(teapot_bin);
+        }
+        glPopMatrix(1);
 
-    enemy->LoadTileset({new glImage[enemy->m_img_dimensions]}, talkingnpcPal, talkingnpcBitmap, GL_RGB256, 256);
+        glFlush(0);
 
-    cam_att->LoadTileset({new glImage[cam_att->m_img_dimensions]},camPal, camBitmap, GL_RGB256, 256);
-    
-    for (int i = 0; i < 4; i++)
-    {
-        battle_cons[i]->InitializeTextConsole(TEXT_CON_TYPE_SUB_OPT, battle->m_main_consoles.size(), battle->m_sub_consoles.size(), {new PrintConsole}, 0, BgType_Text4bpp,
-        BgSize_T_256x256, 3, 4, 0, false, false, &font_cellphone, 1, (i * 4) + 6, 28, 4);
+        swiWaitForVBlank();
+
+        if (keys & KEY_START)
+            break;
     }
-    
-    
-    Character* npc = new Character(enemy, "JOHN NPC");
-    Character* cam_char_att = new Character(cam_att, "CAMERON");
-    
-    Tone* npc_tones[4] = {
-        new Tone{TONE_SKILL_CASUAL, TONE_TYPE_POSITIVE},
-        new Tone{TONE_SKILL_DIRECT, TONE_TYPE_NEGATIVE},
-        new Tone{TONE_SKILL_PROFESS, TONE_TYPE_NEUTRAL},
-        new Tone{TONE_SKILL_AUTHOR, TONE_TYPE_NEUTRAL},
-    };
-    
-    Topic* npc_topics[4] = {
-        new Topic{TOPIC_SKILL_PEOPLE, TOPIC_TYPE_KNOWN},
-        new Topic{TOPIC_SKILL_CRIME, TOPIC_TYPE_UNKNOWN},
-        new Topic{TOPIC_SKILL_HISTORY, TOPIC_TYPE_INDIFF},
-        new Topic{TOPIC_SKILL_MAGIC, TOPIC_TYPE_INDIFF},
-    };
-    
-    Phrase* cam_attack_phrases[6] = {
-        //defender wins (neg)
-        new Phrase{"Tell me everything you know about this person", TONE_SKILL_DIRECT, TOPIC_SKILL_PEOPLE, PHRASE_TYPE_ATTACK},
-        //defender wins (neutral and indiff)
-        new Phrase{"Hello Mx. I wanted to ask if you knew anything about how magic works?", TONE_SKILL_PROFESS, TOPIC_SKILL_MAGIC, PHRASE_TYPE_ATTACK},
-        //defender wins (neutral and unknown)
-        new Phrase{"I request you give any information regarding the crime in this area", TONE_SKILL_AUTHOR, TOPIC_SKILL_CRIME, PHRASE_TYPE_ATTACK},
-        //attacker wins (positive and indiff)
-        new Phrase{"Hey buddy, great town right? I wonder how it came to be... say, do you know anything about this town?", TONE_SKILL_CASUAL, TOPIC_SKILL_HISTORY, PHRASE_TYPE_ATTACK},
-        //defender wins (positive and unknown)
-        new Phrase{"Hey buddy, this town seems pretty peaceful... I wonder if it was always like that?", TONE_SKILL_CASUAL, TOPIC_SKILL_CRIME, PHRASE_TYPE_ATTACK},
-        //attacker wins (positive and known)
-        new Phrase{"Hey buddy, do you get around often? I'd love to know more about the people here.", TONE_SKILL_CASUAL, TOPIC_SKILL_HISTORY, PHRASE_TYPE_ATTACK},
-    };
-    
-    npc->AddMultipleTones(npc_tones);
-    npc->AddMultipleTopics(npc_topics);
-    
-    test_battle->AddMultiplePhrases(cam_attack_phrases, 6);
-    //test_battle->SetAttacker(cam_char_att);
-    test_battle->SetDefender(npc);
-    
-    battle->AddBattle(test_battle);
-    battle->AddActor(npc);
-    //battle->AddActor(cam_char_att);
-    for (int i = 0; i < 4; i++)
-    {
-        battle->AddTextConsole(battle_cons[i]);
-    }
-    #pragma endregion
 
-    game->AddScene(demo);
-    game->AddScene(battle);
-    
-    game->RunGame();
-    
-    delete game;
-    
     return 0;
+
+    // Game* game = new Game();
+
+    // game->InitializeGame();
+
+    // #pragma region Main Scene
+    // Scene* demo = new Scene(GM_STATE_MAIN, 0);
+    
+    // //We need to initialize all objects that use a tileset
+    // TextConsole* text_console = new TextConsole();
+    // Tileset* cam_ts = new Tileset(1, 1, 32, 32);
+    // Tileset* town_ts = new Tileset(10, 10, 16, 16);
+    // Tileset* c_i_ts = new Tileset(4, 1, 16, 16);
+
+
+    // //Now that the objects exist, we can load the graphics
+    // cam_ts->LoadTileset({new glImage[cam_ts->m_img_dimensions]},camPal, camBitmap, GL_RGB256, 256);
+    // town_ts->LoadTileset({new glImage[town_ts->m_img_dimensions]}, tiny_16Pal, tiny_16Bitmap, GL_RGB256, 256);
+    // c_i_ts->LoadTileset({new glImage[c_i_ts->m_img_dimensions]}, collisionPal, collisionBitmap, GL_RGB256, 256);
+
+    // //this is a crime im so sorry
+    // text_console->InitializeTextConsole(TEXT_CON_TYPE_SUB_TALK, demo->m_main_consoles.size(), demo->m_sub_consoles.size(), {new PrintConsole}, 0, BgType_Text4bpp,
+    // BgSize_T_256x256, 3, 4, 0, false, false, &font_cellphone, 1, 1, 10, 5);
+    
+    // Character* cam = new Character(cam_ts, "CAMERON");
+    // Map* town = new Map(town_ts, 30, 20, map);
+    // Map* coll_inter = new Map(c_i_ts, 30, 20, collisions_interaction);
+
+    // //FIFO
+    // demo->AddMap(town);
+    // demo->AddMap(coll_inter);
+    // demo->AddActor(cam);
+    // demo->AddTextConsole(text_console);
+    
+    // #pragma endregion
+
+    // //object are deleted between scenes, DO NOT REUSE
+
+    // #pragma region Battle Scene
+    // Scene* battle = new Scene(GM_STATE_BATTLE, 0);
+    // TextConsole* battle_cons[4]
+    // {
+    //     new TextConsole(),
+    //     new TextConsole(),
+    //     new TextConsole(),
+    //     new TextConsole()
+    // };
+
+    // Tileset* enemy = new Tileset(1,1,64,64);    
+    // Tileset* cam_att = new Tileset(1, 1, 32, 32);    
+
+    // Battle* test_battle = new Battle();
+
+    // enemy->LoadTileset({new glImage[enemy->m_img_dimensions]}, talkingnpcPal, talkingnpcBitmap, GL_RGB256, 256);
+
+    // cam_att->LoadTileset({new glImage[cam_att->m_img_dimensions]},camPal, camBitmap, GL_RGB256, 256);
+    
+    // for (int i = 0; i < 4; i++)
+    // {
+    //     battle_cons[i]->InitializeTextConsole(TEXT_CON_TYPE_SUB_OPT, battle->m_main_consoles.size(), battle->m_sub_consoles.size(), {new PrintConsole}, 0, BgType_Text4bpp,
+    //     BgSize_T_256x256, 3, 4, 0, false, false, &font_cellphone, 1, (i * 4) + 6, 28, 4);
+    // }
+    
+    
+    // Character* npc = new Character(enemy, "JOHN NPC");
+    // Character* cam_char_att = new Character(cam_att, "CAMERON");
+    
+    // Tone* npc_tones[4] = {
+    //     new Tone{TONE_SKILL_CASUAL, TONE_TYPE_POSITIVE},
+    //     new Tone{TONE_SKILL_DIRECT, TONE_TYPE_NEGATIVE},
+    //     new Tone{TONE_SKILL_PROFESS, TONE_TYPE_NEUTRAL},
+    //     new Tone{TONE_SKILL_AUTHOR, TONE_TYPE_NEUTRAL},
+    // };
+    
+    // Topic* npc_topics[4] = {
+    //     new Topic{TOPIC_SKILL_PEOPLE, TOPIC_TYPE_KNOWN},
+    //     new Topic{TOPIC_SKILL_CRIME, TOPIC_TYPE_UNKNOWN},
+    //     new Topic{TOPIC_SKILL_HISTORY, TOPIC_TYPE_INDIFF},
+    //     new Topic{TOPIC_SKILL_MAGIC, TOPIC_TYPE_INDIFF},
+    // };
+    
+    // Phrase* cam_attack_phrases[6] = {
+    //     //defender wins (neg)
+    //     new Phrase{"Tell me everything you know about this person", TONE_SKILL_DIRECT, TOPIC_SKILL_PEOPLE, PHRASE_TYPE_ATTACK},
+    //     //defender wins (neutral and indiff)
+    //     new Phrase{"Hello Mx. I wanted to ask if you knew anything about how magic works?", TONE_SKILL_PROFESS, TOPIC_SKILL_MAGIC, PHRASE_TYPE_ATTACK},
+    //     //defender wins (neutral and unknown)
+    //     new Phrase{"I request you give any information regarding the crime in this area", TONE_SKILL_AUTHOR, TOPIC_SKILL_CRIME, PHRASE_TYPE_ATTACK},
+    //     //attacker wins (positive and indiff)
+    //     new Phrase{"Hey buddy, great town right? I wonder how it came to be... say, do you know anything about this town?", TONE_SKILL_CASUAL, TOPIC_SKILL_HISTORY, PHRASE_TYPE_ATTACK},
+    //     //defender wins (positive and unknown)
+    //     new Phrase{"Hey buddy, this town seems pretty peaceful... I wonder if it was always like that?", TONE_SKILL_CASUAL, TOPIC_SKILL_CRIME, PHRASE_TYPE_ATTACK},
+    //     //attacker wins (positive and known)
+    //     new Phrase{"Hey buddy, do you get around often? I'd love to know more about the people here.", TONE_SKILL_CASUAL, TOPIC_SKILL_HISTORY, PHRASE_TYPE_ATTACK},
+    // };
+    
+    // npc->AddMultipleTones(npc_tones);
+    // npc->AddMultipleTopics(npc_topics);
+    
+    // test_battle->AddMultiplePhrases(cam_attack_phrases, 6);
+    // //test_battle->SetAttacker(cam_char_att);
+    // test_battle->SetDefender(npc);
+    
+    // battle->AddBattle(test_battle);
+    // battle->AddActor(npc);
+    // //battle->AddActor(cam_char_att);
+    // for (int i = 0; i < 4; i++)
+    // {
+    //     battle->AddTextConsole(battle_cons[i]);
+    // }
+    // #pragma endregion
+
+    // game->AddScene(demo);
+    // game->AddScene(battle);
+    
+    // game->RunGame();
+    
+    // delete game;
+    
+    // return 0;
 }
