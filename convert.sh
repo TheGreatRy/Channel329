@@ -6,7 +6,7 @@
 #
 # The model has normals, texture UV information, and no material information.
 
-export OBJ2DL="python3 /opt/blocksds/external/nitro-engine/tools/obj2dl/obj2dl.py"
+export OBJ2DL="python3 /opt/wonderful/thirdparty/blocksds/external/nitro-engine/tools/obj2dl/obj2dl.py"
 
 rm -rf data
 mkdir data
