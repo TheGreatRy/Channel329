@@ -6,6 +6,8 @@
 #
 # The model has normals, texture UV information, and no material information.
 
+# to create the bins, run "shell ./convert.sh" in the WF terminal
+
 export OBJ2DL="python3 /opt/wonderful/thirdparty/blocksds/external/nitro-engine/tools/obj2dl/obj2dl.py"
 
 rm -rf data
@@ -14,5 +16,11 @@ mkdir data
 $OBJ2DL \
     --input assets/teapot.obj \
     --output data/teapot.bin \
+    --texture 256 256 \
+    --scale 0.1
+
+$OBJ2DL \
+    --input assets/map.obj \
+    --output data/map.bin \
     --texture 256 256 \
     --scale 0.1
