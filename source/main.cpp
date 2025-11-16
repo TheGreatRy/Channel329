@@ -16,7 +16,6 @@
 #include <../graphics/test_graphics/charmap_cellphone.h>
 #include <../graphics/test_graphics/charmap_futuristic.h>
 #include "teapot_bin.h"
-#include "map_bin.h"
 
 #include <nds/arm9/dldi.h>
 
