@@ -183,7 +183,7 @@ int main(int argc, char **argv)
             glRotateXi(rotateX);
             glRotateYi(rotateY);
 
-            glCallList(chacha_bin);
+            glCallList(teapot_bin);
         }
         glPopMatrix(1);
 
