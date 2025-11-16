@@ -16,3 +16,8 @@ $OBJ2DL \
     --output data/teapot.bin \
     --texture 256 256 \
     --scale 0.1
+
+$OBJ2DL \
+    --input assets/chacha.obj \
+    --output data/chacha.bin \
+    --texture 256 256 \
