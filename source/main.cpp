@@ -15,6 +15,7 @@
 #include <../graphics/test_graphics/anuvverbubbla_8x8.h>
 #include <../graphics/test_graphics/charmap_cellphone.h>
 #include <../graphics/test_graphics/charmap_futuristic.h>
+
 #include "teapot_bin.h"
 
 #include <nds/arm9/dldi.h>
@@ -181,7 +182,7 @@ int main(int argc, char **argv)
             glRotateXi(rotateX);
             glRotateYi(rotateY);
 
-            glCallList(map_bin);
+            glCallList(teapot_bin);
         }
         glPopMatrix(1);
 
