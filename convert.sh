@@ -16,9 +16,3 @@ $OBJ2DL \
     --output data/teapot.bin \
     --texture 256 256 \
     --scale 0.1
-
-$OBJ2DL \
-    --input assets/map.obj \
-    --output data/map.bin \
-    --texture 256 256 \
-    --scale 0.5
