@@ -14,6 +14,5 @@ GAME_SUBTITLE	:= Crimes of the Magically Inclined
 
 INCLUDEDIRS	:= source
 GFXDIRS		:= graphics
-BINDIRS		= data
 
 include $(BLOCKSDS)/sys/default_makefiles/rom_arm9/Makefile

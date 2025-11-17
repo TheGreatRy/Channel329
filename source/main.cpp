@@ -16,9 +16,6 @@
 #include <../graphics/test_graphics/charmap_cellphone.h>
 #include <../graphics/test_graphics/charmap_futuristic.h>
 
-#include "map_bin.h"
-#include "teapot_bin.h"
-
 #include <nds/arm9/dldi.h>
 
 // Size of a color in bytes
@@ -107,95 +104,169 @@
         .numChars = charmap_futuristicTilesLen / size_char_4bpp,
     };
     
+void draw_box(float bx_, float by_, float bz_, float ex_, float ey_, float ez_)
+{
+    // Begin and end coordinates
+    int bx = floattov16(bx_);
+    int ex = floattov16(ex_);
+    int by = floattov16(by_);
+    int ey = floattov16(ey_);
+    int bz = floattov16(bz_);
+    int ez = floattov16(ez_);
+
+    glBegin(GL_QUADS);
+
+        glColor3f(1, 0, 0);
+
+        glVertex3v16(bx, by, bz);
+        glVertex3v16(bx, ey, bz);
+        glVertex3v16(ex, ey, bz);
+        glVertex3v16(ex, by, bz);
+
+        glColor3f(0, 1, 0);
+
+        glVertex3v16(bx, by, ez);
+        glVertex3v16(bx, ey, ez);
+        glVertex3v16(ex, ey, ez);
+        glVertex3v16(ex, by, ez);
+
+        glColor3f(0, 0, 1);
+
+        glVertex3v16(bx, by, bz);
+        glVertex3v16(bx, by, ez);
+        glVertex3v16(ex, by, ez);
+        glVertex3v16(ex, by, bz);
+
+        glColor3f(1, 0, 1);
+
+        glVertex3v16(bx, ey, bz);
+        glVertex3v16(bx, ey, ez);
+        glVertex3v16(ex, ey, ez);
+        glVertex3v16(ex, ey, bz);
+
+        glColor3f(0, 1, 1);
+
+        glVertex3v16(bx, by, bz);
+        glVertex3v16(bx, by, ez);
+        glVertex3v16(bx, ey, ez);
+        glVertex3v16(bx, ey, bz);
+
+        glColor3f(1, 1, 0);
+
+        glVertex3v16(ex, by, bz);
+        glVertex3v16(ex, by, ez);
+        glVertex3v16(ex, ey, ez);
+        glVertex3v16(ex, ey, bz);
+
+    glEnd();
+}
 
 int main(int argc, char **argv)
 {
-    glInit();
+    // Setup sub screen for the text console
     consoleDemoInit();
 
     videoSetMode(MODE_0_3D);
 
-    // Setup the rear plane
-    glClearColor(0, 0, 0, 0); // Set BG to black
-    // The BG and polygons will have the same ID unless a polygon is highlighted
-    glClearPolyID(0);
+    glInit();
+
+    glEnable(GL_ANTIALIAS);
+
+    // The background must be fully opaque and have a unique polygon ID
+    // (different from the polygons that are going to be drawn) so that
+    // antialias works.
+    glClearColor(0, 0, 0, 31);
+    glClearPolyID(63);
+
     glClearDepth(0x7FFF);
 
-    // Setup the camera
-    gluLookAt(0.0, 0.0, 4.0,  // Camera position
-              0.0, 0.0, 0.0,  // Look at
-              0.0, 1.0, 0.0); // Up
-
-    // Setup the light
-    glLight(0, RGB15(31, 31, 31),
-            floattov10(0.58), floattov10(-0.58), floattov10(-0.58));
-
-    // Set the viewport to fullscreen
     glViewport(0, 0, 255, 191);
 
-    // Setup the projection matrix for regular drawing
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(60, 256.0 / 192.0, 0.1, 20);
+    int angle_x = 0;
+    int angle_z = 0;
 
-    // Use the modelview matrix while drawing
-    glMatrixMode(GL_MODELVIEW);
-
-    // Define two ranges in the table. The first range is for pixels with less
-    // than half the maximum light intensity, and the second one is for pixels
-    // that have over half the maximum light intensity. This way the regular
-    // smooth shading is reduced to two shades.
-    glSetToonTableRange(0, 15, RGB15(8, 8, 8));
-    glSetToonTableRange(16, 31, RGB15(28, 28, 28));
-
-    // Setup some material properties
-    glMaterialf(GL_AMBIENT, RGB15(8, 8, 8));
-    glMaterialf(GL_DIFFUSE, RGB15(24, 24, 24));
-    glMaterialf(GL_SPECULAR, RGB15(0, 0, 0));
-    glMaterialf(GL_EMISSION, RGB15(0, 0, 0));
-
-    u32 rotateX = 0;
-    u32 rotateY = 0;
-
-    printf("PAD: Rotate\n");
-    printf("A: Disable toon shading\n");
-    printf("START: Exit to loader\n");
+    float x = 0.0;
+    float y = 0.0;
+    float z = 0.0;
 
     while (1)
     {
-        // Handle key input
-        scanKeys();
-        u16 keys = keysHeld();
-        if (keys & KEY_UP)
-            rotateX += 3 << 5;
-        if (keys & KEY_DOWN)
-            rotateX -= 3 << 5;
-        if (keys & KEY_LEFT)
-            rotateY += 3 << 5;
-        if (keys & KEY_RIGHT)
-            rotateY -= 3 << 5;
-
-        glPolyFmt(POLY_ALPHA(31) | POLY_CULL_BACK | POLY_FORMAT_LIGHT0 |
-            POLY_ID(0) | POLY_DECAL);
-        
-        glPushMatrix();
-        {
-            glRotateXi(rotateX);
-            glRotateYi(rotateY);
-
-            glCallList(map_bin);
-        }
-        glPopMatrix(1);
-
-        glFlush(0);
-
+        // Synchronize game loop to the screen refresh
         swiWaitForVBlank();
+
+        // Print some text in the demo console
+        // -----------------------------------
+
+        consoleClear();
+
+        // Print some controls
+        printf("PAD:     Move\n");
+        printf("A,B,X,Y: Rotate\n");
+        printf("SELECT:  Perspective/Ortho\n");
+        printf("START:   Exit to loader\n");
+        printf("\n");
+
+        // Handle user input
+        // -----------------
+
+        scanKeys();
+
+        uint16_t keys = keysHeld();
+
+        if (keys & KEY_LEFT)
+            x -= 0.05;
+        if (keys & KEY_RIGHT)
+            x += 0.05;
+
+        if (keys & KEY_UP)
+            y += 0.05;
+        if (keys & KEY_DOWN)
+            y -= 0.05;
+
+        if (keys & KEY_A)
+            angle_x += 3;
+        if (keys & KEY_Y)
+            angle_x -= 3;
+
+        if (keys & KEY_X)
+            angle_z += 3;
+        if (keys & KEY_B)
+            angle_z -= 3;
 
         if (keys & KEY_START)
             break;
+
+        // Render 3D scene
+        // ---------------
+
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+
+        if (keys & KEY_SELECT)
+            gluPerspective(70, 256.0 / 192.0, 0.1, 40);
+        else
+            glOrtho(-3, 3, -2, 2, 0.1, 100);
+
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+        gluLookAt(0.0, 0.0, 4.0,  // Position
+                  0.0, 0.0, 0.0,  // Look at
+                  0.0, 1.0, 0.0); // Up
+
+        glTranslatef(x, y, z);
+
+        glRotateY(angle_z);
+        glRotateX(angle_x);
+
+        glPolyFmt(POLY_ALPHA(31) | POLY_CULL_NONE);
+
+        draw_box(-0.75, -0.75, -0.75,
+                 0.75, 0.75, 0.75);
+
+        glFlush(0);
     }
 
-    return 0; 
+    return 0;
 /*    
     Game* game = new Game();
 
