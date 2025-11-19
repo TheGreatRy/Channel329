@@ -1,8 +1,8 @@
 #include "character.h"
 
-Character::Character(Tileset* tileset_info, std::string name)
+Character::Character(Animation* main_animation, std::string name)
 {
-    m_tileset_info = *tileset_info;
+    m_sprite_animations.push_back(main_animation);   
     m_name = name;
 }
 
@@ -30,4 +30,14 @@ void Character::AddMultipleTopics(Topic *topics[])
     {
         AddSingleTopic(topics[i]);
     }
+}
+
+void Character::AddAnimation(Animation *animation)
+{
+    m_sprite_animations.push_back(animation);
+}
+
+void Character::PlayAnimation(int anim_id, int x_pos, int y_pos, int fps, GL_FLIP_MODE flip_sprites)
+{
+    m_sprite_animations[anim_id]->PlayAnimation(x_pos, y_pos, fps, flip_sprites);
 }

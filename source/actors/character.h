@@ -11,6 +11,7 @@
 
 // Componenets Folder
 #include "../components/tileset.h"
+#include "../components/animation.h"
 
 enum CHARACTER_TYPE
 {
@@ -23,15 +24,13 @@ class Character
 {
 public:
     Character() = default;
-    Character(Tileset* tileset_info, std::string name);
+    Character(Animation* main_animation, std::string name);
     ~Character() = default;
 
     std::string m_name;
     CHARACTER_TYPE m_character_type;
-    Coordinate<uint16_t> m_draw_position;
 
-    Tileset m_tileset_info;
-    std::vector<Tileset *> m_sprite_animations;
+    std::vector<Animation*> m_sprite_animations;
     std::vector<Tone*> m_tones;
     std::vector<Topic*> m_topics;
 
@@ -41,4 +40,7 @@ public:
     void AddMultipleTones(Tone* tones[]);
     void AddMultipleTopics(Topic* topics[]);
 
+    void AddAnimation(Animation* animation);
+
+    void PlayAnimation(int anim_id, int x_pos, int y_pos, int fps, GL_FLIP_MODE flip_sprites);
 };

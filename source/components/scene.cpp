@@ -9,6 +9,9 @@ Scene::Scene(GM_STATE scene_gm_st, int switch_id)
 void Scene::AddActor(Character *character)
 {
     m_actors.push_back(character);
+
+    if (character->m_character_type == CHARACTER_TYPE_MAIN)
+    m_player_object = character;
 }
 
 void Scene::AddMap(Map *map)
@@ -33,16 +36,16 @@ void Scene::AddBattle(Battle *battle)
 void Scene::DetectInput(int &scroll_x, int &scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right)
 {
     if (can_move_up && keysHeld() & KEY_UP)
-        scroll_y++;
-
-    if (can_move_down && keysHeld() & KEY_DOWN)
         scroll_y--;
 
+    if (can_move_down && keysHeld() & KEY_DOWN)
+        scroll_y++;
+
     if (can_move_left && keysHeld() & KEY_LEFT)
-        scroll_x++;
+        scroll_x--;
 
     if (can_move_right && keysHeld() & KEY_RIGHT)   
-        scroll_x--;
+        scroll_x++;
 }
 
 void Scene::DeleteAllTextures()
@@ -56,7 +59,7 @@ void Scene::DeleteAllTextures()
     //Actors
     for (Character *actor : m_actors)
     {
-        glDeleteTextures(1, &actor->m_tileset_info.m_texture_id);  
+        for (Animation* animation : actor->m_sprite_animations) glDeleteTextures(1, &animation->m_spritesheet.m_texture_id);  
     }
 }
 
@@ -113,7 +116,7 @@ void Scene::ClearAllTextConsoles()
 void Scene::DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right)
 {
     touchPosition current_pos;
-    
+
     while (1)
     {
         swiWaitForVBlank();
@@ -169,14 +172,14 @@ void Scene::DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_m
         //Maps
         for (Map* map : m_maps)
         {
-            map->DrawMap(scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
+            map->DrawMap(m_player_object, scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
         }
 
         //Actors
         for (Character *actor : m_actors)
         {
-            glSprite((screen_width / 2) - (actor->m_tileset_info.m_sprite_w / 2), (screen_height / 2) - (actor->m_tileset_info.m_sprite_h / 2), 
-            GL_FLIP_NONE, &actor->m_tileset_info.m_tileset_img[0]);   
+             actor->PlayAnimation(0, (screen_width / 2) - (actor->m_sprite_animations[0]->m_spritesheet.m_sprite_w / 2), 
+            (screen_height / 2) - (actor->m_sprite_animations[0]->m_spritesheet.m_sprite_h / 2), 8, GL_FLIP_NONE);
         }
 
         // end drawing 2D graphics

@@ -14,8 +14,8 @@ public:
     Coordinate() = default;
     Coordinate(int x, int y, T value) : 
         m_x{x}, 
-        m_y{y}, 
+        m_y{y},
         m_value{value}
-    {}
+        {}
     ~Coordinate() = default;
 };

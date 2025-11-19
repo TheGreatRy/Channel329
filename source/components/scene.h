@@ -40,6 +40,7 @@ public:
     
     int m_switch_id = 0;
     bool m_player_quit = false;
+    Character* m_player_object;
 
     void AddActor(Character* character);
     void AddMap(Map* map);

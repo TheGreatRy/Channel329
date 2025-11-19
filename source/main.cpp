@@ -9,6 +9,7 @@
 
 // Graphics Folder
 #include "../graphics/characters/cam.h"
+#include "../graphics/characters/cam_idle_spritesheet.h"
 #include "../graphics/test_graphics/tiny_16.h"
 #include "../graphics/characters/talkingnpc.h"
 #include "../graphics/map/collision.h"
@@ -277,13 +278,13 @@ int main(int argc, char **argv)
     
     //We need to initialize all objects that use a tileset
     TextConsole* text_console = new TextConsole();
-    Tileset* cam_ts = new Tileset(1, 1, 32, 32);
+    Tileset* cam_ts = new Tileset(8, 1, 32, 32);
     Tileset* town_ts = new Tileset(10, 10, 16, 16);
     Tileset* c_i_ts = new Tileset(4, 1, 16, 16);
 
 
     //Now that the objects exist, we can load the graphics
-    cam_ts->LoadTileset({new glImage[cam_ts->m_img_dimensions]},camPal, camBitmap, GL_RGB256, 256);
+    cam_ts->LoadTileset({new glImage[cam_ts->m_img_dimensions]},cam_idle_spritesheetPal, cam_idle_spritesheetBitmap, GL_RGB256, 256);
     town_ts->LoadTileset({new glImage[town_ts->m_img_dimensions]}, tiny_16Pal, tiny_16Bitmap, GL_RGB256, 256);
     c_i_ts->LoadTileset({new glImage[c_i_ts->m_img_dimensions]}, collisionPal, collisionBitmap, GL_RGB256, 256);
 
@@ -291,15 +292,18 @@ int main(int argc, char **argv)
     text_console->InitializeTextConsole(TEXT_CON_TYPE_SUB_TALK, demo->m_main_consoles.size(), demo->m_sub_consoles.size(), {new PrintConsole}, 0, BgType_Text4bpp,
     BgSize_T_256x256, 3, 4, 0, false, false, &font_cellphone, 1, 1, 10, 5);
     
-    Character* cam = new Character(cam_ts, "CAMERON");
-    Map* town = new Map(town_ts, 30, 20, map);
-    Map* coll_inter = new Map(c_i_ts, 30, 20, collisions_interaction);
+    Animation* cam_idle = new Animation(cam_ts, 8);
+
+    Character* cam = new Character(cam_idle, "CAMERON");
+    Map* town = new Map(town_ts, 30, 20, map, MAP_TYPE_BG);
+    Map* coll_inter = new Map(c_i_ts, 30, 20, collisions_interaction, MAP_TYPE_COL_INTER);
 
     //FIFO
     demo->AddMap(town);
     demo->AddMap(coll_inter);
     demo->AddActor(cam);
     demo->AddTextConsole(text_console);
+    demo->m_player_object = cam;
     
     #pragma endregion
 
@@ -330,9 +334,9 @@ int main(int argc, char **argv)
         BgSize_T_256x256, 3, 4, 0, false, false, &font_cellphone, 1, (i * 4) + 6, 28, 4);
     }
     
+    Animation* npc_temp = new Animation(enemy, 1);
     
-    Character* npc = new Character(enemy, "JOHN NPC");
-    Character* cam_char_att = new Character(cam_att, "CAMERON");
+    Character* npc = new Character(npc_temp, "JOHN NPC");
     
     Tone* npc_tones[4] = {
         new Tone{TONE_SKILL_CASUAL, TONE_TYPE_POSITIVE},
@@ -367,12 +371,10 @@ int main(int argc, char **argv)
     npc->AddMultipleTopics(npc_topics);
     
     test_battle->AddMultiplePhrases(cam_attack_phrases, 6);
-    //test_battle->SetAttacker(cam_char_att);
     test_battle->SetDefender(npc);
     
     battle->AddBattle(test_battle);
     battle->AddActor(npc);
-    //battle->AddActor(cam_char_att);
     for (int i = 0; i < 4; i++)
     {
         battle->AddTextConsole(battle_cons[i]);
