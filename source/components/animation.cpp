@@ -1,9 +1,8 @@
 #include "animation.h"
 
-Animation::Animation(Tileset *spritesheet, int total_frames)
+Animation::Animation(Tileset *spritesheet)
 {
     m_spritesheet = *spritesheet;
-    m_total_frames = total_frames;
 }
 
 
@@ -15,7 +14,7 @@ void Animation::PlayAnimation(int x_pos, int y_pos, int fps, GL_FLIP_MODE flip_s
         m_time_step = 0;
 
         m_current_frame_index++;
-        if (m_current_frame_index > m_total_frames - 1) 
+        if (m_current_frame_index > (m_spritesheet.m_sprites_num_x * m_spritesheet.m_sprites_num_y) - 1) 
             m_current_frame_index = 0;   
     }
     

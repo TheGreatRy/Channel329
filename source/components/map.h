@@ -33,7 +33,7 @@ public:
     //key = [x,y] / value = tile id
     std::vector<Coordinate<int16_t>*> m_coordinates;
 
-    std::vector<int> m_collision_box;
+    std::map<char, int16_t> m_collision_box;
 
     Tileset m_tileset_info;
     int m_map_width;

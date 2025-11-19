@@ -278,7 +278,7 @@ int main(int argc, char **argv)
     
     //We need to initialize all objects that use a tileset
     TextConsole* text_console = new TextConsole();
-    Tileset* cam_ts = new Tileset(8, 1, 32, 32);
+    Tileset* cam_ts = new Tileset(12, 1, 32, 32);
     Tileset* town_ts = new Tileset(10, 10, 16, 16);
     Tileset* c_i_ts = new Tileset(4, 1, 16, 16);
 
@@ -292,7 +292,7 @@ int main(int argc, char **argv)
     text_console->InitializeTextConsole(TEXT_CON_TYPE_SUB_TALK, demo->m_main_consoles.size(), demo->m_sub_consoles.size(), {new PrintConsole}, 0, BgType_Text4bpp,
     BgSize_T_256x256, 3, 4, 0, false, false, &font_cellphone, 1, 1, 10, 5);
     
-    Animation* cam_idle = new Animation(cam_ts, 8);
+    Animation* cam_idle = new Animation(cam_ts);
 
     Character* cam = new Character(cam_idle, "CAMERON");
     Map* town = new Map(town_ts, 30, 20, map, MAP_TYPE_BG);
@@ -334,7 +334,7 @@ int main(int argc, char **argv)
         BgSize_T_256x256, 3, 4, 0, false, false, &font_cellphone, 1, (i * 4) + 6, 28, 4);
     }
     
-    Animation* npc_temp = new Animation(enemy, 1);
+    Animation* npc_temp = new Animation(enemy);
     
     Character* npc = new Character(npc_temp, "JOHN NPC");
     
