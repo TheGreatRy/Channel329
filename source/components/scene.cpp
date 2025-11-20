@@ -117,6 +117,8 @@ void Scene::DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_m
 {
     touchPosition current_pos;
 
+    int current_anim_id = 0;
+
     while (1)
     {
         swiWaitForVBlank();
@@ -135,6 +137,12 @@ void Scene::DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_m
             m_player_quit = true;
             break;
         }
+
+        //play animation on input
+        //else if so multiple won't play at once on the same character
+        if (keysUp() & KEY_UP) current_anim_id = 1;
+        
+        else if (keysUp() & KEY_DOWN) current_anim_id = 0;
         
         //switch to game
         if ((m_scene_gm_state != GM_STATE_BATTLE) && keysUp() & KEY_A)
@@ -178,8 +186,10 @@ void Scene::DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_m
         //Actors
         for (Character *actor : m_actors)
         {
-             actor->PlayAnimation(0, (screen_width / 2) - (actor->m_sprite_animations[0]->m_spritesheet.m_sprite_w / 2), 
-            (screen_height / 2) - (actor->m_sprite_animations[0]->m_spritesheet.m_sprite_h / 2), 8, GL_FLIP_NONE);
+            actor->PlayAnimation(current_anim_id, 
+                (screen_width / 2) - (actor->m_sprite_animations[current_anim_id]->m_spritesheet.m_sprite_w / 2),
+                (screen_height / 2) - (actor->m_sprite_animations[current_anim_id]->m_spritesheet.m_sprite_h / 2), 
+                8, GL_FLIP_NONE);
         }
 
         // end drawing 2D graphics

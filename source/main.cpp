@@ -9,7 +9,9 @@
 
 // Graphics Folder
 #include "../graphics/characters/cam.h"
-#include "../graphics/characters/cam_idle_spritesheet.h"
+#include "../graphics/characters/cam_front_idle_spritesheet.h"
+#include "../graphics/characters/cam_back_idle_spritesheet.h"
+
 #include "../graphics/test_graphics/tiny_16.h"
 #include "../graphics/characters/talkingnpc.h"
 #include "../graphics/map/collision.h"
@@ -105,6 +107,7 @@
         .numChars = charmap_futuristicTilesLen / size_char_4bpp,
     };
     
+    #pragma region Ortho Proj
 // void draw_box(float bx_, float by_, float bz_, float ex_, float ey_, float ez_)
 // {
 //     // Begin and end coordinates
@@ -162,8 +165,11 @@
 //     glEnd();
 // }
 
+#pragma endregion
+
 int main(int argc, char **argv)
 {
+    #pragma region Ortho Test
     // // Setup sub screen for the text console
     // consoleDemoInit();
 
@@ -268,6 +274,7 @@ int main(int argc, char **argv)
     // }
 
     // return 0;
+    #pragma endregion
    
     Game* game = new Game();
 
@@ -278,25 +285,31 @@ int main(int argc, char **argv)
     
     //We need to initialize all objects that use a tileset
     TextConsole* text_console = new TextConsole();
-    Tileset* cam_ts = new Tileset(12, 1, 32, 32);
+    Tileset* cam_front_idle = new Tileset(4, 3, 32, 32);
     Tileset* town_ts = new Tileset(10, 10, 16, 16);
     Tileset* c_i_ts = new Tileset(4, 1, 16, 16);
+    Tileset* cam_back_idle = new Tileset(4,1,32,32);
 
 
     //Now that the objects exist, we can load the graphics
-    cam_ts->LoadTileset({new glImage[cam_ts->m_img_dimensions]},cam_idle_spritesheetPal, cam_idle_spritesheetBitmap, GL_RGB256, 256);
+    cam_front_idle->LoadTileset({new glImage[cam_front_idle->m_img_dimensions]},cam_front_idle_spritesheetPal, cam_front_idle_spritesheetBitmap, GL_RGB256, 256);
     town_ts->LoadTileset({new glImage[town_ts->m_img_dimensions]}, tiny_16Pal, tiny_16Bitmap, GL_RGB256, 256);
     c_i_ts->LoadTileset({new glImage[c_i_ts->m_img_dimensions]}, collisionPal, collisionBitmap, GL_RGB256, 256);
+    cam_back_idle->LoadTileset({new glImage[cam_back_idle->m_img_dimensions]},cam_back_idle_spritesheetPal, cam_back_idle_spritesheetBitmap, GL_RGB256, 256);
+    
 
     //this is a crime im so sorry
     text_console->InitializeTextConsole(TEXT_CON_TYPE_SUB_TALK, demo->m_main_consoles.size(), demo->m_sub_consoles.size(), {new PrintConsole}, 0, BgType_Text4bpp,
     BgSize_T_256x256, 3, 4, 0, false, false, &font_cellphone, 1, 1, 10, 5);
     
-    Animation* cam_idle = new Animation(cam_ts);
+    Animation* cam_idle_f = new Animation(cam_front_idle);
+    Animation* cam_idle_b = new Animation(cam_back_idle);
 
-    Character* cam = new Character(cam_idle, "CAMERON");
+    Character* cam = new Character(cam_idle_f, "CAMERON");
     Map* town = new Map(town_ts, 30, 20, map, MAP_TYPE_BG);
     Map* coll_inter = new Map(c_i_ts, 30, 20, collisions_interaction, MAP_TYPE_COL_INTER);
+
+    cam->AddAnimation(cam_idle_b);
 
     //FIFO
     demo->AddMap(town);
