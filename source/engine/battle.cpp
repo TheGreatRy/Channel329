@@ -63,6 +63,7 @@ Character *Battle::ResolveTurn(int index)
             break;
 
         // Attacker lost tone check, they will not get information
+        // note to add this to their memory object once that's done so they do not talk to you initally (you have to fight for it)
         case TONE_TYPE_NEGATIVE:
             return &m_defender;
             break;

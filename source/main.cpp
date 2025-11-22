@@ -11,6 +11,7 @@
 #include "../graphics/characters/cam.h"
 #include "../graphics/characters/cam_front_idle_spritesheet.h"
 #include "../graphics/characters/cam_back_idle_spritesheet.h"
+#include "../graphics/characters/cam_side_idle_spritesheet.h"
 
 #include "../graphics/test_graphics/tiny_16.h"
 #include "../graphics/characters/talkingnpc.h"
@@ -289,6 +290,7 @@ int main(int argc, char **argv)
     Tileset* town_ts = new Tileset(10, 10, 16, 16);
     Tileset* c_i_ts = new Tileset(4, 1, 16, 16);
     Tileset* cam_back_idle = new Tileset(4,1,32,32);
+    Tileset* cam_side_idle = new Tileset(4, 3, 32, 32);
 
 
     //Now that the objects exist, we can load the graphics
@@ -296,6 +298,7 @@ int main(int argc, char **argv)
     town_ts->LoadTileset({new glImage[town_ts->m_img_dimensions]}, tiny_16Pal, tiny_16Bitmap, GL_RGB256, 256);
     c_i_ts->LoadTileset({new glImage[c_i_ts->m_img_dimensions]}, collisionPal, collisionBitmap, GL_RGB256, 256);
     cam_back_idle->LoadTileset({new glImage[cam_back_idle->m_img_dimensions]},cam_back_idle_spritesheetPal, cam_back_idle_spritesheetBitmap, GL_RGB256, 256);
+    cam_side_idle->LoadTileset({new glImage[cam_side_idle->m_img_dimensions]},cam_side_idle_spritesheetPal, cam_side_idle_spritesheetBitmap, GL_RGB256, 256);
     
 
     //this is a crime im so sorry
@@ -304,12 +307,14 @@ int main(int argc, char **argv)
     
     Animation* cam_idle_f = new Animation(cam_front_idle);
     Animation* cam_idle_b = new Animation(cam_back_idle);
+    Animation* cam_idle_s = new Animation(cam_side_idle);
 
     Character* cam = new Character(cam_idle_f, "CAMERON");
     Map* town = new Map(town_ts, 30, 20, map, MAP_TYPE_BG);
     Map* coll_inter = new Map(c_i_ts, 30, 20, collisions_interaction, MAP_TYPE_COL_INTER);
 
     cam->AddAnimation(cam_idle_b);
+    cam->AddAnimation(cam_idle_s);
 
     //FIFO
     demo->AddMap(town);
