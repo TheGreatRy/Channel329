@@ -309,7 +309,7 @@ int main(int argc, char **argv)
     Animation* cam_idle_b = new Animation(cam_back_idle);
     Animation* cam_idle_s = new Animation(cam_side_idle);
 
-    Character* cam = new Character(cam_idle_f, "CAMERON");
+    Character* cam = new Character(cam_idle_f, "CAMERON", CHARACTER_TYPE_MAIN);
     Map* town = new Map(town_ts, 30, 20, map, MAP_TYPE_BG);
     Map* coll_inter = new Map(c_i_ts, 30, 20, collisions_interaction, MAP_TYPE_COL_INTER);
 
@@ -337,14 +337,11 @@ int main(int argc, char **argv)
         new TextConsole()
     };
 
-    Tileset* enemy = new Tileset(1,1,64,64);    
-    Tileset* cam_att = new Tileset(1, 1, 32, 32);    
+    Tileset* enemy = new Tileset(1,1,64,64);       
 
     Battle* test_battle = new Battle();
 
     enemy->LoadTileset({new glImage[enemy->m_img_dimensions]}, talkingnpcPal, talkingnpcBitmap, GL_RGB256, 256);
-
-    cam_att->LoadTileset({new glImage[cam_att->m_img_dimensions]},camPal, camBitmap, GL_RGB256, 256);
     
     for (int i = 0; i < 4; i++)
     {
@@ -354,7 +351,7 @@ int main(int argc, char **argv)
     
     Animation* npc_temp = new Animation(enemy);
     
-    Character* npc = new Character(npc_temp, "JOHN NPC");
+    Character* npc = new Character(npc_temp, "JOHN NPC", CHARACTER_TYPE_NPC);
     
     Tone* npc_tones[4] = {
         new Tone{TONE_SKILL_CASUAL, TONE_TYPE_POSITIVE},

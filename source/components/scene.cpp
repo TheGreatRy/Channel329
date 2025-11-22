@@ -207,10 +207,17 @@ void Scene::DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_m
         //Actors
         for (Character *actor : m_actors)
         {
-            actor->PlayAnimation(current_anim_id, 
-                (screen_width / 2) - (actor->m_sprite_animations[current_anim_id]->m_spritesheet.m_sprite_w / 2),
-                (screen_height / 2) - (actor->m_sprite_animations[current_anim_id]->m_spritesheet.m_sprite_h / 2), 
-                8, current_flip);
+            if (actor->m_character_type == CHARACTER_TYPE_MAIN)
+            {
+                actor->PlayAnimation(current_anim_id, 
+                    (screen_width / 2) - (actor->m_sprite_animations[current_anim_id]->m_spritesheet.m_sprite_w / 2),
+                    (screen_height / 2) - (actor->m_sprite_animations[current_anim_id]->m_spritesheet.m_sprite_h / 2), 
+                    8, current_flip);
+            }
+            else
+            {
+                //play all other animations
+            }
         }
 
         // end drawing 2D graphics

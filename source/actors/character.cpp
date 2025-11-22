@@ -1,9 +1,10 @@
 #include "character.h"
 
-Character::Character(Animation* main_animation, std::string name)
+Character::Character(Animation* main_animation, std::string name, CHARACTER_TYPE character_type)
 {
     m_sprite_animations.push_back(main_animation);   
     m_name = name;
+    m_character_type = character_type;
 }
 
 void Character::AddSingleTone(Tone *tone)

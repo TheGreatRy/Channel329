@@ -24,7 +24,7 @@ class Character
 {
 public:
     Character() = default;
-    Character(Animation* main_animation, std::string name);
+    Character(Animation* main_animation, std::string name, CHARACTER_TYPE character_type);
     ~Character() = default;
 
     std::string m_name;
