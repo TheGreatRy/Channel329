@@ -52,6 +52,7 @@ void Scene::SwitchAnimations(int& anim_id, GL_FLIP_MODE& flip)
 {
     //play animation on input
     //else if so multiple won't play at once on the same character
+    
     //UP
     if (keysUp() & KEY_UP) 
     {
