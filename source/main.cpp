@@ -8,10 +8,15 @@
 //#include "test_files/blockds_examples.h"
 
 // Graphics Folder
-#include "../graphics/characters/cam.h"
-#include "../graphics/characters/cam_front_idle_spritesheet.h"
-#include "../graphics/characters/cam_back_idle_spritesheet.h"
-#include "../graphics/characters/cam_side_idle_spritesheet.h"
+//Idle Animations
+#include "../graphics/characters/cameron/idle/cam_front_idle_spritesheet.h"
+#include "../graphics/characters/cameron/idle/cam_back_idle_spritesheet.h"
+#include "../graphics/characters/cameron/idle/cam_side_idle_spritesheet.h"
+
+//Walk Animations
+#include "../graphics/characters/cameron/walk/cam_front_walk_spritesheet.h"
+#include "../graphics/characters/cameron/walk/cam_back_walk_spritesheet.h"
+#include "../graphics/characters/cameron/walk/cam_side_walk_spritesheet.h"
 
 #include "../graphics/test_graphics/tiny_16.h"
 #include "../graphics/characters/talkingnpc.h"
@@ -286,20 +291,27 @@ int main(int argc, char **argv)
     
     //We need to initialize all objects that use a tileset
     TextConsole* text_console = new TextConsole();
-    Tileset* cam_front_idle = new Tileset(4, 3, 32, 32);
     Tileset* town_ts = new Tileset(10, 10, 16, 16);
     Tileset* c_i_ts = new Tileset(4, 1, 16, 16);
-    Tileset* cam_back_idle = new Tileset(4,1,32,32);
-    Tileset* cam_side_idle = new Tileset(4, 3, 32, 32);
 
+    Tileset* cam_front_idle = new Tileset(4, 3, 32, 32);
+    Tileset* cam_back_idle = new Tileset(4, 1, 32, 32);
+    Tileset* cam_side_idle = new Tileset(4, 3, 32, 32);
+    
+    Tileset* cam_front_walk = new Tileset(4, 3, 32, 32);
+    Tileset* cam_back_walk = new Tileset(4, 1, 32, 32);
+    Tileset* cam_side_walk = new Tileset(4, 3, 32, 32);
 
     //Now that the objects exist, we can load the graphics
-    cam_front_idle->LoadTileset({new glImage[cam_front_idle->m_img_dimensions]},cam_front_idle_spritesheetPal, cam_front_idle_spritesheetBitmap, GL_RGB256, 256);
     town_ts->LoadTileset({new glImage[town_ts->m_img_dimensions]}, tiny_16Pal, tiny_16Bitmap, GL_RGB256, 256);
     c_i_ts->LoadTileset({new glImage[c_i_ts->m_img_dimensions]}, collisionPal, collisionBitmap, GL_RGB256, 256);
+    cam_front_idle->LoadTileset({new glImage[cam_front_idle->m_img_dimensions]},cam_front_idle_spritesheetPal, cam_front_idle_spritesheetBitmap, GL_RGB256, 256);
     cam_back_idle->LoadTileset({new glImage[cam_back_idle->m_img_dimensions]},cam_back_idle_spritesheetPal, cam_back_idle_spritesheetBitmap, GL_RGB256, 256);
     cam_side_idle->LoadTileset({new glImage[cam_side_idle->m_img_dimensions]},cam_side_idle_spritesheetPal, cam_side_idle_spritesheetBitmap, GL_RGB256, 256);
     
+    cam_front_walk->LoadTileset({new glImage[cam_front_walk->m_img_dimensions]},cam_front_walk_spritesheetPal, cam_front_walk_spritesheetBitmap, GL_RGB256, 256);
+    cam_back_walk->LoadTileset({new glImage[cam_back_walk->m_img_dimensions]},cam_back_walk_spritesheetPal, cam_back_walk_spritesheetBitmap, GL_RGB256, 256);
+    cam_side_walk->LoadTileset({new glImage[cam_side_walk->m_img_dimensions]},cam_side_walk_spritesheetPal, cam_side_walk_spritesheetBitmap, GL_RGB256, 256);
 
     //this is a crime im so sorry
     text_console->InitializeTextConsole(TEXT_CON_TYPE_SUB_TALK, demo->m_main_consoles.size(), demo->m_sub_consoles.size(), {new PrintConsole}, 0, BgType_Text4bpp,
@@ -308,6 +320,10 @@ int main(int argc, char **argv)
     Animation* cam_idle_f = new Animation(cam_front_idle);
     Animation* cam_idle_b = new Animation(cam_back_idle);
     Animation* cam_idle_s = new Animation(cam_side_idle);
+    
+    Animation* cam_walk_f = new Animation(cam_front_walk);
+    Animation* cam_walk_b = new Animation(cam_back_walk);
+    Animation* cam_walk_s = new Animation(cam_side_walk);
 
     Character* cam = new Character(cam_idle_f, "CAMERON", CHARACTER_TYPE_MAIN);
     Map* town = new Map(town_ts, 30, 20, map, MAP_TYPE_BG);
@@ -315,6 +331,9 @@ int main(int argc, char **argv)
 
     cam->AddAnimation(cam_idle_b);
     cam->AddAnimation(cam_idle_s);
+    cam->AddAnimation(cam_walk_f);
+    cam->AddAnimation(cam_walk_b);
+    cam->AddAnimation(cam_walk_s);
 
     //FIFO
     demo->AddMap(town);

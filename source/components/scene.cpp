@@ -48,6 +48,63 @@ void Scene::DetectInput(int &scroll_x, int &scroll_y, bool& can_move_up, bool& c
         scroll_x++;
 }
 
+void Scene::SwitchAnimations(int& anim_id, GL_FLIP_MODE& flip)
+{
+    //play animation on input
+    //else if so multiple won't play at once on the same character
+    //UP
+    if (keysUp() & KEY_UP) 
+    {
+        anim_id = 1; 
+        flip = GL_FLIP_NONE;
+    }
+    else if (keysHeld() & KEY_UP)
+    {
+        anim_id = 4;
+        flip = GL_FLIP_NONE;
+    }
+
+    //DOWN
+    else if (keysUp() & KEY_DOWN) 
+    { 
+        anim_id = 0; 
+        flip = GL_FLIP_NONE;
+    }
+    else if (keysHeld() & KEY_DOWN)
+    {
+        anim_id = 3;
+        flip = GL_FLIP_NONE;
+    }
+
+    //LEFT
+    else if (keysUp() & KEY_LEFT) 
+    {
+        anim_id = 2;
+        flip = GL_FLIP_H;
+    }
+    else if (keysHeld() & KEY_LEFT) 
+    {
+        anim_id = 5;
+        flip = GL_FLIP_H;
+    }
+
+    //RIGHT
+    else if (keysUp() & KEY_RIGHT) 
+    {
+        anim_id = 2;
+        flip = GL_FLIP_NONE;
+    }
+    else if (keysHeld() & KEY_RIGHT) 
+    {
+        anim_id = 5;
+        flip = GL_FLIP_NONE;
+    }
+    
+    
+
+} 
+
+
 void Scene::DeleteAllTextures()
 {
     //Maps
@@ -139,31 +196,8 @@ void Scene::DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_m
             break;
         }
 
-        //play animation on input
-        //else if so multiple won't play at once on the same character
-        if (keysUp() & KEY_UP) 
-        {
-            current_anim_id = 1; 
-            current_flip = GL_FLIP_NONE;
-        }
-        
-        else if (keysUp() & KEY_DOWN) 
-        { 
-            current_anim_id = 0; 
-            current_flip = GL_FLIP_NONE;
-        }
-
-        else if (keysUp() & KEY_RIGHT) 
-        {
-            current_anim_id = 2;
-            current_flip = GL_FLIP_NONE;
-        }
-        
-        else if (keysUp() & KEY_LEFT) 
-        {
-            current_anim_id = 2;
-            current_flip = GL_FLIP_H;
-        }
+        //switch animations on input
+        SwitchAnimations(current_anim_id, current_flip);
         
         //switch to game
         if ((m_scene_gm_state != GM_STATE_BATTLE) && keysUp() & KEY_A)
@@ -225,3 +259,4 @@ void Scene::DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_m
         glFlush(0);
     }
 }
+

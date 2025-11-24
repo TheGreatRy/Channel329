@@ -48,8 +48,10 @@ public:
     void AddBattle(Battle* battle);
 
     void DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right);
-
+    
     void DetectInput(int &scroll_x, int &scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right);
+    void SwitchAnimations(int& anim_id, GL_FLIP_MODE& flip);
+    
     void DeleteAllTextures();
     void DeleteAllSceneComponents();
     void ClearAllTextConsoles();
