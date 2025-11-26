@@ -19,6 +19,9 @@
 #include "../graphics/characters/cameron/walk/cam_back_walk_spritesheet.h"
 #include "../graphics/characters/cameron/walk/cam_side_walk_spritesheet.h"
 
+//Battle Animations
+#include "../graphics/characters/cameron/cam_battle.h"
+
 //Test / Other Graphics
 #include "../graphics/test_graphics/tiny_16.h"
 #include "../graphics/characters/talkingnpc.h"
@@ -314,6 +317,7 @@ int main(int argc, char **argv)
     //Now that the objects exist, we can load the graphics
     town_ts->LoadTileset({new glImage[town_ts->m_img_dimensions]}, tiny_16Pal, tiny_16Bitmap, GL_RGB256, 256);
     c_i_ts->LoadTileset({new glImage[c_i_ts->m_img_dimensions]}, collisionPal, collisionBitmap, GL_RGB256, 256);
+    
     cam_front_idle->LoadTileset({new glImage[cam_front_idle->m_img_dimensions]},cam_front_idle_spritesheetPal, cam_front_idle_spritesheetBitmap, GL_RGB256, 256);
     cam_back_idle->LoadTileset({new glImage[cam_back_idle->m_img_dimensions]},cam_back_idle_spritesheetPal, cam_back_idle_spritesheetBitmap, GL_RGB256, 256);
     cam_side_idle->LoadTileset({new glImage[cam_side_idle->m_img_dimensions]},cam_side_idle_spritesheetPal, cam_side_idle_spritesheetBitmap, GL_RGB256, 256);
@@ -370,10 +374,12 @@ int main(int argc, char **argv)
     };
 
     Tileset* enemy = new Tileset(1,1,64,64);       
+    Tileset* attacker = new Tileset(1,1,30,80);       
 
     Battle* test_battle = new Battle();
 
     enemy->LoadTileset({new glImage[enemy->m_img_dimensions]}, talkingnpcPal, talkingnpcBitmap, GL_RGB256, 256);
+    attacker->LoadTileset({new glImage[attacker->m_img_dimensions]}, cam_battlePal, cam_battleBitmap, GL_RGB256, 256);
     
     for (int i = 0; i < 4; i++)
     {
@@ -382,8 +388,10 @@ int main(int argc, char **argv)
     }
     
     Animation* npc_temp = new Animation(enemy);
+    Animation* attack_temp = new Animation(attacker);
     
     Character* npc = new Character(npc_temp, "JOHN NPC", CHARACTER_TYPE_NPC);
+    Character* cam_attk = new Character(attack_temp, "CAMERON", CHARACTER_TYPE_NPC);
     
     Tone* npc_tones[4] = {
         new Tone{TONE_SKILL_CASUAL, TONE_TYPE_POSITIVE},
@@ -419,6 +427,7 @@ int main(int argc, char **argv)
     
     test_battle->AddMultiplePhrases(cam_attack_phrases, 6);
     test_battle->SetDefender(npc);
+    test_battle->SetAttacker(cam_attk);
     
     battle->AddBattle(test_battle);
     battle->AddActor(npc);

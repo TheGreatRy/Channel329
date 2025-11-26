@@ -36,14 +36,13 @@ void Battle::AddMultiplePhrases(Phrase *phrases[], int size)
 
 Character *Battle::ResolveTurn(int index)
 {
-    bool attacker_adv = false;
 
     // search for the tone in the defender's tone list
     int found_tone = -1;
     for (int i = 0; i < m_defender.m_tones.size(); i++)
     {
         found_tone = (m_attack_phrases[index]->m_tone_skill == m_defender.m_tones[i]->m_skill) ? i : -1;
-        if (m_attack_phrases[index]->m_tone_skill == m_defender.m_tones[i]->m_skill)
+        if (found_tone == i) 
             break;
     }
 
@@ -54,12 +53,12 @@ Character *Battle::ResolveTurn(int index)
         {
         // Attacker has the advantage
         case TONE_TYPE_POSITIVE:
-            attacker_adv = true;
+            m_attacker_advantage = true;
             break;
 
         // Attacker has no advantage but hasn't lost
         case TONE_TYPE_NEUTRAL:
-            attacker_adv = false;
+            m_attacker_advantage = false;
             break;
 
         // Attacker lost tone check, they will not get information
@@ -67,22 +66,15 @@ Character *Battle::ResolveTurn(int index)
         case TONE_TYPE_NEGATIVE:
             return &m_defender;
             break;
-
-        // Invalid attack (constructor should not allow this but just in case)
-        default:
-            return &m_defender;
         }
     }
-    // defender does not have this tone in their list, defender wins
-    else
-        return &m_defender;
 
     // search for the topic in the defender's topic list
     int found_topic = -1;
     for (int i = 0; i < m_defender.m_topics.size(); i++)
     {
         found_topic = (m_attack_phrases[index]->m_topic_skill == m_defender.m_topics[i]->m_skill) ? i : -1;
-        if (m_attack_phrases[index]->m_topic_skill == m_defender.m_topics[i]->m_skill)
+        if (found_topic == i)
             break;
     }
     // if tone is valid
@@ -93,26 +85,21 @@ Character *Battle::ResolveTurn(int index)
         // Defender has knowledge about the topic, attacker wins
         case TOPIC_TYPE_KNOWN:
             return &m_attacker;
+            break;
 
         // Defender doesnt have enough useful information. Defender wins if tone was neutral, but attacker wins if it was positive (they get a hint!)
         case TOPIC_TYPE_INDIFF:
-            if (attacker_adv)
+            if (m_attacker_advantage)
                 return &m_attacker;
             else
                 return &m_defender;
-
+            break;
         // Defender does not know anything about the topic, defender wins
         case TOPIC_TYPE_UNKNOWN:
             return &m_defender;
-
-        // Invalid attack (constructor should not allow this but just in case)
-        default:
-            return &m_defender;
+            break;
         }
     }
-    // defender does not have this topic in their list, defender wins
-    else
-        return &m_defender;
 
-    return &m_defender;
+        return &m_defender;
 }

@@ -22,6 +22,8 @@ public:
     Character m_attacker;
     Character m_defender;
 
+    bool m_attacker_advantage = false;
+
     void SetAttacker(Character *attacker);
     void SetDefender(Character *defender);
 
