@@ -37,60 +37,67 @@ Map::Map(Tileset *tileset_info, int map_width, int map_height, const int16_t til
 void Map::DrawMap(Character *player, int scroll_x, int scroll_y, bool &can_move_u, bool &can_move_d, bool &can_move_l, bool &can_move_r)
 {
     // values are based on a 30 * 20 map (used for reference)
+   
+    //entire map values
+    int width_tile_amt = m_map_width;
+    
+    int height_tile_amt = m_map_height;
+    
+    // // we only need to draw the necessary tiles
+    // int width_tile_amt = (SCREEN_WIDTH / m_tileset_info.m_sprite_w); // == 16
 
-    // we only need to draw the necessary tiles
-    int width_tile_amt = (SCREEN_WIDTH / m_tileset_info.m_sprite_w); // == 16
-
-    int height_tile_amt = (SCREEN_HEIGHT / m_tileset_info.m_sprite_h); // == 12
+    // int height_tile_amt = (SCREEN_HEIGHT / m_tileset_info.m_sprite_h); // == 12
 
     int draw_x_pos = 0;
     int draw_y_pos = 0;
     int tile_id = 0;
 
-    int y_coord = 0;
-    int x_coord = 0;
+    //int y_coord = 0;
+    //int x_coord = 0;
 
     for (int i = 0; i < (width_tile_amt * height_tile_amt); i++) // until 16*12
     {
-        // //draws entire map
-        // draw_x_pos = scroll_x + m_coordinates.at(i)->m_x * m_tileset_info.m_sprite_w;
-        // draw_y_pos = scroll_y + m_coordinates.at(i)->m_y * m_tileset_info.m_sprite_h;
+        //draws entire map
+        draw_x_pos = -scroll_x + m_coordinates.at(i)->m_x * m_tileset_info.m_sprite_w;
+        draw_y_pos = -scroll_y + m_coordinates.at(i)->m_y * m_tileset_info.m_sprite_h;
 
-        // tile_id = m_coordinates.at(i)->m_value;
-
-        // Draws only necessary tiles (WIP)
-
-        // We still want to increment coords even if a tile isn't being drawn
-
-        // drawing the map should NOT change position on the screen
-        // the scroll only affects which tile is drawn
-        x_coord = i % width_tile_amt; // i % 16
-
-        if (i >= width_tile_amt) // x >= 16
-        {
-            if (x_coord == 0)
-                y_coord++; // y++ on i % 16 == 0, cycles every 16 values
-        }
-
-        // check bounds of the map, we do not draw tiles out of bounds
-        if ((x_coord + scroll_x) < 0 || (y_coord + scroll_y) < 0)
-            break;
-        if ((x_coord + scroll_x) > m_map_width - 1 || (y_coord + scroll_y) > m_map_height - 1)
-            break;
-
-        // set drawing positions
-        draw_x_pos = x_coord * m_tileset_info.m_sprite_w;
-        draw_y_pos = y_coord * m_tileset_info.m_sprite_h;
-
-        tile_id = m_coordinates.at((x_coord + scroll_x) + (m_map_width * (y_coord + scroll_y)))->m_value;
+        tile_id = m_coordinates.at(i)->m_value;
 
         glSprite(draw_x_pos, draw_y_pos, GL_FLIP_NONE, &m_tileset_info.m_tileset_img[tile_id]);
+       
+        // // Draws only necessary tiles (WIP)
 
-        // build collision box
+        // // We still want to increment coords even if a tile isn't being drawn
 
-        //Left
-        if (x_coord == (width_tile_amt / 2) - 2 && y_coord == (height_tile_amt / 2) - 1) m_collision_box.insert({'l', m_coordinates.at((x_coord + scroll_x) + (m_map_width * (y_coord + scroll_y)))->m_value});
-        if (x_coord == (width_tile_amt / 2) - 2 && y_coord == (height_tile_amt / 2)) m_collision_box.insert({'L', m_coordinates.at((x_coord + scroll_x) + (m_map_width * (y_coord + scroll_y)))->m_value});
+        // // drawing the map should NOT change position on the screen
+        // // the scroll only affects which tile is drawn
+        // x_coord = i % width_tile_amt; // i % 16
+
+        // if (i >= width_tile_amt) // x >= 16
+        // {
+        //     if (x_coord == 0)
+        //         y_coord++; // y++ on i % 16 == 0, cycles every 16 values
+        // }
+
+        // // check bounds of the map, we do not draw tiles out of bounds
+        // if ((x_coord + scroll_x) < 0 || (y_coord + scroll_y) < 0)
+        //     break;
+        // if ((x_coord + scroll_x) > m_map_width - 1 || (y_coord + scroll_y) > m_map_height - 1)
+        //     break;
+
+        // // set drawing positions
+        // draw_x_pos = x_coord * m_tileset_info.m_sprite_w;
+        // draw_y_pos = y_coord * m_tileset_info.m_sprite_h;
+
+        // tile_id = m_coordinates.at((x_coord + scroll_x) + (m_map_width * (y_coord + scroll_y)))->m_value;
+
+        // glSprite(draw_x_pos, draw_y_pos, GL_FLIP_NONE, &m_tileset_info.m_tileset_img[tile_id]);
+
+        // // build collision box
+
+        // //Left
+        // if (x_coord == (width_tile_amt / 2) - 2 && y_coord == (height_tile_amt / 2) - 1) m_collision_box.insert({'l', m_coordinates.at((x_coord + scroll_x) + (m_map_width * (y_coord + scroll_y)))->m_value});
+        // if (x_coord == (width_tile_amt / 2) - 2 && y_coord == (height_tile_amt / 2)) m_collision_box.insert({'L', m_coordinates.at((x_coord + scroll_x) + (m_map_width * (y_coord + scroll_y)))->m_value});
 
         // //Right
         // if (x_coord == (width_tile_amt / 2) + 1 && y_coord == (height_tile_amt / 2) - 1) can_move_r = false;
@@ -108,6 +115,6 @@ void Map::DrawMap(Character *player, int scroll_x, int scroll_y, bool &can_move_
         // else can_move_d = true;
     }
 
-    if (m_collision_box['l'] == 1 || m_collision_box['L'] == 1) can_move_l = false;
-    else can_move_l = true;
+    // if (m_collision_box['l'] == 1 || m_collision_box['L'] == 1) can_move_l = false;
+    // else can_move_l = true;
 }

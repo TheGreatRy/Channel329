@@ -23,9 +23,13 @@
 #include "../graphics/characters/cameron/cam_battle.h"
 
 //Test / Other Graphics
-#include "../graphics/test_graphics/tiny_16.h"
 #include "../graphics/characters/talkingnpc.h"
+
+#include "../graphics/test_graphics/tiny_16.h"
 #include "../graphics/map/collision.h"
+#include "../graphics/backgrounds/battle_bottom.h"
+#include "../graphics/backgrounds/battle_top.h"
+
 #include <../graphics/test_graphics/anuvverbubbla_8x8.h>
 #include <../graphics/test_graphics/charmap_cellphone.h>
 #include <../graphics/test_graphics/charmap_futuristic.h>
@@ -341,8 +345,8 @@ int main(int argc, char **argv)
 
     //create scene objects
     Character* cam = new Character(cam_idle_f, "CAMERON", CHARACTER_TYPE_MAIN);
-    Map* town = new Map(town_ts, 30, 20, map, MAP_TYPE_BG);
     Map* coll_inter = new Map(c_i_ts, 30, 20, collisions_interaction, MAP_TYPE_COL_INTER);
+    Map* town = new Map(town_ts, 30, 20, map, MAP_TYPE_BG);
 
     //add animations to character object
     cam->AddAnimation(cam_idle_b);
@@ -353,8 +357,8 @@ int main(int argc, char **argv)
 
     //add scene objects now that everything is loaded and added
     //FIFO
-    demo->AddMap(town);
     demo->AddMap(coll_inter);
+    demo->AddMap(town);
     demo->AddActor(cam);
     demo->AddTextConsole(text_console);
     demo->m_player_object = cam;
@@ -373,6 +377,9 @@ int main(int argc, char **argv)
         new TextConsole()
     };
 
+    Tileset* btt_top_ts = new Tileset(1,1,256,256);
+    Tileset* btt_bottom_ts = new Tileset(1,1,256,256);
+
     Tileset* enemy = new Tileset(1,1,64,64);       
     Tileset* attacker = new Tileset(1,1,30,80);       
 
@@ -380,6 +387,8 @@ int main(int argc, char **argv)
 
     enemy->LoadTileset({new glImage[enemy->m_img_dimensions]}, talkingnpcPal, talkingnpcBitmap, GL_RGB256, 256);
     attacker->LoadTileset({new glImage[attacker->m_img_dimensions]}, cam_battlePal, cam_battleBitmap, GL_RGB256, 256);
+    btt_top_ts->LoadTileset({new glImage[btt_top_ts->m_img_dimensions]}, battle_topPal, battle_topBitmap, GL_RGB256, 256);
+    btt_bottom_ts->LoadTileset({new glImage[btt_bottom_ts->m_img_dimensions]}, battle_bottomPal, battle_bottomBitmap, GL_RGB256, 256);
     
     for (int i = 0; i < 4; i++)
     {
@@ -389,6 +398,11 @@ int main(int argc, char **argv)
     
     Animation* npc_temp = new Animation(enemy);
     Animation* attack_temp = new Animation(attacker);
+
+    const int16_t screen_map[] = {0};
+
+    Map* top_screen = new Map(btt_top_ts, 1,1, screen_map, MAP_TYPE_BG);
+    Map* bottom_screen = new Map(btt_bottom_ts, 1,1, screen_map, MAP_TYPE_BG);
     
     Character* npc = new Character(npc_temp, "JOHN NPC", CHARACTER_TYPE_NPC);
     Character* cam_attk = new Character(attack_temp, "CAMERON", CHARACTER_TYPE_NPC);
@@ -430,7 +444,11 @@ int main(int argc, char **argv)
     test_battle->SetAttacker(cam_attk);
     
     battle->AddBattle(test_battle);
+    battle->AddMap(top_screen);
+    battle->AddMap(bottom_screen);
     battle->AddActor(npc);
+    battle->AddActor(cam_attk);
+
     for (int i = 0; i < 4; i++)
     {
         battle->AddTextConsole(battle_cons[i]);
