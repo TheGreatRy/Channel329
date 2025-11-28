@@ -13,6 +13,7 @@
 
 // Components Folder
 #include "map.h"
+#include "background.h"
 
 // Graphics Folder
 #include "../graphics/test_graphics/tiny_16.h"
@@ -34,6 +35,7 @@ public:
     std::vector<Character *> m_actors;
     std::vector<Map *> m_maps;
     std::vector<Battle*> m_battles;
+    std::vector<Background*> m_backgrounds;
 
     GM_STATE m_scene_gm_state;
     GM_STATE m_switch_gm_state;
@@ -46,6 +48,7 @@ public:
     void AddMap(Map* map);
     void AddTextConsole(TextConsole *text_con);
     void AddBattle(Battle* battle);
+    void AddBackground(Background* background);
 
     void DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right);
     

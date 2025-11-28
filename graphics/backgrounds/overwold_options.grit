@@ -1,0 +1,2 @@
+# 8 bpp, bitmap, force alpha to bit one
+-gB8 -gb -gT!

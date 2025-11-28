@@ -33,6 +33,11 @@ void Scene::AddBattle(Battle *battle)
     m_battles.push_back(battle);
 }
 
+void Scene::AddBackground(Background *background)
+{
+    m_backgrounds.push_back(background);
+}
+
 void Scene::DetectInput(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can_move_down, bool &can_move_left, bool &can_move_right)
 {
     if (can_move_up && keysHeld() & KEY_UP)
@@ -211,6 +216,12 @@ void Scene::DrawScene(int scroll_x, int scroll_y, bool &can_move_up, bool &can_m
             m_switch_gm_state = GM_STATE_MAIN;
             m_player_quit = false;
             break;
+        }
+        //  Backgrounds
+        for (Background* background : m_backgrounds)
+        {
+            bgShow(background->m_background_id);
+            bgUpdate();
         }
 
         // Main Screen Text Consoles
