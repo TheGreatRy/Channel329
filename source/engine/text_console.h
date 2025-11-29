@@ -37,7 +37,7 @@ public:
     int m_console_width = 16;
     int m_console_height = 12;
 
-    bool is_main_console = false;
+    bool m_is_main_console = false;
 
     std::string m_text;
     std::string m_touch_text;
