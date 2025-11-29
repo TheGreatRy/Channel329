@@ -18,5 +18,6 @@ public:
     int m_background_id;
     bool m_is_main;
 
-    void LoadBackground(void* tile_source, uint32_t tile_size, void* map_source, uint32_t map_size, void* pal_source, uint32_t pal_size);
+    void LoadBackground(int bitmap_base, const unsigned int* bitmap_source, uint32_t bitmap_size, const unsigned short*  pal_source, uint32_t pal_size);
+    void LoadBackground(int bitmap_base, const unsigned int* bitmap_source, uint32_t bitmap_size);
 };

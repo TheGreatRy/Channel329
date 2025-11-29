@@ -1,29 +1,20 @@
 #include "text_console.h"
 
 void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned int main_cons_size, const unsigned int sub_cons_size,
-                                        PrintConsole *text_con, const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int tile_base,
-                                        const unsigned int pal_index, const unsigned int start_char, bool is_main, bool load_gr)
+                                        PrintConsole *text_con, const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int map_base, 
+                                        const unsigned int tile_base, const unsigned int pal_index, const unsigned int start_char, bool is_main, bool load_gr)
 {
-    // internally set map base to prevent bases from being shared
-    // they are per screen (main and sub), so check for both
-    int map_base = 0;
-
-    // only initialize one console at a time using the is_main bool
-    //  + 1 because the console should be initialized before being added to the repective vector
-    if (is_main)
-        map_base = main_cons_size + 1;
-    else if (!is_main)
-        map_base = sub_cons_size + 1;
-
+    
     // set console type
     m_text_console_type = con_type;
+    m_is_main_console = is_main;
 
     // initialize console with given parameters
     consoleInitEx(text_con,
                   layer,      // Background layer
                   bg_type,    // Background type (preferrably text)
                   bg_size,    // Size of the background layer (preferrably text)
-                  map_base,   // Use map_base, set above to not be shared
+                  map_base,   // Use map_base
                   tile_base,  // Use tile_base
                   pal_index,  // Use palette size at pal_index
                   start_char, // Starting character from the tile base
@@ -35,11 +26,11 @@ void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned i
 
 void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned int main_cons_size, const unsigned int sub_cons_size,
                                         PrintConsole* text_con, const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int tile_base, 
-                                        const unsigned int pal_index, const unsigned int start_char, bool is_main, bool load_gr, ConsoleFont* font, 
-                                        const unsigned int x_pos, const unsigned int y_pos, const unsigned int width, const unsigned int height)
+                                        const unsigned int map_base, const unsigned int pal_index, const unsigned int start_char, bool is_main, bool load_gr, 
+                                        ConsoleFont* font, const unsigned int x_pos, const unsigned int y_pos, const unsigned int width, const unsigned int height)
 {
     // Use the base initializer
-    InitializeTextConsole(con_type, main_cons_size, sub_cons_size, text_con, layer, bg_type, bg_size, tile_base, pal_index, start_char, is_main, load_gr);
+    InitializeTextConsole(con_type, main_cons_size, sub_cons_size, text_con, layer, bg_type, bg_size, map_base, tile_base, pal_index, start_char, is_main, load_gr);
 
     // Set custom graphics
     consoleSetFont(&m_print_console, font);
@@ -59,8 +50,8 @@ void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned i
     m_console_height = y_pos + height;
 
     // setting the console position to x = 0 and/or y = 0 if they go past the limit
-    x_corner = (x_corner > 32) ? 0 : x_pos;
-    y_corner = (y_corner > 24) ? 0 : y_pos;
+    x_corner = (x_pos > 32) ? 0 : x_pos;
+    y_corner = (y_pos > 24) ? 0 : y_pos;
 
     // setting the window size to width = 1 (if 0) or 32 (if past limit) and/or height = 1 (if 0) or 24 (if past limit)
     m_console_width = (m_console_width < 1) ? 1 : (m_console_width > 32) ? 32 : m_console_width;
@@ -83,6 +74,23 @@ void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned i
     bottom_y = 8 * m_console_height;
 }
 
+void TextConsole::SetText(std::string text, bool detect_touch)
+{
+    if (detect_touch)
+        m_touch_text = text;
+    else
+        m_text = text;
+}
+
+//Display text without detecting user input
+void TextConsole::DisplayTextConsole(PrintConsole *text_con)
+{
+    consoleSelect(text_con);
+    printf("\x1b[2J");
+    printf(m_text.c_str());
+}
+
+//Display text based on user input
 void TextConsole::DisplayTextConsole(PrintConsole* text_con, touchPosition current_pos)
 {
     consoleSelect(text_con);
@@ -95,15 +103,17 @@ void TextConsole::DisplayTextConsole(PrintConsole* text_con, touchPosition curre
     if (current_pos.px >= left_x && current_pos.px <= right_x && current_pos.py >= top_y && current_pos.py <= bottom_y)
     {
         printf("\x1b[2J");
-        printf("Text box detected input!");
+        printf(m_touch_text.c_str());
     }
     else
     {
         printf("\x1b[2J");
-        printf("Not the box dummy!");
+        printf(m_text.c_str());
     }
 }
 
+
+//Display text based on the current battle
 void TextConsole::DisplayTextConsole(PrintConsole *text_con, touchPosition current_pos, Battle *battle, int index)
 {
     consoleSelect(text_con);
@@ -168,3 +178,4 @@ void TextConsole::WriteWordsPerLine(std::string sentence, int bpp)
         m_words_per_line.push_back(current_line + "\n");
     }
 }
+

@@ -37,6 +37,11 @@ public:
     int m_console_width = 16;
     int m_console_height = 12;
 
+    bool is_main_console = false;
+
+    std::string m_text;
+    std::string m_touch_text;
+
     u16 left_x;
     u16 right_x;
     u16 top_y;
@@ -44,16 +49,21 @@ public:
 
     //base text console
     void InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned int main_cons_size, const unsigned int sub_cons_size, PrintConsole* console, 
-        const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int tile_base, const unsigned int pal_index, const unsigned int start_char, 
-        bool is_main, bool load_gr);
+        const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int map_base, const unsigned int tile_base, const unsigned int pal_index,
+        const unsigned int start_char, bool is_main, bool load_gr);
 
     //text console with custom fonts and window sizes
     void InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned int main_cons_size, const unsigned int sub_cons_size, PrintConsole* console, 
-        const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int tile_base, const unsigned int pal_index, const unsigned int start_char, 
-        bool is_main, bool load_gr, ConsoleFont* font, const unsigned int x_pos, const unsigned int y_pos, const unsigned int width, const unsigned int height);
+        const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int map_base, const unsigned int tile_base, const unsigned int pal_index, 
+        const unsigned int start_char, bool is_main, bool load_gr, ConsoleFont* font, const unsigned int x_pos, const unsigned int y_pos, 
+        const unsigned int width, const unsigned int height);
     
+    void SetText(std::string text, bool detect_touch);
+
     //display text console to screen
+    void DisplayTextConsole(PrintConsole* text_con);
     void DisplayTextConsole(PrintConsole* text_con, touchPosition current_pos);
+
     void DisplayTextConsole(PrintConsole* text_con, touchPosition current_pos, Battle* battle, int index);
 
     void ClearTextConsole(PrintConsole* text_con);
