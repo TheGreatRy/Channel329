@@ -1,2 +1,2 @@
-#8 bit texture bitmap, force alpha to bit one
--gx -gb -gB8 -gT!
+# 8 bpp, bitmap, force alpha to bit one
+-gB8 -gb -gT!

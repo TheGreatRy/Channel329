@@ -18,8 +18,7 @@
 
 enum MAP_TYPE
 {
-    MAP_TYPE_BG_MAIN,
-    MAP_TYPE_BG_SUB,
+    MAP_TYPE_BG,
     MAP_TYPE_COL_INTER
 };
 

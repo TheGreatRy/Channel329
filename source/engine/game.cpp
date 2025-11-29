@@ -10,7 +10,7 @@ void Game::InitializeGame()
 
     // Set video mode to 3D
     videoSetMode(MODE_0_3D);
-    videoSetModeSub(MODE_5_2D);
+    videoSetModeSub(MODE_0_3D);
 
     // // Setup some VRAM as memory for main engine background, main engine
     // // sprites, and 3D textures.
@@ -35,26 +35,9 @@ void Game::RunCurrentScene(Scene *scene)
 
     scene->DrawScene(scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
 
-    Scene* save_state = scene;
-    switch (scene->m_scene_gm_state)
-    {
-        case GM_STATE_TITLE:
-        m_title_scene = save_state;
-        break;
-        case GM_STATE_MAIN:
-        m_main_scenes.at(m_current_scene_index) = save_state;
-        break;
-        case GM_STATE_BATTLE:
-        m_battle_scenes.at(m_current_scene_index) = save_state;
-        break;
-        case GM_STATE_MENU:
-        m_menu_scene = save_state;
-        break;
-    }
-    
     scene->ClearAllTextConsoles();
-    scene->DeleteAllTextures();
-    scene->DeleteAllSceneComponents();
+    // scene->DeleteAllTextures();
+    // scene->DeleteAllSceneComponents();
 }
 
 void Game::AddScene(Scene *scene)
@@ -84,9 +67,6 @@ void Game::RunGame()
         {
         case GM_STATE_TITLE:
             RunCurrentScene(m_title_scene);
-            (m_title_scene->m_player_quit) ? is_running = false 
-            : m_current_game_state = m_title_scene->m_switch_gm_state; 
-            m_current_scene_index = m_title_scene->m_switch_id;
             break;
         case GM_STATE_MAIN:
             RunCurrentScene(m_main_scenes[m_current_scene_index]);
