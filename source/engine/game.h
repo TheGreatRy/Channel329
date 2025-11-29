@@ -22,7 +22,7 @@ class Game
 
     bool is_running = true;
 
-    GM_STATE m_current_game_state = GM_STATE_MAIN;
+    GM_STATE m_current_game_state = GM_STATE_TITLE;
 
     Scene* m_title_scene;
     Scene* m_menu_scene;
