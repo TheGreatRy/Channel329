@@ -19,7 +19,7 @@
 #include "../graphics/characters/cameron/walk/cam_back_walk_spritesheet.h"
 #include "../graphics/characters/cameron/walk/cam_side_walk_spritesheet.h"
 
-//Battle Animations
+//Battle Stills / Animations
 #include "../graphics/characters/cameron/cam_battle.h"
 
 //Test / Other Graphics
@@ -163,7 +163,7 @@ int main(int argc, char **argv)
 
     //this is a crime im so sorry
     text_console->InitializeTextConsole(TEXT_CON_TYPE_SUB_TALK, demo->m_main_consoles.size(), demo->m_sub_consoles.size(), {new PrintConsole}, 0, BgType_Text4bpp,
-    BgSize_T_256x256, 3, 4, 0, false, false, &font_cellphone, 1, 1, 10, 5);
+    BgSize_T_256x256, 0, 3, 4, 0, false, false, &font_cellphone, 1, 1, 10, 5);
     
     //create animations from loaded l=tilesets
     Animation* cam_idle_f = new Animation(cam_front_idle);
@@ -224,7 +224,7 @@ int main(int argc, char **argv)
     for (int i = 0; i < 4; i++)
     {
         battle_cons[i]->InitializeTextConsole(TEXT_CON_TYPE_SUB_OPT, battle->m_main_consoles.size(), battle->m_sub_consoles.size(), {new PrintConsole}, 0, BgType_Text4bpp,
-        BgSize_T_256x256, 3, 4, 0, false, false, &font_cellphone, 1, (i * 4) + 6, 28, 4);
+        BgSize_T_256x256, 1, 3, 4, 0, false, false, &font_cellphone, 1, (i * 4) + 6, 28, 4);
     }
     
     Animation* npc_temp = new Animation(enemy);
@@ -232,8 +232,8 @@ int main(int argc, char **argv)
 
     const int16_t screen_map[] = {0};
 
-    Map* top_screen = new Map(btt_top_ts, 1,1, screen_map, MAP_TYPE_BG);
-    Map* bottom_screen = new Map(btt_bottom_ts, 1,1, screen_map, MAP_TYPE_BG);
+    Map* top_screen = new Map(btt_top_ts, 1,1, screen_map, MAP_TYPE_BG_MAIN);
+    Map* bottom_screen = new Map(btt_bottom_ts, 1,1, screen_map, MAP_TYPE_BG_SUB);
     
     Character* npc = new Character(npc_temp, "JOHN NPC", CHARACTER_TYPE_NPC);
     Character* cam_attk = new Character(attack_temp, "CAMERON", CHARACTER_TYPE_NPC);
