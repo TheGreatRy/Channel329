@@ -177,7 +177,7 @@ int main(int argc, char **argv)
     //create scene objects
     Character* cam = new Character(cam_idle_f, "CAMERON", CHARACTER_TYPE_MAIN);
     Map* coll_inter = new Map(c_i_ts, 30, 20, collisions_interaction, MAP_TYPE_COL_INTER);
-    Map* town = new Map(town_ts, 30, 20, map, MAP_TYPE_BG);
+    Map* town = new Map(town_ts, 30, 20, map, MAP_TYPE_BG_MAIN);
 
     //add animations to character object
     cam->AddAnimation(cam_idle_b);
