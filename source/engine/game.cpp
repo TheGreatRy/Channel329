@@ -62,6 +62,8 @@ void Game::AddData(GameData *data)
 
 void Game::RunCurrentScene(Scene *scene)
 {
+    int data_index = scene->m_data_index;
+
     int scroll_x = 0;
     int scroll_y = 0;
 
@@ -74,21 +76,21 @@ void Game::RunCurrentScene(Scene *scene)
 
     Scene save_state = *scene;
 
-    //m_data[data_index]->LoadScene(save_state);
+    m_data[data_index]->LoadScene(save_state);
 
     switch (scene->m_scene_gm_state)
     {
         case GM_STATE_TITLE:
-        m_title_scene = scene;
+        m_title_scene = m_data[data_index]->m_scene;
         break;
         case GM_STATE_MAIN:
-        m_main_scenes.at(m_current_scene_index) = scene;
+        m_main_scenes.at(m_current_scene_index) = m_data[data_index]->m_scene;
         break;
         case GM_STATE_BATTLE:
-        m_battle_scenes.at(m_current_scene_index) = scene;
+        m_battle_scenes.at(m_current_scene_index) = m_data[data_index]->m_scene;
         break;
         case GM_STATE_MENU:
-        m_menu_scene = scene;
+        m_menu_scene = m_data[data_index]->m_scene;
         break;
     }
 
@@ -137,10 +139,4 @@ void Game::RunGame()
             is_running = false;
         }
     }
-
-    // //Clear all scenes from memory once done
-    // for (Scene* scene : m_scenes)
-    // {
-    //     delete scene;
-    // }
 }

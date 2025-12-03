@@ -19,6 +19,11 @@ class GameData
     Scene* m_scene;
 
     virtual void InitializeData() = 0;
+
+    void LoadScene(Scene scene)
+    {
+        m_scene = &scene;
+    }
     
     //Shared Variables
     // Size of a color in bytes
