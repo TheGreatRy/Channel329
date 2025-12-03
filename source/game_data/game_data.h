@@ -14,13 +14,13 @@
 class GameData
 {
     public:
-    
+
     bool has_initialized = false;
     Scene* m_scene;
 
     virtual void InitializeData() = 0;
     
-//Shared Variables
+    //Shared Variables
     // Size of a color in bytes
     const size_t size_color = 2;
 
