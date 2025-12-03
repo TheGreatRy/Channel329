@@ -15,9 +15,6 @@
 #include "map.h"
 #include "background.h"
 
-// Graphics Folder
-#include "../graphics/test_graphics/tiny_16.h"
-
 // Engine Folder
 #include "../engine/game_states.h"
 #include "../engine/text_console.h"
@@ -41,6 +38,7 @@ public:
     GM_STATE m_switch_gm_state;
     
     int m_switch_id = 0;
+    int m_data_index = 0;
     bool m_player_quit = false;
     Character* m_player_object;
 

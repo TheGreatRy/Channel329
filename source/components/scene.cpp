@@ -158,6 +158,12 @@ void Scene::DeleteAllSceneComponents()
         // battle->~Battle();
         delete battle;
     }
+    for (Background* background : m_backgrounds)
+    {
+        
+        // bgClearControlBits(background->m_background_id, 4);
+        delete background;
+    }
 }
 
 void Scene::ClearAllTextConsoles()
@@ -179,6 +185,11 @@ void Scene::DrawScene(int scroll_x, int scroll_y, bool &can_move_up, bool &can_m
 
     int current_anim_id = 0;
     GL_FLIP_MODE current_flip = GL_FLIP_NONE;
+
+    for (Background* background : m_backgrounds)
+    {
+        background->LoadBackground(background->m_data->m_bpp);
+    }    
 
     while (1)
     {
@@ -221,7 +232,6 @@ void Scene::DrawScene(int scroll_x, int scroll_y, bool &can_move_up, bool &can_m
         for (Background* background : m_backgrounds)
         {
             bgShow(background->m_background_id);
-            bgUpdate();
         }
 
         // Main Screen Text Consoles
@@ -268,5 +278,10 @@ void Scene::DrawScene(int scroll_x, int scroll_y, bool &can_move_up, bool &can_m
         // end drawing 2D graphics
         glEnd2D();
         glFlush(0);
+    }
+
+    for (Background* background : m_backgrounds)
+    {
+        bgHide(background->m_background_id);
     }
 }

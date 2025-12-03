@@ -14,6 +14,9 @@
 // Components Folder
 #include "../components/scene.h"
 
+//Game Data Folder
+#include "../game_data/game_data.h"
+
 class Game
 {
     public:
@@ -29,13 +32,16 @@ class Game
     std::vector<Scene*> m_main_scenes;
     std::vector<Scene*> m_battle_scenes;
 
+    std::vector<GameData*> m_data;
+
     int m_current_scene_index = 0;
 
     void InitializeGame();
-
     void AddScene(Scene* scene);
+    void AddData(GameData* data);
     void RunGame();
     
     private:
+    void InitializeScene(Scene* scene);
     void RunCurrentScene(Scene* scene);
 };
