@@ -3,10 +3,10 @@
 //NDS Libraries
 #include <nds.h>
 #include <stdio.h>
-#include <errno.h>
-#include <dlfcn.h>
 #include <filesystem.h>
 #include <gl2d.h>
+
+#include <nf_lib.h>
 
 //C++ includes
 #include <vector>
