@@ -8,6 +8,8 @@ void Game::InitializeGame()
     // Initialize GL in 2D and 3D mode
     glScreen2D();
 
+
+
     // Set video mode to 3D
     videoSetMode(MODE_0_3D);
     videoSetModeSub(MODE_5_2D);
@@ -34,28 +36,25 @@ void Game::InitializeScene(Scene *scene)
     }
 }
 
-void Game::AddScene(Scene *scene)
-{
-    switch (scene->m_scene_gm_state)
-    {
-        case GM_STATE_TITLE:
-        m_title_scene = scene;
-        break;
-        case GM_STATE_MAIN:
-        m_main_scenes.push_back(scene);
-        break;
-        case GM_STATE_BATTLE:
-        m_battle_scenes.push_back(scene);
-        break;
-        case GM_STATE_MENU:
-        m_menu_scene = scene;
-        break;
-    }
-}
-
 void Game::AddData(GameData *data)
 {
     data->m_scene->m_data_index = m_data.size();
+    
+    switch (data->m_scene->m_scene_gm_state)
+    {
+        case GM_STATE_TITLE:
+        m_title_scene = data->m_scene;
+        break;
+        case GM_STATE_MAIN:
+        m_main_scenes.push_back(data->m_scene);
+        break;
+        case GM_STATE_BATTLE:
+        m_battle_scenes.push_back(data->m_scene);
+        break;
+        case GM_STATE_MENU:
+        m_menu_scene = data->m_scene;
+        break;
+    }
     m_data.push_back(data);
 }
 
@@ -70,7 +69,7 @@ void Game::RunCurrentScene(Scene *scene)
     bool can_move_up = true;
     bool can_move_down = true;
     bool can_move_left = true;
-    bool can_move_right = true;
+    bool can_move_right = true;   
 
     scene->DrawScene(scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
 
@@ -78,7 +77,7 @@ void Game::RunCurrentScene(Scene *scene)
 
     m_data[data_index]->LoadScene(save_state);
 
-    switch (scene->m_scene_gm_state)
+    switch (m_data[data_index]->m_scene->m_scene_gm_state)
     {
         case GM_STATE_TITLE:
         m_title_scene = m_data[data_index]->m_scene;
@@ -95,8 +94,8 @@ void Game::RunCurrentScene(Scene *scene)
     }
 
     scene->ClearAllTextConsoles();
-    scene->DeleteAllTextures();
-    scene->DeleteAllSceneComponents();
+    // scene->DeleteAllTextures();
+    // scene->DeleteAllSceneComponents();
     
 }
 

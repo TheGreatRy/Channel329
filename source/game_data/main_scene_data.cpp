@@ -2,18 +2,17 @@
 
 void MainSceneData::InitializeData()
 {
-    //Tileset Objects
-    TextConsole* text_console = new TextConsole();
-    Tileset* town_ts = new Tileset(10, 10, 16, 16);
-    Tileset* c_i_ts = new Tileset(4, 1, 16, 16);
+    text_console = new TextConsole();
+    town_ts = new Tileset(10, 10, 16, 16);
+    c_i_ts = new Tileset(4, 1, 16, 16);
 
-    Tileset* cam_front_idle = new Tileset(4, 3, 32, 32);
-    Tileset* cam_back_idle = new Tileset(4, 1, 32, 32);
-    Tileset* cam_side_idle = new Tileset(4, 3, 32, 32);
+    cam_front_idle = new Tileset(4, 3, 32, 32);
+    cam_back_idle = new Tileset(4, 1, 32, 32);
+    cam_side_idle = new Tileset(4, 3, 32, 32);
     
-    Tileset* cam_front_walk = new Tileset(4, 3, 32, 32);
-    Tileset* cam_back_walk = new Tileset(4, 1, 32, 32);
-    Tileset* cam_side_walk = new Tileset(4, 3, 32, 32);
+    cam_front_walk = new Tileset(4, 3, 32, 32);
+    cam_back_walk = new Tileset(4, 1, 32, 32);
+    cam_side_walk = new Tileset(4, 3, 32, 32);
 
     //Now that the objects exist, we can load the graphics
     town_ts->LoadTileset({new glImage[town_ts->m_img_dimensions]}, tiny_16Pal, tiny_16Bitmap, GL_RGB256, 256);
@@ -31,19 +30,23 @@ void MainSceneData::InitializeData()
     text_console->InitializeTextConsole(TEXT_CON_TYPE_SUB_TALK, m_scene->m_main_consoles.size(), m_scene->m_sub_consoles.size(), {new PrintConsole}, 0, BgType_Text4bpp,
     BgSize_T_256x256, 0, 3, 4, 0, false, false, &font_cellphone, 1, 1, 10, 5);
 
+    Background* test = new Background(2, BgType_Bmp8, BgSize_B8_256x256, 4, 0, false);
+
+    test->LoadBackground(0, overworld_optionsBitmap, overworld_optionsBitmapLen, overworld_optionsPal, overworld_optionsPalLen);
+
     //Animation Objects
-    Animation* cam_idle_f = new Animation(cam_front_idle);
-    Animation* cam_idle_b = new Animation(cam_back_idle);
-    Animation* cam_idle_s = new Animation(cam_side_idle);
+    cam_idle_f = new Animation(cam_front_idle);
+    cam_idle_b = new Animation(cam_back_idle);
+    cam_idle_s = new Animation(cam_side_idle);
     
-    Animation* cam_walk_f = new Animation(cam_front_walk);
-    Animation* cam_walk_b = new Animation(cam_back_walk);
-    Animation* cam_walk_s = new Animation(cam_side_walk);
+    cam_walk_f = new Animation(cam_front_walk);
+    cam_walk_b = new Animation(cam_back_walk);
+    cam_walk_s = new Animation(cam_side_walk);
 
     //Scene Objects
-    Character* cam = new Character(cam_idle_f, "CAMERON", CHARACTER_TYPE_MAIN);
-    Map* coll_inter = new Map(c_i_ts, 30, 20, collisions_interaction, MAP_TYPE_COL_INTER);
-    Map* town = new Map(town_ts, 30, 20, map, MAP_TYPE_BG_MAIN);
+    cam = new Character(cam_idle_f, "CAMERON", CHARACTER_TYPE_MAIN);
+    coll_inter = new Map(c_i_ts, 30, 20, collisions_interaction, MAP_TYPE_COL_INTER);
+    town = new Map(town_ts, 30, 20, map, MAP_TYPE_BG_MAIN);
 
     //add animations to character object
     cam->AddAnimation(cam_idle_b);
@@ -54,6 +57,7 @@ void MainSceneData::InitializeData()
 
     //add m_scene objects now that everything is loaded and added
     //FIFO
+    m_scene->AddBackground(test);
     m_scene->AddMap(coll_inter);
     m_scene->AddMap(town);
     m_scene->AddActor(cam);

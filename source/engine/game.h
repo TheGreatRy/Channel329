@@ -37,7 +37,6 @@ class Game
     int m_current_scene_index = 0;
 
     void InitializeGame();
-    void AddScene(Scene* scene);
     void AddData(GameData* data);
     void RunGame();
     

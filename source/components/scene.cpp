@@ -186,10 +186,8 @@ void Scene::DrawScene(int scroll_x, int scroll_y, bool &can_move_up, bool &can_m
     int current_anim_id = 0;
     GL_FLIP_MODE current_flip = GL_FLIP_NONE;
 
-    for (Background* background : m_backgrounds)
-    {
-        background->LoadBackground(background->m_data->m_bpp);
-    }    
+    // bgSetPriority(0,1);
+    // bgSetPriority(2,0);
 
     while (1)
     {
@@ -283,5 +281,6 @@ void Scene::DrawScene(int scroll_x, int scroll_y, bool &can_move_up, bool &can_m
     for (Background* background : m_backgrounds)
     {
         bgHide(background->m_background_id);
+        bgClearControlBits(background->m_background_id, (1 << 14));
     }
 }

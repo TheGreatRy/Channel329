@@ -23,6 +23,7 @@
 //Other Graphics
 #include "../graphics/test_graphics/tiny_16.h"
 #include "../graphics/map/collision.h"
+#include "../graphics/backgrounds/overworld_options.h"
 
 class MainSceneData : public GameData
 {
@@ -33,8 +34,33 @@ class MainSceneData : public GameData
     }
 
     void InitializeData();
+
+    //Tileset Objects
+    TextConsole* text_console;
+    Tileset* town_ts;
+    Tileset* c_i_ts;
+
+    Tileset* cam_front_idle;
+    Tileset* cam_back_idle;
+    Tileset* cam_side_idle;
     
-    private:
+    Tileset* cam_front_walk;
+    Tileset* cam_back_walk;
+    Tileset* cam_side_walk;
+
+    //Animation Objects
+    Animation* cam_idle_f;
+    Animation* cam_idle_b;
+    Animation* cam_idle_s;
+    
+    Animation* cam_walk_f;
+    Animation* cam_walk_b;
+    Animation* cam_walk_s;
+
+    //Scene Objects
+    Character* cam;
+    Map* coll_inter;
+    Map* town;
 
     //Main Scene Map
     const int16_t map[30 * 20] = 

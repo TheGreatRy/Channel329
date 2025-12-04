@@ -20,6 +20,11 @@ class GameData
 
     virtual void InitializeData() = 0;
 
+    void SetScene(Scene* scene)
+    {
+        m_scene = scene;
+    }
+
     void LoadScene(Scene scene)
     {
         m_scene = &scene;
