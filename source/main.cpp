@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 
     // Initialize 2D engine in both screens and use mode 5. Layers 0 to 2 are
     // tiled backgrounds, layer 3 is an 8-bit bitmap background.
-    NF_Set2D(0, 5);
+    NF_Set2D(0, 0);
     NF_Set2D(1, 5);
 
     // Initialize mixed background system
@@ -50,20 +50,20 @@ int main(int argc, char **argv)
     // Initialize sprite system
     NF_InitSpriteBuffers();     // Initialize storage buffers
     NF_InitSpriteSys(0);        // Top screen
-    NF_InitSpriteSys(1);        // Bottom screen
 
     // Load background files from NitroFS
     NF_LoadTiledBg("bg/tiny_16", "tiny_16", 256, 256);
 
+    NF_CreateTiledBg(0, 2, "tiny_16");
+    
     // Load bitmap files from NitroFS
     NF_Load8bitsBg("bmp/overworld_options", 0);
 
+    NF_Copy8bitsBuffer(1, 1, 0);
+    
     // Load sprite files from NitroFS
     NF_LoadSpriteGfx("sprite/cam_front_idle_spritesheet", 0, 32, 32);
     NF_LoadSpritePal("sprite/cam_front_idle_spritesheet", 0);
-
-    // Create bottom screen background
-    NF_CreateTiledBg(0, 3, "tiny_16");
 
     // Transfer the required sprites to VRAM
     NF_VramSpriteGfx(0, 0, 0, false);
