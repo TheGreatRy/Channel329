@@ -162,6 +162,8 @@ build build/arm9/source/game_data/main_scene_data.cpp.o: cxx_arm source/game_dat
 build build/arm9/arm9.elf | build/arm9/arm9.map: ld_arm build/arm9/source/main.cpp.o build/arm9/source/actors/character.cpp.o build/arm9/source/components/animation.cpp.o build/arm9/source/components/background.cpp.o build/arm9/source/components/map.cpp.o build/arm9/source/components/scene.cpp.o build/arm9/source/components/tileset.cpp.o build/arm9/source/components/world.cpp.o build/arm9/source/engine/battle.cpp.o build/arm9/source/engine/game.cpp.o build/arm9/source/engine/text_console.cpp.o build/arm9/source/game_data/battle_scene_data.cpp.o build/arm9/source/game_data/main_scene_data.cpp.o || build/arm9
   ldflags = -L${BLOCKSDS}/libs/libnds/lib -L${BLOCKSDSEXT}/nflib/lib -Wl,-Map,build/arm9/arm9.map -mcpu=arm946e-s+nofp -Wl,--start-group -lnds9 -lnflib -lstdc++ -lc -Wl,--end-group -specs=${BLOCKSDS}/sys/crts/ds_arm9.specs 
 
+build assets_nitrofs_flag: phony 
+
 build channel329.nds: ndstool ${BLOCKSDS}/sys/arm7/main_core/arm7_dswifi_maxmod.elf build/arm9/arm9.elf build/nitrofs  assets_nitrofs_flag
   arm7elf = ${BLOCKSDS}/sys/arm7/main_core/arm7_dswifi_maxmod.elf
   arm9elf = build/arm9/arm9.elf
