@@ -21,7 +21,11 @@ arm9.generate_elf()
 
 nds = NdsRom(
     binaries=[arm9, nitrofs],
-    game_title='kill me',
+    nds_path='ch329cotmi.nds',
+    game_title='Channel329',
+    game_subtitle='Crimes of the Magically Inclined',
+    game_author='TheGreatRy'
+    #game_icon='icon.bmp'
 )
 nds.generate_nds()
 

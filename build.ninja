@@ -224,11 +224,11 @@ build build/nitrofs/sprite/cam_side_idle_spritesheet.img build/nitrofs/sprite/ca
 
 build assets_nitrofs_flag: phony build/nitrofs/bg/anuvverbubbla_8x8.map build/nitrofs/bg/anuvverbubbla_8x8.img build/nitrofs/bg/anuvverbubbla_8x8.pal build/nitrofs/bg/charmap_cellphone.map build/nitrofs/bg/charmap_cellphone.img build/nitrofs/bg/charmap_cellphone.pal build/nitrofs/bg/charmap_futuristic.map build/nitrofs/bg/charmap_futuristic.img build/nitrofs/bg/charmap_futuristic.pal build/nitrofs/bg/tiny_16.map build/nitrofs/bg/tiny_16.img build/nitrofs/bg/tiny_16.pal build/nitrofs/bmp/battle_bottom.map build/nitrofs/bmp/battle_bottom.img build/nitrofs/bmp/battle_bottom.pal build/nitrofs/bmp/battle_top.map build/nitrofs/bmp/battle_top.img build/nitrofs/bmp/battle_top.pal build/nitrofs/bmp/overworld_options.map build/nitrofs/bmp/overworld_options.img build/nitrofs/bmp/overworld_options.pal build/nitrofs/bmp/tutorial_bottom.map build/nitrofs/bmp/tutorial_bottom.img build/nitrofs/bmp/tutorial_bottom.pal build/nitrofs/bmp/tutorial_top.map build/nitrofs/bmp/tutorial_top.img build/nitrofs/bmp/tutorial_top.pal build/nitrofs/sprite/cam_back_idle_spritesheet.img build/nitrofs/sprite/cam_back_idle_spritesheet.pal build/nitrofs/sprite/cam_front_idle_spritesheet.img build/nitrofs/sprite/cam_front_idle_spritesheet.pal build/nitrofs/sprite/cam_side_idle_spritesheet.img build/nitrofs/sprite/cam_side_idle_spritesheet.pal
 
-build channel329.nds: ndstool ${BLOCKSDS}/sys/arm7/main_core/arm7_dswifi_maxmod.elf build/arm9/arm9.elf build/nitrofs  assets_nitrofs_flag
+build ch329cotmi.nds: ndstool ${BLOCKSDS}/sys/arm7/main_core/arm7_dswifi_maxmod.elf build/arm9/arm9.elf build/nitrofs  assets_nitrofs_flag
   arm7elf = ${BLOCKSDS}/sys/arm7/main_core/arm7_dswifi_maxmod.elf
   arm9elf = build/arm9/arm9.elf
   game_icon = ${BLOCKSDS}/sys/icon.bmp
-  game_full_title = "kill me;Built with BlocksDS;github.com/blocksds/sdk"
+  game_full_title = "Channel329;Crimes of the Magically Inclined;TheGreatRy"
   ndstool_nitrofs_flags = -d build/nitrofs
   ndstool_title_id = 
   ndstool_unit_code = 

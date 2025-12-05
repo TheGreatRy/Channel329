@@ -63,14 +63,14 @@ int main(int argc, char **argv)
     NF_LoadSpritePal("sprite/cam_front_idle_spritesheet", 0);
 
     // Create bottom screen background
-    NF_CreateTiledBg(1, 0, "tiny_16");
+    NF_CreateTiledBg(0, 3, "tiny_16");
 
     // Transfer the required sprites to VRAM
     NF_VramSpriteGfx(0, 0, 0, false);
     NF_VramSpritePal(0, 0, 0);
 
     NF_CreateSprite(0, 0, 0, 0, 100, 50);
-    NF_SpriteLayer(0, 0, 3);
+    NF_SpriteLayer(0, 0, 0);
 
     //Game Loop
     while (1)
