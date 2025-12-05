@@ -19,7 +19,7 @@ Map::Map(Tileset *tileset_info, int map_width, int map_height, const int16_t til
         // no need to mod the first row
         // also the first column is 0 and this prevents it from being incremented 1 past
         if (current_x < m_map_width) // x < 30
-            m_coordinates.push_back({new Coordinate(current_x, current_y, tile_id_arr[current_x])});
+            m_coordinates.push_back({new Coordinate<int16_t>(current_x, current_y, tile_id_arr[current_x])});
         // x = 0 - 29, y = 0;
 
         // if we are past the first row
@@ -29,7 +29,7 @@ Map::Map(Tileset *tileset_info, int map_width, int map_height, const int16_t til
             if (row_reset == 0)
                 current_y++; // y++ on x % 30 == 0
 
-            m_coordinates.push_back({new Coordinate(row_reset, current_y, tile_id_arr[current_x])});
+            m_coordinates.push_back({new Coordinate<int16_t>(row_reset, current_y, tile_id_arr[current_x])});
         }
     }
 }

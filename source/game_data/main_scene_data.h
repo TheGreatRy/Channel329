@@ -9,21 +9,21 @@
 //Engine Folder
 #include "../engine/text_console.h"
 
-//Graphics
-//Idle Animations
-#include "../graphics/characters/cameron/idle/cam_front_idle_spritesheet.h"
-#include "../graphics/characters/cameron/idle/cam_back_idle_spritesheet.h"
-#include "../graphics/characters/cameron/idle/cam_side_idle_spritesheet.h"
+// //Graphics
+// //Idle Animations
+// #include "../graphics/characters/cameron/idle/cam_front_idle_spritesheet.h"
+// #include "../graphics/characters/cameron/idle/cam_back_idle_spritesheet.h"
+// #include "../graphics/characters/cameron/idle/cam_side_idle_spritesheet.h"
 
-//Walk Animations
-#include "../graphics/characters/cameron/walk/cam_front_walk_spritesheet.h"
-#include "../graphics/characters/cameron/walk/cam_back_walk_spritesheet.h"
-#include "../graphics/characters/cameron/walk/cam_side_walk_spritesheet.h"
+// //Walk Animations
+// #include "../graphics/characters/cameron/walk/cam_front_walk_spritesheet.h"
+// #include "../graphics/characters/cameron/walk/cam_back_walk_spritesheet.h"
+// #include "../graphics/characters/cameron/walk/cam_side_walk_spritesheet.h"
 
-//Other Graphics
-#include "../graphics/test_graphics/tiny_16.h"
-#include "../graphics/map/collision.h"
-#include "../graphics/backgrounds/overworld_options.h"
+// //Other Graphics
+// #include "../graphics/test_graphics/tiny_16.h"
+// #include "../graphics/map/collision.h"
+// #include "../graphics/backgrounds/overworld_options.h"
 
 class MainSceneData : public GameData
 {

@@ -168,7 +168,7 @@ build channel329.nds: ndstool ${BLOCKSDS}/sys/arm7/main_core/arm7_dswifi_maxmod.
   arm7elf = ${BLOCKSDS}/sys/arm7/main_core/arm7_dswifi_maxmod.elf
   arm9elf = build/arm9/arm9.elf
   game_icon = ${BLOCKSDS}/sys/icon.bmp
-  game_full_title = "NFlib: 3D sprites;Built with BlocksDS;github.com/blocksds/sdk"
+  game_full_title = "kill me;Built with BlocksDS;github.com/blocksds/sdk"
   ndstool_nitrofs_flags = -d build/nitrofs
   ndstool_title_id = 
   ndstool_unit_code = 

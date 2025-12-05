@@ -7,8 +7,7 @@
 from architectds import *
 
 nitrofs = NitroFS()
-# nitrofs.add_nflib_bg_tiled(['assets/bgtiled'], 'bg')
-# nitrofs.add_nflib_sprite_3d(['assets/spr3d'], 'sprite')
+nitrofs.add_nflib_bg_8bit(['assets/backgrounds/overworld_options'], 'bmp')
 nitrofs.generate_image()
 
 arm9 = Arm9Binary(
@@ -20,7 +19,7 @@ arm9.generate_elf()
 
 nds = NdsRom(
     binaries=[arm9, nitrofs],
-    game_title='NFlib: 3D sprites',
+    game_title='kill me',
 )
 nds.generate_nds()
 

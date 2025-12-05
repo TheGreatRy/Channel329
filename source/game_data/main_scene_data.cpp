@@ -14,25 +14,25 @@ void MainSceneData::InitializeData()
     cam_back_walk = new Tileset(4, 1, 32, 32);
     cam_side_walk = new Tileset(4, 3, 32, 32);
 
-    //Now that the objects exist, we can load the graphics
-    town_ts->LoadTileset({new glImage[town_ts->m_img_dimensions]}, tiny_16Pal, tiny_16Bitmap, GL_RGB256, 256);
-    c_i_ts->LoadTileset({new glImage[c_i_ts->m_img_dimensions]}, collisionPal, collisionBitmap, GL_RGB256, 256);
+    // //Now that the objects exist, we can load the graphics
+    // town_ts->LoadTileset({new glImage[town_ts->m_img_dimensions]}, tiny_16Pal, tiny_16Bitmap, GL_RGB256, 256);
+    // c_i_ts->LoadTileset({new glImage[c_i_ts->m_img_dimensions]}, collisionPal, collisionBitmap, GL_RGB256, 256);
     
-    cam_front_idle->LoadTileset({new glImage[cam_front_idle->m_img_dimensions]},cam_front_idle_spritesheetPal, cam_front_idle_spritesheetBitmap, GL_RGB256, 256);
-    cam_back_idle->LoadTileset({new glImage[cam_back_idle->m_img_dimensions]},cam_back_idle_spritesheetPal, cam_back_idle_spritesheetBitmap, GL_RGB256, 256);
-    cam_side_idle->LoadTileset({new glImage[cam_side_idle->m_img_dimensions]},cam_side_idle_spritesheetPal, cam_side_idle_spritesheetBitmap, GL_RGB256, 256);
+    // cam_front_idle->LoadTileset({new glImage[cam_front_idle->m_img_dimensions]},cam_front_idle_spritesheetPal, cam_front_idle_spritesheetBitmap, GL_RGB256, 256);
+    // cam_back_idle->LoadTileset({new glImage[cam_back_idle->m_img_dimensions]},cam_back_idle_spritesheetPal, cam_back_idle_spritesheetBitmap, GL_RGB256, 256);
+    // cam_side_idle->LoadTileset({new glImage[cam_side_idle->m_img_dimensions]},cam_side_idle_spritesheetPal, cam_side_idle_spritesheetBitmap, GL_RGB256, 256);
     
-    cam_front_walk->LoadTileset({new glImage[cam_front_walk->m_img_dimensions]},cam_front_walk_spritesheetPal, cam_front_walk_spritesheetBitmap, GL_RGB256, 256);
-    cam_back_walk->LoadTileset({new glImage[cam_back_walk->m_img_dimensions]},cam_back_walk_spritesheetPal, cam_back_walk_spritesheetBitmap, GL_RGB256, 256);
-    cam_side_walk->LoadTileset({new glImage[cam_side_walk->m_img_dimensions]},cam_side_walk_spritesheetPal, cam_side_walk_spritesheetBitmap, GL_RGB256, 256);
+    // cam_front_walk->LoadTileset({new glImage[cam_front_walk->m_img_dimensions]},cam_front_walk_spritesheetPal, cam_front_walk_spritesheetBitmap, GL_RGB256, 256);
+    // cam_back_walk->LoadTileset({new glImage[cam_back_walk->m_img_dimensions]},cam_back_walk_spritesheetPal, cam_back_walk_spritesheetBitmap, GL_RGB256, 256);
+    // cam_side_walk->LoadTileset({new glImage[cam_side_walk->m_img_dimensions]},cam_side_walk_spritesheetPal, cam_side_walk_spritesheetBitmap, GL_RGB256, 256);
 
-    //this is a crime im so sorry
-    text_console->InitializeTextConsole(TEXT_CON_TYPE_SUB_TALK, m_scene->m_main_consoles.size(), m_scene->m_sub_consoles.size(), {new PrintConsole}, 0, BgType_Text4bpp,
-    BgSize_T_256x256, 0, 3, 4, 0, false, false, &font_cellphone, 1, 1, 10, 5);
+    // //this is a crime im so sorry
+    // text_console->InitializeTextConsole(TEXT_CON_TYPE_SUB_TALK, m_scene->m_main_consoles.size(), m_scene->m_sub_consoles.size(), {new PrintConsole}, 0, BgType_Text4bpp,
+    // BgSize_T_256x256, 0, 3, 4, 0, false, false, &font_cellphone, 1, 1, 10, 5);
 
-    Background* test = new Background(2, BgType_Bmp8, BgSize_B8_256x256, 4, 0, false);
+    // Background* test = new Background(2, BgType_Bmp8, BgSize_B8_256x256, 4, 0, false);
 
-    test->LoadBackground(0, overworld_optionsBitmap, overworld_optionsBitmapLen, overworld_optionsPal, overworld_optionsPalLen);
+    // test->LoadBackground(0, overworld_optionsBitmap, overworld_optionsBitmapLen, overworld_optionsPal, overworld_optionsPalLen);
 
     //Animation Objects
     cam_idle_f = new Animation(cam_front_idle);
@@ -57,7 +57,7 @@ void MainSceneData::InitializeData()
 
     //add m_scene objects now that everything is loaded and added
     //FIFO
-    m_scene->AddBackground(test);
+    //m_scene->AddBackground(test);
     m_scene->AddMap(coll_inter);
     m_scene->AddMap(town);
     m_scene->AddActor(cam);

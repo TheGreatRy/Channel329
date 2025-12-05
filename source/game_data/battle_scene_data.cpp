@@ -7,8 +7,8 @@ void BattleSceneData::InitializeData()
 
     test_battle = new Battle();
 
-    enemy->LoadTileset({new glImage[enemy->m_img_dimensions]}, talkingnpcPal, talkingnpcBitmap, GL_RGB256, 256);
-    attacker->LoadTileset({new glImage[attacker->m_img_dimensions]}, cam_battlePal, cam_battleBitmap, GL_RGB256, 256);
+    // enemy->LoadTileset({new glImage[enemy->m_img_dimensions]}, talkingnpcPal, talkingnpcBitmap, GL_RGB256, 256);
+    // attacker->LoadTileset({new glImage[attacker->m_img_dimensions]}, cam_battlePal, cam_battleBitmap, GL_RGB256, 256);
     
     // for (int i = 0; i < 3; i++)
     // {

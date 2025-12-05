@@ -1,7 +1,10 @@
 #pragma once
 
 //C++ Classes
+#include <vector>
 #include <map>
+
+#include <nds.h>
 
 //Actor Folder
 #include "../actors/character.h"
