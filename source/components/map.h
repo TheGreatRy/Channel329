@@ -4,7 +4,9 @@
 #include <vector>
 #include <map>
 
+//NDS Includes
 #include <nds.h>
+#include <stdio.h>
 
 //Actor Folder
 #include "../actors/character.h"
@@ -31,13 +33,13 @@ class Map
 public:
 
 
-    Map(Tileset* tileset_info, int map_width, int map_height, const int16_t tile_id_arr[], MAP_TYPE map_type);
+    Map(Tileset* tileset_info, int map_width, int map_height, const uint16_t tile_id_arr[], MAP_TYPE map_type);
     ~Map() = default;
 
     //key = [x,y] / value = tile id
-    std::vector<Coordinate<int16_t>*> m_coordinates;
+    std::vector<Coordinate<uint16_t>*> m_coordinates;
 
-    std::map<char, int16_t> m_collision_box;
+    std::map<char, uint16_t> m_collision_box;
 
     Tileset m_tileset_info;
     int m_map_width;

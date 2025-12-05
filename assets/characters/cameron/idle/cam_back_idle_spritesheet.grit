@@ -1,2 +1,2 @@
 #8 bit texture bitmap, set red as alpha color
--gx -gb -gB8 -gTFF0000
+-gB8 -gTFF0000

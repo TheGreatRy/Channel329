@@ -63,7 +63,7 @@ class MainSceneData : public GameData
     Map* town;
 
     //Main Scene Map
-    const int16_t map[30 * 20] = 
+    const uint16_t map[30 * 20] = 
     {
         94, 95, 84, 85, 94, 95, 84, 85, 94, 95,  1,  1,  1,  1,  1,  1,  1,  1, 94, 95, 84, 85, 84, 85, 94, 95, 84, 85, 84, 85,
         84, 85, 94, 95, 84, 85, 94, 95,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, 94, 95, 94, 95, 84, 85, 94, 95, 94, 95,
@@ -88,7 +88,7 @@ class MainSceneData : public GameData
     };
 
     //Main Scene Collisions
-    const int16_t collisions_interaction[30 * 20] =
+    const uint16_t collisions_interaction[30 * 20] =
     {
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
         1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,

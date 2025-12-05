@@ -4,7 +4,6 @@
 #include <nds.h>
 #include <stdio.h>
 #include <filesystem.h>
-#include <gl2d.h>
 
 #include <nf_lib.h>
 

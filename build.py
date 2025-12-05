@@ -7,7 +7,9 @@
 from architectds import *
 
 nitrofs = NitroFS()
-nitrofs.add_nflib_bg_8bit(['assets/backgrounds/overworld_options'], 'bmp')
+nitrofs.add_nflib_bg_tiled(['assets/test_graphics'], 'bg')
+nitrofs.add_nflib_bg_8bit(['assets/backgrounds'], 'bmp')
+nitrofs.add_nflib_sprite_256(['assets/characters/cameron/idle'], 'sprite')
 nitrofs.generate_image()
 
 arm9 = Arm9Binary(
