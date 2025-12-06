@@ -59,8 +59,6 @@ class MainSceneData : public GameData
 
     //Scene Objects
     Character* cam;
-    Map* coll_inter;
-    Map* town;
 
     //Main Scene Map
     const uint16_t map[30 * 20] = 

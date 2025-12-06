@@ -7,7 +7,6 @@
 // Utilities Folder
 #include "../utilities/tone.h"
 #include "../utilities/topic.h"
-#include "../utilities/coordinate.h"
 
 // Componenets Folder
 #include "../components/sprite.h"

@@ -40,41 +40,24 @@ int main(int argc, char **argv)
     // NF_CreateSprite(0, 0, 0, 0, 100, 50);
     // NF_SpriteLayer(0, 0, 0);
 
-    //Game Loop
-    while (1)
-    {
-        if (keysHeld() & KEY_START) break;
-
-        // Update OAM array
-        NF_SpriteOamSet(0);
-        NF_SpriteOamSet(1);
-
-        // Wait for the screen refresh
-        swiWaitForVBlank();
-
-        // Update OAM
-        oamUpdate(&oamMain);
-        oamUpdate(&oamSub);
-    }
-
-    // //Main Scene
-    // Scene* main_scene = new Scene(GM_STATE_MAIN, 0);
-    // GameData* main_data = new MainSceneData(main_scene);
-    // main_data->SetScene(main_scene);
+    //Main Scene
+    Scene* main_scene = new Scene(GM_STATE_MAIN, 0);
+    GameData* main_data = new MainSceneData(main_scene);
+    main_data->SetScene(main_scene);
 
     // //Battle Scene
     // Scene* battle_scene = new Scene(GM_STATE_BATTLE, 0);
     // GameData* battle_data = new BattleSceneData(battle_scene);
     // battle_data->SetScene(battle_scene);
     
-    // //Add data to the game
-    // game->AddData(main_data);
+    //Add data to the game
+    game->AddData(main_data);
     // game->AddData(battle_data);
     
-    // //run game
-    // game->RunGame();
+    //run game
+    game->RunGame();
     
-    // delete game;
+    delete game;
     
     return 0;
     

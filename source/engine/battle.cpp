@@ -40,20 +40,20 @@ void Battle::AddMultiplePhrases(Phrase *phrases[], int size)
 /// @return the defender phrase that corresponds to the given tone and topic
 Phrase* Battle::CheckAttackPhrase(int atk_phr_index)
 {
-    Tone atk_tone = m_attack_phrases[atk_phr_index]->m_phrase_tone;
-    Topic atk_topic = m_attack_phrases[atk_phr_index]->m_phrase_topic;
+    Tone* atk_tone = new Tone{m_attack_phrases[atk_phr_index]->m_phrase_tone};
+    Topic* atk_topic = new Topic{m_attack_phrases[atk_phr_index]->m_phrase_topic};
 
     //search for the attacker's tone in the defenders list of tones
     u32 tone_index = -1;
     for (u32 i = 0; i < m_defender->m_tones.size(); i++)
     {
         tone_index = (m_defender->m_tones[i] == atk_tone) ? i : -1;
-        if (tone_index = i) break;
+        if (tone_index == i) break;
     }
 
     if (tone_index != 0)
     {
-        switch(atk_tone.m_tone_type)
+        switch(atk_tone->m_tone_type)
         {
             case TONE_TYPE_POSITIVE:
                 m_attacker_advantage = true;
@@ -71,18 +71,18 @@ Phrase* Battle::CheckAttackPhrase(int atk_phr_index)
     for (u32 i = 0; i < m_defender->m_topics.size(); i++)
     {
         topic_index = (m_defender->m_topics[i] == atk_topic) ? i : -1;
-        if (topic_index = i) break;
+        if (topic_index == i) break;
     }
 
     if (topic_index != 0)
     {
-        switch(atk_topic.m_topic_type)
+        switch(atk_topic->m_topic_type)
         {
             case TOPIC_TYPE_KNOWN:
-                if (atk_tone.m_tone_type == TONE_TYPE_POSITIVE) return m_defend_phrases[2];
+                if (atk_tone->m_tone_type == TONE_TYPE_POSITIVE) return m_defend_phrases[2];
                 else return m_defend_phrases[3];
                 case TOPIC_TYPE_INDIFF:
-                if (atk_tone.m_tone_type == TONE_TYPE_POSITIVE) return m_defend_phrases[4];
+                if (atk_tone->m_tone_type == TONE_TYPE_POSITIVE) return m_defend_phrases[4];
                 else return m_defend_phrases[5];
             case TOPIC_TYPE_UNKNOWN:
                 return m_defend_phrases[1];

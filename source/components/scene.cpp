@@ -50,56 +50,56 @@ void Scene::DetectInput(int &scroll_x, int &scroll_y, bool &can_move_up, bool &c
 
 void Scene::SwitchAnimations(int &anim_id, bool &flip)
 {
-    // play animation on input
-    // else if so multiple won't play at once on the same character
+//     // play animation on input
+//     // else if so multiple won't play at once on the same character
 
-    // UP
-    if (keysUp() & KEY_UP)
-    {
-        anim_id = 1;
-        flip = false;
-    }
-    else if (keysHeld() & KEY_UP)
-    {
-        anim_id = 4;
-        flip = false;
-    }
+//     // UP
+//     if (keysUp() & KEY_UP)
+//     {
+//         anim_id = 1;
+//         flip = false;
+//     }
+//     else if (keysHeld() & KEY_UP)
+//     {
+//         anim_id = 4;
+//         flip = false;
+//     }
 
-    // DOWN
-    else if (keysUp() & KEY_DOWN)
-    {
-        anim_id = 0;
-        flip = false;
-    }
-    else if (keysHeld() & KEY_DOWN)
-    {
-        anim_id = 3;
-        flip = false;
-    }
+//     // DOWN
+//     else if (keysUp() & KEY_DOWN)
+//     {
+//         anim_id = 0;
+//         flip = false;
+//     }
+//     else if (keysHeld() & KEY_DOWN)
+//     {
+//         anim_id = 3;
+//         flip = false;
+//     }
 
-    // LEFT
-    else if (keysUp() & KEY_LEFT)
-    {
-        anim_id = 2;
-        flip = true;
-    }
-    else if (keysHeld() & KEY_LEFT)
-    {
-        anim_id = 5;
-        flip = true;
-    }
+//     // LEFT
+//     else if (keysUp() & KEY_LEFT)
+//     {
+//         anim_id = 2;
+//         flip = true;
+//     }
+//     else if (keysHeld() & KEY_LEFT)
+//     {
+//         anim_id = 5;
+//         flip = true;
+//     }
 
-    // RIGHT
-    else if (keysUp() & KEY_RIGHT)
-    {
-        anim_id = 2;
-        flip = false;
-    }
-    else if (keysHeld() & KEY_RIGHT)
-    {
-        anim_id = 5;
-        flip = false;
-    }
+//     // RIGHT
+//     else if (keysUp() & KEY_RIGHT)
+//     {
+//         anim_id = 2;
+//         flip = false;
+//     }
+//     else if (keysHeld() & KEY_RIGHT)
+//     {
+//         anim_id = 5;
+//         flip = false;
+//     }
 }
 
 void Scene::DeleteAllTextures()
@@ -162,6 +162,12 @@ void Scene::DrawScene(int scroll_x, int scroll_y, bool &can_move_up, bool &can_m
 
     while (1)
     {
+
+        // Update OAM array
+        NF_SpriteOamSet(0);
+        NF_SpriteOamSet(1);
+
+        // Wait for the screen refresh
         swiWaitForVBlank();
 
         scanKeys();
@@ -188,12 +194,16 @@ void Scene::DrawScene(int scroll_x, int scroll_y, bool &can_move_up, bool &can_m
         {
             if (actor->m_character_type == CHARACTER_TYPE_MAIN)
             {
-                //play main character animations
+                actor->PlayAnimation(current_anim_id, 16, current_flip);
             }
             else
             {
                 // play all other animations
             }
         }
+
+         // Update OAM
+        oamUpdate(&oamMain);
+        oamUpdate(&oamSub); 
     }
 }

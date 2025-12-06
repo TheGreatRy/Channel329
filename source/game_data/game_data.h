@@ -11,6 +11,10 @@
 // #include <../graphics/test_graphics/charmap_cellphone.h>
 // #include <../graphics/test_graphics/charmap_futuristic.h>
 
+//DS screen size
+#define SCREEN_WIDTH 256
+#define SCREEN_HEIGHT 192
+
 class GameData
 {
     public:

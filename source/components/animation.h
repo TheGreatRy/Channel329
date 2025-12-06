@@ -6,7 +6,7 @@ class Animation
 {
     public:
     Animation() = default;
-    Animation(Sprite* spritesheet);
+    Animation(Sprite* spritesheet, int sprite_amount);
     ~Animation() = default;
     
     Sprite* m_spritesheet;

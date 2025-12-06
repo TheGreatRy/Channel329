@@ -3,10 +3,6 @@
 //NDS Library Includes
 #include <nf_lib.h>
 
-//DS screen size
-#define SCREEN_WIDTH 256
-#define SCREEN_HEIGHT 192
-
 enum BG_TYPE
 {
     BG_TYPE_8BIT,

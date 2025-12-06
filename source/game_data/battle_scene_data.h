@@ -27,10 +27,10 @@ class BattleSceneData : public GameData
     }
     
 
-    Sprite* enemy = new Sprite(1,1,64,64);       
-    Sprite* attacker = new Sprite(1,1,30,80);       
+    Sprite* enemy;    
+    Sprite* attacker;     
 
-    Battle* test_battle = new Battle();
+    Battle* test_battle;
 
     Animation* npc_temp;
     Animation* attack_temp;
