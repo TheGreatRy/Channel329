@@ -10,7 +10,7 @@
 #include "../utilities/coordinate.h"
 
 // Componenets Folder
-#include "../components/Sprite.h"
+#include "../components/sprite.h"
 #include "../components/animation.h"
 
 enum CHARACTER_TYPE
@@ -41,6 +41,5 @@ public:
     void AddMultipleTopics(Topic* topics[]);
 
     void AddAnimation(Animation* animation);
-
-    void PlayAnimation(int anim_id, int x_pos, int y_pos, int fps, GL_FLIP_MODE flip_sprites);
+    void PlayAnimation(int anim_id, int fps, bool flip_sprites);
 };

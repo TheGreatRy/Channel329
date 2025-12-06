@@ -38,7 +38,7 @@ void Character::AddAnimation(Animation *animation)
     m_sprite_animations.push_back(animation);
 }
 
-void Character::PlayAnimation(int anim_id, int x_pos, int y_pos, int fps, GL_FLIP_MODE flip_sprites)
+void Character::PlayAnimation(int anim_id, int fps, bool flip_sprites)
 {
-    m_sprite_animations[anim_id]->PlayAnimation(x_pos, y_pos, fps, flip_sprites);
+    m_sprite_animations[anim_id]->PlayAnimation(fps, flip_sprites);
 }
