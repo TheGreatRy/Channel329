@@ -28,5 +28,5 @@ public:
     s32 m_y_pos = 0;
 
     void LoadSprite(u32 sprite_id, u32 gfx_slot, u32 pal_slot, s32 x, s32 y, bool copy_all_frames, u32 layer);
-    void UnloadSprite();
+    void RemoveSprite();
 };

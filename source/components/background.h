@@ -27,9 +27,18 @@ public:
     
     BG_TYPE m_background_type;
     const char* m_name;
-    u32 m_slot = -1;
-    u32 m_width = -1;
-    u32 m_height = -1;
-    u32 m_start_tile = -1;
-    u32 m_end_tile = -1;
+    u32 m_slot = 0;
+    u32 m_width = 0;
+    u32 m_height = 0;
+    u32 m_start_tile = 0;
+    u32 m_end_tile = 0;
+
+    int m_screen;
+    int m_layer;
+
+    void LoadBackground(int screen, int layer, int copy_dest, bool can_wrap);
+    void DeleteBackground();
+    
+    private:
+    void UnloadBackgroundRAM();
 };
