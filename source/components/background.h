@@ -37,7 +37,7 @@ public:
     int m_layer;
 
     void LoadBackground(int screen, int layer, int copy_dest, bool can_wrap);
-    void DeleteBackground();
+    void RemoveBackground();
     
     private:
     void UnloadBackgroundRAM();

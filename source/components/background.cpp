@@ -85,7 +85,7 @@ void Background::LoadBackground(int screen, int layer = 0, int copy_dest = 0, bo
 }
 
 
-void Background::DeleteBackground()
+void Background::RemoveBackground()
 {
     switch (m_background_type)
     {
