@@ -10,6 +10,7 @@ enum TONE_TYPE
 
 enum TONE_SKILL
 {
+    TONE_SKILL_DEFAULT,
     TONE_SKILL_AUTHOR,
     TONE_SKILL_CARING,
     TONE_SKILL_CASUAL,
@@ -46,16 +47,16 @@ enum TONE_SKILL
 class Tone
 {
     public:
-    TONE_SKILL m_skill;
-    TONE_TYPE m_type;
+    TONE_SKILL m_tone_skill;
+    TONE_TYPE m_tone_type;
 
     Tone(TONE_SKILL skill, TONE_TYPE type) :
-        m_skill{skill},
-        m_type{type}
+        m_tone_skill{skill},
+        m_tone_type{type}
     {}
 
     Tone(TONE_SKILL skill) :
-        m_skill{skill}
+        m_tone_skill{skill}
     {}
     
     ~Tone() = default;

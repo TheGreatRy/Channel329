@@ -2,6 +2,7 @@
 
 enum TOPIC_SKILL
 {
+    TOPIC_SKILL_DEFAULT,
     TOPIC_SKILL_HISTORY,
     TOPIC_SKILL_PEOPLE,
     TOPIC_SKILL_UNDGR,
@@ -19,16 +20,16 @@ enum TOPIC_TYPE
 class Topic
 {
     public:
-    TOPIC_SKILL m_skill;
-    TOPIC_TYPE m_type;
+    TOPIC_SKILL m_topic_skill;
+    TOPIC_TYPE m_topic_type;
 
     Topic(TOPIC_SKILL skill, TOPIC_TYPE type) :
-        m_skill{skill},
-        m_type{type}
+        m_topic_skill{skill},
+        m_topic_type{type}
     {}
 
     Topic(TOPIC_SKILL skill) :
-        m_skill{skill}
+        m_topic_skill{skill}
     {}
     
     ~Topic() = default;

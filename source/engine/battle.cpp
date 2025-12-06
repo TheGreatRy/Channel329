@@ -2,12 +2,12 @@
 
 void Battle::SetAttacker(Character *attacker)
 {
-    m_attacker = *attacker;
+    m_attacker = attacker;
 }
 
 void Battle::SetDefender(Character *defender)
 {
-    m_defender = *defender;
+    m_defender = defender;
 }
 
 void Battle::AddSinglePhrase(Phrase *phrase)
@@ -34,72 +34,59 @@ void Battle::AddMultiplePhrases(Phrase *phrases[], int size)
     }
 }
 
-Character *Battle::ResolveTurn(int index)
+/// @brief Checks the attacker's phrase against the defender. 0 is `NEGATIVE`, 1 is `UNKNOWN`, 2 is `POSITIVE KNOWN`, 
+// 3 is `NEUTRAL KNOWN`, 4 is `POSITIVE INDIFFERENT`, 5 is `NEUTRAL INDIFFERENT`
+/// @param atk_phr_index 
+/// @return the defender phrase that corresponds to the given tone and topic
+Phrase* Battle::CheckAttackPhrase(int atk_phr_index)
 {
+    Tone atk_tone = m_attack_phrases[atk_phr_index]->m_phrase_tone;
+    Topic atk_topic = m_attack_phrases[atk_phr_index]->m_phrase_topic;
 
-    // search for the tone in the defender's tone list
-    int found_tone = -1;
-    for (int i = 0; i < m_defender.m_tones.size(); i++)
+    //search for the attacker's tone in the defenders list of tones
+    u32 tone_index = -1;
+    for (u32 i = 0; i < m_defender->m_tones.size(); i++)
     {
-        found_tone = (m_attack_phrases[index]->m_tone_skill == m_defender.m_tones[i]->m_skill) ? i : -1;
-        if (found_tone == i) 
-            break;
+        tone_index = (m_defender->m_tones[i] == atk_tone) ? i : -1;
+        if (tone_index = i) break;
     }
 
-    // if tone is valid
-    if (found_tone > -1)
+    if (tone_index != 0)
     {
-        switch (m_defender.m_tones[found_tone]->m_type)
+        switch(atk_tone.m_tone_type)
         {
-        // Attacker has the advantage
-        case TONE_TYPE_POSITIVE:
-            m_attacker_advantage = true;
-            break;
-
-        // Attacker has no advantage but hasn't lost
-        case TONE_TYPE_NEUTRAL:
-            m_attacker_advantage = false;
-            break;
-
-        // Attacker lost tone check, they will not get information
-        // note to add this to their memory object once that's done so they do not talk to you initally (you have to fight for it)
-        case TONE_TYPE_NEGATIVE:
-            return &m_defender;
-            break;
+            case TONE_TYPE_POSITIVE:
+                m_attacker_advantage = true;
+                break;
+            case TONE_TYPE_NEUTRAL:
+                m_attacker_advantage = false;
+                break;
+            case TONE_TYPE_NEGATIVE:
+                return m_defend_phrases[0];
         }
     }
 
-    // search for the topic in the defender's topic list
-    int found_topic = -1;
-    for (int i = 0; i < m_defender.m_topics.size(); i++)
+     //search for the attacker's tone in the defenders list of tones
+    u32 topic_index = -1;
+    for (u32 i = 0; i < m_defender->m_topics.size(); i++)
     {
-        found_topic = (m_attack_phrases[index]->m_topic_skill == m_defender.m_topics[i]->m_skill) ? i : -1;
-        if (found_topic == i)
-            break;
+        topic_index = (m_defender->m_topics[i] == atk_topic) ? i : -1;
+        if (topic_index = i) break;
     }
-    // if tone is valid
-    if (found_topic > -1)
-    {
-        switch (m_defender.m_topics[found_topic]->m_type)
-        {
-        // Defender has knowledge about the topic, attacker wins
-        case TOPIC_TYPE_KNOWN:
-            return &m_attacker;
-            break;
 
-        // Defender doesnt have enough useful information. Defender wins if tone was neutral, but attacker wins if it was positive (they get a hint!)
-        case TOPIC_TYPE_INDIFF:
-            if (m_attacker_advantage)
-                return &m_attacker;
-            else
-                return &m_defender;
-            break;
-        // Defender does not know anything about the topic, defender wins
-        case TOPIC_TYPE_UNKNOWN:
-            return &m_defender;
-            break;
+    if (topic_index != 0)
+    {
+        switch(atk_topic.m_topic_type)
+        {
+            case TOPIC_TYPE_KNOWN:
+                if (atk_tone.m_tone_type == TONE_TYPE_POSITIVE) return m_defend_phrases[2];
+                else return m_defend_phrases[3];
+                case TOPIC_TYPE_INDIFF:
+                if (atk_tone.m_tone_type == TONE_TYPE_POSITIVE) return m_defend_phrases[4];
+                else return m_defend_phrases[5];
+            case TOPIC_TYPE_UNKNOWN:
+                return m_defend_phrases[1];
         }
     }
-
-        return &m_defender;
+    return new Phrase{"I don't think I understand...", TONE_SKILL_DEFAULT, TOPIC_SKILL_DEFAULT, PHRASE_TYPE_DEFEND};
 }

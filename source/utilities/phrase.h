@@ -18,14 +18,14 @@ class Phrase
 {
     public:
     std::string m_text;
-    TONE_SKILL m_tone_skill;
-    TOPIC_SKILL m_topic_skill;
+    TONE_SKILL m_phrase_tone;
+    TOPIC_SKILL m_phrase_topic;
     PHRASE_TYPE m_type;
 
     Phrase(std::string text, TONE_SKILL tone, TOPIC_SKILL topic, PHRASE_TYPE type) :
         m_text{text},
-        m_tone_skill{tone},
-        m_topic_skill{topic},
+        m_phrase_tone{tone},
+        m_phrase_topic{topic},
         m_type{type}
     {}
     ~Phrase() = default;

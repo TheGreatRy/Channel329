@@ -2,13 +2,11 @@
 
 #include <nds.h>
 #include <stdio.h>
-#include <gl2d.h>
 
 #include <memory>
 #include <vector>
 #include <string>
 #include <sstream>
-#include <chrono>
 
 // Engine Folder
 #include "battle.h"

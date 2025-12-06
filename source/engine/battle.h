@@ -19,8 +19,8 @@ public:
     std::vector<Phrase *> m_defend_phrases;
     std::vector<Phrase *> m_boss_phrases;
 
-    Character m_attacker;
-    Character m_defender;
+    Character* m_attacker;
+    Character* m_defender;
 
     bool m_attacker_advantage = false;
 
@@ -30,5 +30,5 @@ public:
     void AddSinglePhrase(Phrase *phrase);
     void AddMultiplePhrases(Phrase *phrases[], int size);
 
-    Character* ResolveTurn(int index);
+    Phrase* CheckAttackPhrase(int atk_phr_index);
 };
