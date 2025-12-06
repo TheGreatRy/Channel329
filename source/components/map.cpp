@@ -1,8 +1,8 @@
 #include "map.h"
 
-Map::Map(Tileset *tileset_info, int map_width, int map_height, const uint16_t tile_id_arr[], MAP_TYPE map_type)
+Map::Map(Sprite *Sprite_info, int map_width, int map_height, const uint16_t tile_id_arr[], MAP_TYPE map_type)
 {
-    m_tileset_info = *tileset_info;
+    m_Sprite_info = *Sprite_info;
 
     m_map_width = map_width;
     m_map_height = map_height;
@@ -44,9 +44,9 @@ void Map::DrawMap(Character *player, int scroll_x, int scroll_y, bool &can_move_
     int height_tile_amt = m_map_height;
     
     // // we only need to draw the necessary tiles
-    // int width_tile_amt = (SCREEN_WIDTH / m_tileset_info.m_sprite_w); // == 16
+    // int width_tile_amt = (SCREEN_WIDTH / m_Sprite_info.m_sprite_w); // == 16
 
-    // int height_tile_amt = (SCREEN_HEIGHT / m_tileset_info.m_sprite_h); // == 12
+    // int height_tile_amt = (SCREEN_HEIGHT / m_Sprite_info.m_sprite_h); // == 12
 
     int draw_x_pos = 0;
     int draw_y_pos = 0;
@@ -58,12 +58,12 @@ void Map::DrawMap(Character *player, int scroll_x, int scroll_y, bool &can_move_
     for (int i = 0; i < (width_tile_amt * height_tile_amt); i++) // until 16*12
     {
         //draws entire map
-        draw_x_pos = -scroll_x + m_coordinates.at(i)->m_x * m_tileset_info.m_sprite_w;
-        draw_y_pos = -scroll_y + m_coordinates.at(i)->m_y * m_tileset_info.m_sprite_h;
+        draw_x_pos = -scroll_x + m_coordinates.at(i)->m_x * m_Sprite_info.m_sprite_w;
+        draw_y_pos = -scroll_y + m_coordinates.at(i)->m_y * m_Sprite_info.m_sprite_h;
 
         tile_id = m_coordinates.at(i)->m_value;
 
-        glSprite(draw_x_pos, draw_y_pos, GL_FLIP_NONE, &m_tileset_info.m_tileset_img[tile_id]);
+        glSprite(draw_x_pos, draw_y_pos, GL_FLIP_NONE, &m_Sprite_info.m_Sprite_img[tile_id]);
        
         // // Draws only necessary tiles (WIP)
 
@@ -86,12 +86,12 @@ void Map::DrawMap(Character *player, int scroll_x, int scroll_y, bool &can_move_
         //     break;
 
         // // set drawing positions
-        // draw_x_pos = x_coord * m_tileset_info.m_sprite_w;
-        // draw_y_pos = y_coord * m_tileset_info.m_sprite_h;
+        // draw_x_pos = x_coord * m_Sprite_info.m_sprite_w;
+        // draw_y_pos = y_coord * m_Sprite_info.m_sprite_h;
 
         // tile_id = m_coordinates.at((x_coord + scroll_x) + (m_map_width * (y_coord + scroll_y)))->m_value;
 
-        // glSprite(draw_x_pos, draw_y_pos, GL_FLIP_NONE, &m_tileset_info.m_tileset_img[tile_id]);
+        // glSprite(draw_x_pos, draw_y_pos, GL_FLIP_NONE, &m_Sprite_info.m_Sprite_img[tile_id]);
 
         // // build collision box
 

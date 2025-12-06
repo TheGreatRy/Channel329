@@ -4,7 +4,7 @@
 #include "game_data.h"
 
 //Components Folder
-#include "../components/tileset.h"
+#include "../components/Sprite.h"
 
 //Engine Folder
 #include "../engine/text_console.h"
@@ -27,8 +27,8 @@ class BattleSceneData : public GameData
     }
     
 
-    Tileset* enemy = new Tileset(1,1,64,64);       
-    Tileset* attacker = new Tileset(1,1,30,80);       
+    Sprite* enemy = new Sprite(1,1,64,64);       
+    Sprite* attacker = new Sprite(1,1,30,80);       
 
     Battle* test_battle = new Battle();
 

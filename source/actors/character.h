@@ -10,7 +10,7 @@
 #include "../utilities/coordinate.h"
 
 // Componenets Folder
-#include "../components/tileset.h"
+#include "../components/Sprite.h"
 #include "../components/animation.h"
 
 enum CHARACTER_TYPE

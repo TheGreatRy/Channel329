@@ -4,7 +4,7 @@
 #include "game_data.h"
 
 //Components Folder
-#include "../components/tileset.h"
+#include "../components/Sprite.h"
 
 //Engine Folder
 #include "../engine/text_console.h"
@@ -35,18 +35,18 @@ class MainSceneData : public GameData
 
     void InitializeData();
 
-    //Tileset Objects
+    //Sprite Objects
     TextConsole* text_console;
-    Tileset* town_ts;
-    Tileset* c_i_ts;
+    Sprite* town_ts;
+    Sprite* c_i_ts;
 
-    Tileset* cam_front_idle;
-    Tileset* cam_back_idle;
-    Tileset* cam_side_idle;
+    Sprite* cam_front_idle;
+    Sprite* cam_back_idle;
+    Sprite* cam_side_idle;
     
-    Tileset* cam_front_walk;
-    Tileset* cam_back_walk;
-    Tileset* cam_side_walk;
+    Sprite* cam_front_walk;
+    Sprite* cam_back_walk;
+    Sprite* cam_side_walk;
 
     //Animation Objects
     Animation* cam_idle_f;

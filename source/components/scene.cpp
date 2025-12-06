@@ -112,7 +112,7 @@ void Scene::DeleteAllTextures()
     // Maps
     for (Map *map : m_maps)
     {
-        glDeleteTextures(1, &map->m_tileset_info.m_texture_id);
+        glDeleteTextures(1, &map->m_Sprite_info.m_texture_id);
     }
 
     // Actors

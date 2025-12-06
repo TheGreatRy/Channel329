@@ -1,7 +1,7 @@
 # 4 BPP
 -gB4
 
-# Generate a tileset
+# Generate a Sprite
 -g
 
 # Don't optimize repeated tiles, and don't generate a tilemap

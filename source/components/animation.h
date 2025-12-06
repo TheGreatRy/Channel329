@@ -1,15 +1,15 @@
 #pragma once
 
-#include "tileset.h"
+#include "Sprite.h"
 
 class Animation
 {
     public:
     Animation() = default;
-    Animation(Tileset* spritesheet);
+    Animation(Sprite* spritesheet);
     ~Animation() = default;
     
-    Tileset m_spritesheet;
+    Sprite m_spritesheet;
     
     int m_time_step = 0;
     int m_current_frame_index = 0;

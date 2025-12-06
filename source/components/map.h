@@ -12,7 +12,7 @@
 #include "../actors/character.h"
 
 //Components Folder
-#include "../components/tileset.h"
+#include "../components/Sprite.h"
 
 //Utilities Folder
 #include "../utilities/coordinate.h"
@@ -33,7 +33,7 @@ class Map
 public:
 
 
-    Map(Tileset* tileset_info, int map_width, int map_height, const uint16_t tile_id_arr[], MAP_TYPE map_type);
+    Map(Sprite* Sprite_info, int map_width, int map_height, const uint16_t tile_id_arr[], MAP_TYPE map_type);
     ~Map() = default;
 
     //key = [x,y] / value = tile id
@@ -41,7 +41,7 @@ public:
 
     std::map<char, uint16_t> m_collision_box;
 
-    Tileset m_tileset_info;
+    Sprite m_Sprite_info;
     int m_map_width;
     int m_map_height;
     MAP_TYPE m_map_type;

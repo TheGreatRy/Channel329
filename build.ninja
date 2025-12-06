@@ -131,9 +131,9 @@ build build/arm9/source/components/scene.cpp.o: cxx_arm source/components/scene.
   cxxflags = -mthumb  -isystem ${BLOCKSDS}/libs/libnds/include -isystem ${BLOCKSDSEXT}/nflib/include -Ibuild/assets/arm9 -fno-exceptions -fno-rtti -ffunction-sections -fdata-sections -specs=${BLOCKSDS}/sys/crts/ds_arm9.specs -mcpu=arm946e-s+nofp -Wall -O2 -std=gnu++14
   dep = build/arm9/source/components/scene.cpp.d
 
-build build/arm9/source/components/tileset.cpp.o: cxx_arm source/components/tileset.cpp || build/arm9/source/components assets_arm9_flag
+build build/arm9/source/components/Sprite.cpp.o: cxx_arm source/components/Sprite.cpp || build/arm9/source/components assets_arm9_flag
   cxxflags = -mthumb  -isystem ${BLOCKSDS}/libs/libnds/include -isystem ${BLOCKSDSEXT}/nflib/include -Ibuild/assets/arm9 -fno-exceptions -fno-rtti -ffunction-sections -fdata-sections -specs=${BLOCKSDS}/sys/crts/ds_arm9.specs -mcpu=arm946e-s+nofp -Wall -O2 -std=gnu++14
-  dep = build/arm9/source/components/tileset.cpp.d
+  dep = build/arm9/source/components/Sprite.cpp.d
 
 build build/arm9/source/components/world.cpp.o: cxx_arm source/components/world.cpp || build/arm9/source/components assets_arm9_flag
   cxxflags = -mthumb  -isystem ${BLOCKSDS}/libs/libnds/include -isystem ${BLOCKSDSEXT}/nflib/include -Ibuild/assets/arm9 -fno-exceptions -fno-rtti -ffunction-sections -fdata-sections -specs=${BLOCKSDS}/sys/crts/ds_arm9.specs -mcpu=arm946e-s+nofp -Wall -O2 -std=gnu++14
@@ -159,7 +159,7 @@ build build/arm9/source/game_data/main_scene_data.cpp.o: cxx_arm source/game_dat
   cxxflags = -mthumb  -isystem ${BLOCKSDS}/libs/libnds/include -isystem ${BLOCKSDSEXT}/nflib/include -Ibuild/assets/arm9 -fno-exceptions -fno-rtti -ffunction-sections -fdata-sections -specs=${BLOCKSDS}/sys/crts/ds_arm9.specs -mcpu=arm946e-s+nofp -Wall -O2 -std=gnu++14
   dep = build/arm9/source/game_data/main_scene_data.cpp.d
 
-build build/arm9/arm9.elf | build/arm9/arm9.map: ld_arm build/arm9/source/main.cpp.o build/arm9/source/actors/character.cpp.o build/arm9/source/components/animation.cpp.o build/arm9/source/components/background.cpp.o build/arm9/source/components/map.cpp.o build/arm9/source/components/scene.cpp.o build/arm9/source/components/tileset.cpp.o build/arm9/source/components/world.cpp.o build/arm9/source/engine/battle.cpp.o build/arm9/source/engine/game.cpp.o build/arm9/source/engine/text_console.cpp.o build/arm9/source/game_data/battle_scene_data.cpp.o build/arm9/source/game_data/main_scene_data.cpp.o || build/arm9
+build build/arm9/arm9.elf | build/arm9/arm9.map: ld_arm build/arm9/source/main.cpp.o build/arm9/source/actors/character.cpp.o build/arm9/source/components/animation.cpp.o build/arm9/source/components/background.cpp.o build/arm9/source/components/map.cpp.o build/arm9/source/components/scene.cpp.o build/arm9/source/components/Sprite.cpp.o build/arm9/source/components/world.cpp.o build/arm9/source/engine/battle.cpp.o build/arm9/source/engine/game.cpp.o build/arm9/source/engine/text_console.cpp.o build/arm9/source/game_data/battle_scene_data.cpp.o build/arm9/source/game_data/main_scene_data.cpp.o || build/arm9
   ldflags = -L${BLOCKSDS}/libs/libnds/lib -L${BLOCKSDSEXT}/nflib/lib -Wl,-Map,build/arm9/arm9.map -mcpu=arm946e-s+nofp -Wl,--start-group -lnds9 -lnflib -lstdc++ -lc -Wl,--end-group -specs=${BLOCKSDS}/sys/crts/ds_arm9.specs 
 
 build build/nitrofs/bg/anuvverbubbla_8x8.map build/nitrofs/bg/anuvverbubbla_8x8.img build/nitrofs/bg/anuvverbubbla_8x8.pal : grit assets/test_graphics/anuvverbubbla_8x8.png || build/nitrofs/bg

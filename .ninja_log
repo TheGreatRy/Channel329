@@ -10,7 +10,7 @@
 461	830	1764931064008546300	build/arm9/source/components/animation.cpp.o	a86b80c7fec03565
 507	1001	1764931064055202200	build/arm9/source/actors/character.cpp.o	f13feaaa2e677209
 477	856	1764931064025032600	build/arm9/source/components/background.cpp.o	e64412c252765792
-543	1002	1764931064091203200	build/arm9/source/components/tileset.cpp.o	e98876dcdd9cd0c8
+543	1002	1764931064091203200	build/arm9/source/components/Sprite.cpp.o	e98876dcdd9cd0c8
 570	1094	1764931064118202600	build/arm9/source/components/world.cpp.o	7bf49690f0b80a1b
 412	1001	1764931063960252400	build/arm9/source/engine/battle.cpp.o	8279653c4b931c7c
 445	1059	1764931063992597700	build/arm9/source/engine/text_console.cpp.o	19863dead952d6a6

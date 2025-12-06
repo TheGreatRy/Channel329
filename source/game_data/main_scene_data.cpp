@@ -3,28 +3,28 @@
 void MainSceneData::InitializeData()
 {
     text_console = new TextConsole();
-    town_ts = new Tileset(10, 10, 16, 16);
-    c_i_ts = new Tileset(4, 1, 16, 16);
+    town_ts = new Sprite(10, 10, 16, 16);
+    c_i_ts = new Sprite(4, 1, 16, 16);
 
-    cam_front_idle = new Tileset(4, 3, 32, 32);
-    cam_back_idle = new Tileset(4, 1, 32, 32);
-    cam_side_idle = new Tileset(4, 3, 32, 32);
+    cam_front_idle = new Sprite(4, 3, 32, 32);
+    cam_back_idle = new Sprite(4, 1, 32, 32);
+    cam_side_idle = new Sprite(4, 3, 32, 32);
     
-    cam_front_walk = new Tileset(4, 3, 32, 32);
-    cam_back_walk = new Tileset(4, 1, 32, 32);
-    cam_side_walk = new Tileset(4, 3, 32, 32);
+    cam_front_walk = new Sprite(4, 3, 32, 32);
+    cam_back_walk = new Sprite(4, 1, 32, 32);
+    cam_side_walk = new Sprite(4, 3, 32, 32);
 
     // //Now that the objects exist, we can load the graphics
-    // town_ts->LoadTileset({new glImage[town_ts->m_img_dimensions]}, tiny_16Pal, tiny_16Bitmap, GL_RGB256, 256);
-    // c_i_ts->LoadTileset({new glImage[c_i_ts->m_img_dimensions]}, collisionPal, collisionBitmap, GL_RGB256, 256);
+    // town_ts->LoadSprite({new glImage[town_ts->m_img_dimensions]}, tiny_16Pal, tiny_16Bitmap, GL_RGB256, 256);
+    // c_i_ts->LoadSprite({new glImage[c_i_ts->m_img_dimensions]}, collisionPal, collisionBitmap, GL_RGB256, 256);
     
-    // cam_front_idle->LoadTileset({new glImage[cam_front_idle->m_img_dimensions]},cam_front_idle_spritesheetPal, cam_front_idle_spritesheetBitmap, GL_RGB256, 256);
-    // cam_back_idle->LoadTileset({new glImage[cam_back_idle->m_img_dimensions]},cam_back_idle_spritesheetPal, cam_back_idle_spritesheetBitmap, GL_RGB256, 256);
-    // cam_side_idle->LoadTileset({new glImage[cam_side_idle->m_img_dimensions]},cam_side_idle_spritesheetPal, cam_side_idle_spritesheetBitmap, GL_RGB256, 256);
+    // cam_front_idle->LoadSprite({new glImage[cam_front_idle->m_img_dimensions]},cam_front_idle_spritesheetPal, cam_front_idle_spritesheetBitmap, GL_RGB256, 256);
+    // cam_back_idle->LoadSprite({new glImage[cam_back_idle->m_img_dimensions]},cam_back_idle_spritesheetPal, cam_back_idle_spritesheetBitmap, GL_RGB256, 256);
+    // cam_side_idle->LoadSprite({new glImage[cam_side_idle->m_img_dimensions]},cam_side_idle_spritesheetPal, cam_side_idle_spritesheetBitmap, GL_RGB256, 256);
     
-    // cam_front_walk->LoadTileset({new glImage[cam_front_walk->m_img_dimensions]},cam_front_walk_spritesheetPal, cam_front_walk_spritesheetBitmap, GL_RGB256, 256);
-    // cam_back_walk->LoadTileset({new glImage[cam_back_walk->m_img_dimensions]},cam_back_walk_spritesheetPal, cam_back_walk_spritesheetBitmap, GL_RGB256, 256);
-    // cam_side_walk->LoadTileset({new glImage[cam_side_walk->m_img_dimensions]},cam_side_walk_spritesheetPal, cam_side_walk_spritesheetBitmap, GL_RGB256, 256);
+    // cam_front_walk->LoadSprite({new glImage[cam_front_walk->m_img_dimensions]},cam_front_walk_spritesheetPal, cam_front_walk_spritesheetBitmap, GL_RGB256, 256);
+    // cam_back_walk->LoadSprite({new glImage[cam_back_walk->m_img_dimensions]},cam_back_walk_spritesheetPal, cam_back_walk_spritesheetBitmap, GL_RGB256, 256);
+    // cam_side_walk->LoadSprite({new glImage[cam_side_walk->m_img_dimensions]},cam_side_walk_spritesheetPal, cam_side_walk_spritesheetBitmap, GL_RGB256, 256);
 
     // //this is a crime im so sorry
     // text_console->InitializeTextConsole(TEXT_CON_TYPE_SUB_TALK, m_scene->m_main_consoles.size(), m_scene->m_sub_consoles.size(), {new PrintConsole}, 0, BgType_Text4bpp,

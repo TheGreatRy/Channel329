@@ -16,7 +16,7 @@
                 "y": 64.66666666666663
             }
         },
-        "tileset.tsx": {
+        "Sprite.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
         }
@@ -28,16 +28,16 @@
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "openFiles": [
-        "tileset.tsx",
+        "Sprite.tsx",
         "test.tmx"
     ],
     "project": "background.tiled-project",
     "recentFiles": [
-        "tileset.tsx",
+        "Sprite.tsx",
         "test.tmx"
     ],
-    "tileset.lastUsedFormat": "tsx",
-    "tileset.tileSize": {
+    "Sprite.lastUsedFormat": "tsx",
+    "Sprite.tileSize": {
         "height": 16,
         "width": 16
     }

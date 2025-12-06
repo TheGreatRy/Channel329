@@ -3,7 +3,7 @@
  <editorsettings>
   <export target="test.csv" format="csv"/>
  </editorsettings>
- <tileset firstgid="1" source="tileset.tsx"/>
+ <Sprite firstgid="1" source="Sprite.tsx"/>
  <layer id="1" name="Tile Layer 1" width="30" height="20">
   <data encoding="csv">
 95,96,85,86,95,96,85,86,95,96,2,2,2,2,2,2,2,2,95,96,85,86,85,86,95,96,85,86,85,86,

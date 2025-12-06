@@ -1,6 +1,6 @@
 #include "animation.h"
 
-Animation::Animation(Tileset *spritesheet)
+Animation::Animation(Sprite *spritesheet)
 {
     m_spritesheet = *spritesheet;
 }
@@ -18,5 +18,5 @@ void Animation::PlayAnimation(int x_pos, int y_pos, int fps, GL_FLIP_MODE flip_s
             m_current_frame_index = 0;   
     }
     
-    glSprite(x_pos, y_pos, flip_sprites,  &m_spritesheet.m_tileset_img[m_current_frame_index]); 
+    glSprite(x_pos, y_pos, flip_sprites,  &m_spritesheet.m_Sprite_img[m_current_frame_index]); 
 }

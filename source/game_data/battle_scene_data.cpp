@@ -2,13 +2,13 @@
 
 void BattleSceneData::InitializeData()
 {
-    enemy = new Tileset(1,1,64,64);       
-    attacker = new Tileset(1,1,30,80);       
+    enemy = new Sprite(1,1,64,64);       
+    attacker = new Sprite(1,1,30,80);       
 
     test_battle = new Battle();
 
-    // enemy->LoadTileset({new glImage[enemy->m_img_dimensions]}, talkingnpcPal, talkingnpcBitmap, GL_RGB256, 256);
-    // attacker->LoadTileset({new glImage[attacker->m_img_dimensions]}, cam_battlePal, cam_battleBitmap, GL_RGB256, 256);
+    // enemy->LoadSprite({new glImage[enemy->m_img_dimensions]}, talkingnpcPal, talkingnpcBitmap, GL_RGB256, 256);
+    // attacker->LoadSprite({new glImage[attacker->m_img_dimensions]}, cam_battlePal, cam_battleBitmap, GL_RGB256, 256);
     
     // for (int i = 0; i < 3; i++)
     // {

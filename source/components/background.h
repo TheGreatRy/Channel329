@@ -1,8 +1,5 @@
 #pragma once
 
-//Components Folder
-#include "../components/tileset.h"
-
 //DS screen size
 #define SCREEN_WIDTH 256
 #define SCREEN_HEIGHT 192
