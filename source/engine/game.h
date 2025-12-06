@@ -4,7 +4,6 @@
 #include <nds.h>
 #include <stdio.h>
 #include <filesystem.h>
-
 #include <nf_lib.h>
 
 //C++ includes

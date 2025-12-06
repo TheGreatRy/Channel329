@@ -115,10 +115,6 @@ build build/arm9/source/actors/character.cpp.o: cxx_arm source/actors/character.
   cxxflags = -mthumb  -isystem ${BLOCKSDS}/libs/libnds/include -isystem ${BLOCKSDSEXT}/nflib/include -Ibuild/assets/arm9 -fno-exceptions -fno-rtti -ffunction-sections -fdata-sections -specs=${BLOCKSDS}/sys/crts/ds_arm9.specs -mcpu=arm946e-s+nofp -Wall -O2 -std=gnu++14
   dep = build/arm9/source/actors/character.cpp.d
 
-build build/arm9/source/components/animation.cpp.o: cxx_arm source/components/animation.cpp || build/arm9/source/components assets_arm9_flag
-  cxxflags = -mthumb  -isystem ${BLOCKSDS}/libs/libnds/include -isystem ${BLOCKSDSEXT}/nflib/include -Ibuild/assets/arm9 -fno-exceptions -fno-rtti -ffunction-sections -fdata-sections -specs=${BLOCKSDS}/sys/crts/ds_arm9.specs -mcpu=arm946e-s+nofp -Wall -O2 -std=gnu++14
-  dep = build/arm9/source/components/animation.cpp.d
-
 build build/arm9/source/components/background.cpp.o: cxx_arm source/components/background.cpp || build/arm9/source/components assets_arm9_flag
   cxxflags = -mthumb  -isystem ${BLOCKSDS}/libs/libnds/include -isystem ${BLOCKSDSEXT}/nflib/include -Ibuild/assets/arm9 -fno-exceptions -fno-rtti -ffunction-sections -fdata-sections -specs=${BLOCKSDS}/sys/crts/ds_arm9.specs -mcpu=arm946e-s+nofp -Wall -O2 -std=gnu++14
   dep = build/arm9/source/components/background.cpp.d
@@ -131,13 +127,9 @@ build build/arm9/source/components/scene.cpp.o: cxx_arm source/components/scene.
   cxxflags = -mthumb  -isystem ${BLOCKSDS}/libs/libnds/include -isystem ${BLOCKSDSEXT}/nflib/include -Ibuild/assets/arm9 -fno-exceptions -fno-rtti -ffunction-sections -fdata-sections -specs=${BLOCKSDS}/sys/crts/ds_arm9.specs -mcpu=arm946e-s+nofp -Wall -O2 -std=gnu++14
   dep = build/arm9/source/components/scene.cpp.d
 
-build build/arm9/source/components/Sprite.cpp.o: cxx_arm source/components/Sprite.cpp || build/arm9/source/components assets_arm9_flag
+build build/arm9/source/components/sprite.cpp.o: cxx_arm source/components/sprite.cpp || build/arm9/source/components assets_arm9_flag
   cxxflags = -mthumb  -isystem ${BLOCKSDS}/libs/libnds/include -isystem ${BLOCKSDSEXT}/nflib/include -Ibuild/assets/arm9 -fno-exceptions -fno-rtti -ffunction-sections -fdata-sections -specs=${BLOCKSDS}/sys/crts/ds_arm9.specs -mcpu=arm946e-s+nofp -Wall -O2 -std=gnu++14
-  dep = build/arm9/source/components/Sprite.cpp.d
-
-build build/arm9/source/components/world.cpp.o: cxx_arm source/components/world.cpp || build/arm9/source/components assets_arm9_flag
-  cxxflags = -mthumb  -isystem ${BLOCKSDS}/libs/libnds/include -isystem ${BLOCKSDSEXT}/nflib/include -Ibuild/assets/arm9 -fno-exceptions -fno-rtti -ffunction-sections -fdata-sections -specs=${BLOCKSDS}/sys/crts/ds_arm9.specs -mcpu=arm946e-s+nofp -Wall -O2 -std=gnu++14
-  dep = build/arm9/source/components/world.cpp.d
+  dep = build/arm9/source/components/sprite.cpp.d
 
 build build/arm9/source/engine/battle.cpp.o: cxx_arm source/engine/battle.cpp || build/arm9/source/engine assets_arm9_flag
   cxxflags = -mthumb  -isystem ${BLOCKSDS}/libs/libnds/include -isystem ${BLOCKSDSEXT}/nflib/include -Ibuild/assets/arm9 -fno-exceptions -fno-rtti -ffunction-sections -fdata-sections -specs=${BLOCKSDS}/sys/crts/ds_arm9.specs -mcpu=arm946e-s+nofp -Wall -O2 -std=gnu++14
@@ -159,7 +151,7 @@ build build/arm9/source/game_data/main_scene_data.cpp.o: cxx_arm source/game_dat
   cxxflags = -mthumb  -isystem ${BLOCKSDS}/libs/libnds/include -isystem ${BLOCKSDSEXT}/nflib/include -Ibuild/assets/arm9 -fno-exceptions -fno-rtti -ffunction-sections -fdata-sections -specs=${BLOCKSDS}/sys/crts/ds_arm9.specs -mcpu=arm946e-s+nofp -Wall -O2 -std=gnu++14
   dep = build/arm9/source/game_data/main_scene_data.cpp.d
 
-build build/arm9/arm9.elf | build/arm9/arm9.map: ld_arm build/arm9/source/main.cpp.o build/arm9/source/actors/character.cpp.o build/arm9/source/components/animation.cpp.o build/arm9/source/components/background.cpp.o build/arm9/source/components/map.cpp.o build/arm9/source/components/scene.cpp.o build/arm9/source/components/Sprite.cpp.o build/arm9/source/components/world.cpp.o build/arm9/source/engine/battle.cpp.o build/arm9/source/engine/game.cpp.o build/arm9/source/engine/text_console.cpp.o build/arm9/source/game_data/battle_scene_data.cpp.o build/arm9/source/game_data/main_scene_data.cpp.o || build/arm9
+build build/arm9/arm9.elf | build/arm9/arm9.map: ld_arm build/arm9/source/main.cpp.o build/arm9/source/actors/character.cpp.o build/arm9/source/components/background.cpp.o build/arm9/source/components/map.cpp.o build/arm9/source/components/scene.cpp.o build/arm9/source/components/sprite.cpp.o build/arm9/source/engine/battle.cpp.o build/arm9/source/engine/game.cpp.o build/arm9/source/engine/text_console.cpp.o build/arm9/source/game_data/battle_scene_data.cpp.o build/arm9/source/game_data/main_scene_data.cpp.o || build/arm9
   ldflags = -L${BLOCKSDS}/libs/libnds/lib -L${BLOCKSDSEXT}/nflib/lib -Wl,-Map,build/arm9/arm9.map -mcpu=arm946e-s+nofp -Wl,--start-group -lnds9 -lnflib -lstdc++ -lc -Wl,--end-group -specs=${BLOCKSDS}/sys/crts/ds_arm9.specs 
 
 build build/nitrofs/bg/anuvverbubbla_8x8.map build/nitrofs/bg/anuvverbubbla_8x8.img build/nitrofs/bg/anuvverbubbla_8x8.pal : grit assets/test_graphics/anuvverbubbla_8x8.png || build/nitrofs/bg
@@ -207,22 +199,12 @@ build build/nitrofs/bmp/tutorial_top.map build/nitrofs/bmp/tutorial_top.img buil
   grit_out_path = build/nitrofs/bmp/tutorial_top
   options = -W1 -ftB -fh!  -gTFF00FF -gb -gB8
 
-build build/nitrofs/sprite/cam_back_idle_spritesheet.img build/nitrofs/sprite/cam_back_idle_spritesheet.pal : grit assets/characters/cameron/idle/cam_back_idle_spritesheet.png || build/nitrofs/sprite
-  in_path_img = assets/characters/cameron/idle/cam_back_idle_spritesheet.png
-  grit_out_path = build/nitrofs/sprite/cam_back_idle_spritesheet
-  options = -W1 -ftB -fh! -m! -gTFF00FF -gt -gB8
-
 build build/nitrofs/sprite/cam_front_idle_spritesheet.img build/nitrofs/sprite/cam_front_idle_spritesheet.pal : grit assets/characters/cameron/idle/cam_front_idle_spritesheet.png || build/nitrofs/sprite
   in_path_img = assets/characters/cameron/idle/cam_front_idle_spritesheet.png
   grit_out_path = build/nitrofs/sprite/cam_front_idle_spritesheet
   options = -W1 -ftB -fh! -m! -gTFF00FF -gt -gB8
 
-build build/nitrofs/sprite/cam_side_idle_spritesheet.img build/nitrofs/sprite/cam_side_idle_spritesheet.pal : grit assets/characters/cameron/idle/cam_side_idle_spritesheet.png || build/nitrofs/sprite
-  in_path_img = assets/characters/cameron/idle/cam_side_idle_spritesheet.png
-  grit_out_path = build/nitrofs/sprite/cam_side_idle_spritesheet
-  options = -W1 -ftB -fh! -m! -gTFF00FF -gt -gB8
-
-build assets_nitrofs_flag: phony build/nitrofs/bg/anuvverbubbla_8x8.map build/nitrofs/bg/anuvverbubbla_8x8.img build/nitrofs/bg/anuvverbubbla_8x8.pal build/nitrofs/bg/charmap_cellphone.map build/nitrofs/bg/charmap_cellphone.img build/nitrofs/bg/charmap_cellphone.pal build/nitrofs/bg/charmap_futuristic.map build/nitrofs/bg/charmap_futuristic.img build/nitrofs/bg/charmap_futuristic.pal build/nitrofs/bg/tiny_16.map build/nitrofs/bg/tiny_16.img build/nitrofs/bg/tiny_16.pal build/nitrofs/bmp/battle_bottom.map build/nitrofs/bmp/battle_bottom.img build/nitrofs/bmp/battle_bottom.pal build/nitrofs/bmp/battle_top.map build/nitrofs/bmp/battle_top.img build/nitrofs/bmp/battle_top.pal build/nitrofs/bmp/overworld_options.map build/nitrofs/bmp/overworld_options.img build/nitrofs/bmp/overworld_options.pal build/nitrofs/bmp/tutorial_bottom.map build/nitrofs/bmp/tutorial_bottom.img build/nitrofs/bmp/tutorial_bottom.pal build/nitrofs/bmp/tutorial_top.map build/nitrofs/bmp/tutorial_top.img build/nitrofs/bmp/tutorial_top.pal build/nitrofs/sprite/cam_back_idle_spritesheet.img build/nitrofs/sprite/cam_back_idle_spritesheet.pal build/nitrofs/sprite/cam_front_idle_spritesheet.img build/nitrofs/sprite/cam_front_idle_spritesheet.pal build/nitrofs/sprite/cam_side_idle_spritesheet.img build/nitrofs/sprite/cam_side_idle_spritesheet.pal
+build assets_nitrofs_flag: phony build/nitrofs/bg/anuvverbubbla_8x8.map build/nitrofs/bg/anuvverbubbla_8x8.img build/nitrofs/bg/anuvverbubbla_8x8.pal build/nitrofs/bg/charmap_cellphone.map build/nitrofs/bg/charmap_cellphone.img build/nitrofs/bg/charmap_cellphone.pal build/nitrofs/bg/charmap_futuristic.map build/nitrofs/bg/charmap_futuristic.img build/nitrofs/bg/charmap_futuristic.pal build/nitrofs/bg/tiny_16.map build/nitrofs/bg/tiny_16.img build/nitrofs/bg/tiny_16.pal build/nitrofs/bmp/battle_bottom.map build/nitrofs/bmp/battle_bottom.img build/nitrofs/bmp/battle_bottom.pal build/nitrofs/bmp/battle_top.map build/nitrofs/bmp/battle_top.img build/nitrofs/bmp/battle_top.pal build/nitrofs/bmp/overworld_options.map build/nitrofs/bmp/overworld_options.img build/nitrofs/bmp/overworld_options.pal build/nitrofs/bmp/tutorial_bottom.map build/nitrofs/bmp/tutorial_bottom.img build/nitrofs/bmp/tutorial_bottom.pal build/nitrofs/bmp/tutorial_top.map build/nitrofs/bmp/tutorial_top.img build/nitrofs/bmp/tutorial_top.pal build/nitrofs/sprite/cam_front_idle_spritesheet.img build/nitrofs/sprite/cam_front_idle_spritesheet.pal
 
 build ch329cotmi.nds: ndstool ${BLOCKSDS}/sys/arm7/main_core/arm7_dswifi_maxmod.elf build/arm9/arm9.elf build/nitrofs  assets_nitrofs_flag
   arm7elf = ${BLOCKSDS}/sys/arm7/main_core/arm7_dswifi_maxmod.elf

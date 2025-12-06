@@ -2,7 +2,42 @@
 
 void Game::InitializeGame()
 {
+    // Initialize NitroFS
+    // Prepare a NitroFS initialization screen
+    NF_Set2D(0, 0);
+    NF_Set2D(1, 0);
+
+    swiWaitForVBlank();
+
+    // Initialize NitroFS and set it as the root folder of the filesystem
+    nitroFSInit(NULL);
+    NF_SetRootFolder("NITROFS");
+
+    // Initialize 2D engine in both screens
+    NF_Set2D(0, 0);
+    NF_Set2D(1, 5);
+
+    // Initialize mixed background system
+    NF_InitMixedBgSys(0);
+    NF_InitMixedBgSys(1);
     
+    // Initialize tiled backgrounds system
+    NF_InitTiledBgBuffers();
+
+    // Initialize 8 bit bitmap storage buffers
+    NF_Init8bitsBgBuffers();
+
+    // Initialize sprite system
+    NF_InitSpriteBuffers();
+    NF_InitSpriteSys(0);        
+
+    // Initialize text systems (both screens)
+    NF_InitTextSys(0);
+    NF_InitTextSys(1);
+
+    // Initialize audio
+    soundEnable();
+    NF_InitRawSoundBuffers();
 }
 
 void Game::InitializeScene(Scene *scene)
