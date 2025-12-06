@@ -2,11 +2,12 @@
 
 Animation::Animation(Sprite *spritesheet)
 {
-    m_spritesheet = *spritesheet;
+    m_spritesheet = spritesheet;
+    m_sprite_amount = (m_spritesheet->m_sprite_h / m_spritesheet->m_sprite_w);
 }
 
 
-void Animation::PlayAnimation(int x_pos, int y_pos, int fps, GL_FLIP_MODE flip_sprites)
+void Animation::PlayAnimation(int fps, bool flip_sprites)
 {
     m_time_step++;
     if (m_time_step > fps)
@@ -14,9 +15,8 @@ void Animation::PlayAnimation(int x_pos, int y_pos, int fps, GL_FLIP_MODE flip_s
         m_time_step = 0;
 
         m_current_frame_index++;
-        if (m_current_frame_index > (m_spritesheet.m_sprites_num_x * m_spritesheet.m_sprites_num_y) - 1) 
+        if (m_current_frame_index > m_sprite_amount) 
             m_current_frame_index = 0;   
     }
-    
-    glSprite(x_pos, y_pos, flip_sprites,  &m_spritesheet.m_Sprite_img[m_current_frame_index]); 
+    NF_SpriteFrame(m_spritesheet->m_screen, m_spritesheet->m_sprite_id, m_current_frame_index);
 }
