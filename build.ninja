@@ -154,24 +154,14 @@ build build/arm9/source/game_data/main_scene_data.cpp.o: cxx_arm source/game_dat
 build build/arm9/arm9.elf | build/arm9/arm9.map: ld_arm build/arm9/source/main.cpp.o build/arm9/source/actors/character.cpp.o build/arm9/source/components/animation.cpp.o build/arm9/source/components/background.cpp.o build/arm9/source/components/scene.cpp.o build/arm9/source/components/sprite.cpp.o build/arm9/source/engine/battle.cpp.o build/arm9/source/engine/game.cpp.o build/arm9/source/engine/text_console.cpp.o build/arm9/source/game_data/battle_scene_data.cpp.o build/arm9/source/game_data/main_scene_data.cpp.o || build/arm9
   ldflags = -L${BLOCKSDS}/libs/libnds/lib -L${BLOCKSDSEXT}/nflib/lib -Wl,-Map,build/arm9/arm9.map -mcpu=arm946e-s+nofp -Wl,--start-group -lnds9 -lnflib -lstdc++ -lc -Wl,--end-group -specs=${BLOCKSDS}/sys/crts/ds_arm9.specs 
 
-build build/nitrofs/bg/anuvverbubbla_8x8.map build/nitrofs/bg/anuvverbubbla_8x8.img build/nitrofs/bg/anuvverbubbla_8x8.pal : grit assets/test_graphics/anuvverbubbla_8x8.png || build/nitrofs/bg
-  in_path_img = assets/test_graphics/anuvverbubbla_8x8.png
-  grit_out_path = build/nitrofs/bg/anuvverbubbla_8x8
+build build/nitrofs/bg/collision.map build/nitrofs/bg/collision.img build/nitrofs/bg/collision.pal : grit assets/map/collision.png || build/nitrofs/bg
+  in_path_img = assets/map/collision.png
+  grit_out_path = build/nitrofs/bg/collision
   options = -W1 -ftB -fh!  -gTFF00FF -gt -gB8 -mR8 -mLs
 
-build build/nitrofs/bg/charmap_cellphone.map build/nitrofs/bg/charmap_cellphone.img build/nitrofs/bg/charmap_cellphone.pal : grit assets/test_graphics/charmap_cellphone.png || build/nitrofs/bg
-  in_path_img = assets/test_graphics/charmap_cellphone.png
-  grit_out_path = build/nitrofs/bg/charmap_cellphone
-  options = -W1 -ftB -fh!  -gTFF00FF -gt -gB8 -mR8 -mLs
-
-build build/nitrofs/bg/charmap_futuristic.map build/nitrofs/bg/charmap_futuristic.img build/nitrofs/bg/charmap_futuristic.pal : grit assets/test_graphics/charmap_futuristic.png || build/nitrofs/bg
-  in_path_img = assets/test_graphics/charmap_futuristic.png
-  grit_out_path = build/nitrofs/bg/charmap_futuristic
-  options = -W1 -ftB -fh!  -gTFF00FF -gt -gB8 -mR8 -mLs
-
-build build/nitrofs/bg/tiny_16.map build/nitrofs/bg/tiny_16.img build/nitrofs/bg/tiny_16.pal : grit assets/test_graphics/tiny_16.png || build/nitrofs/bg
-  in_path_img = assets/test_graphics/tiny_16.png
-  grit_out_path = build/nitrofs/bg/tiny_16
+build build/nitrofs/bg/overworld.map build/nitrofs/bg/overworld.img build/nitrofs/bg/overworld.pal : grit assets/map/overworld.png || build/nitrofs/bg
+  in_path_img = assets/map/overworld.png
+  grit_out_path = build/nitrofs/bg/overworld
   options = -W1 -ftB -fh!  -gTFF00FF -gt -gB8 -mR8 -mLs
 
 build build/nitrofs/bmp/battle_bottom.map build/nitrofs/bmp/battle_bottom.img build/nitrofs/bmp/battle_bottom.pal : grit assets/backgrounds/battle_bottom.png || build/nitrofs/bmp
@@ -204,7 +194,7 @@ build build/nitrofs/sprite/cam_front_idle_spritesheet.img build/nitrofs/sprite/c
   grit_out_path = build/nitrofs/sprite/cam_front_idle_spritesheet
   options = -W1 -ftB -fh! -m! -gTFF00FF -gt -gB8
 
-build assets_nitrofs_flag: phony build/nitrofs/bg/anuvverbubbla_8x8.map build/nitrofs/bg/anuvverbubbla_8x8.img build/nitrofs/bg/anuvverbubbla_8x8.pal build/nitrofs/bg/charmap_cellphone.map build/nitrofs/bg/charmap_cellphone.img build/nitrofs/bg/charmap_cellphone.pal build/nitrofs/bg/charmap_futuristic.map build/nitrofs/bg/charmap_futuristic.img build/nitrofs/bg/charmap_futuristic.pal build/nitrofs/bg/tiny_16.map build/nitrofs/bg/tiny_16.img build/nitrofs/bg/tiny_16.pal build/nitrofs/bmp/battle_bottom.map build/nitrofs/bmp/battle_bottom.img build/nitrofs/bmp/battle_bottom.pal build/nitrofs/bmp/battle_top.map build/nitrofs/bmp/battle_top.img build/nitrofs/bmp/battle_top.pal build/nitrofs/bmp/overworld_options.map build/nitrofs/bmp/overworld_options.img build/nitrofs/bmp/overworld_options.pal build/nitrofs/bmp/tutorial_bottom.map build/nitrofs/bmp/tutorial_bottom.img build/nitrofs/bmp/tutorial_bottom.pal build/nitrofs/bmp/tutorial_top.map build/nitrofs/bmp/tutorial_top.img build/nitrofs/bmp/tutorial_top.pal build/nitrofs/sprite/cam_front_idle_spritesheet.img build/nitrofs/sprite/cam_front_idle_spritesheet.pal
+build assets_nitrofs_flag: phony build/nitrofs/bg/collision.map build/nitrofs/bg/collision.img build/nitrofs/bg/collision.pal build/nitrofs/bg/overworld.map build/nitrofs/bg/overworld.img build/nitrofs/bg/overworld.pal build/nitrofs/bmp/battle_bottom.map build/nitrofs/bmp/battle_bottom.img build/nitrofs/bmp/battle_bottom.pal build/nitrofs/bmp/battle_top.map build/nitrofs/bmp/battle_top.img build/nitrofs/bmp/battle_top.pal build/nitrofs/bmp/overworld_options.map build/nitrofs/bmp/overworld_options.img build/nitrofs/bmp/overworld_options.pal build/nitrofs/bmp/tutorial_bottom.map build/nitrofs/bmp/tutorial_bottom.img build/nitrofs/bmp/tutorial_bottom.pal build/nitrofs/bmp/tutorial_top.map build/nitrofs/bmp/tutorial_top.img build/nitrofs/bmp/tutorial_top.pal build/nitrofs/sprite/cam_front_idle_spritesheet.img build/nitrofs/sprite/cam_front_idle_spritesheet.pal
 
 build ch329cotmi.nds: ndstool ${BLOCKSDS}/sys/arm7/main_core/arm7_dswifi_maxmod.elf build/arm9/arm9.elf build/nitrofs  assets_nitrofs_flag
   arm7elf = ${BLOCKSDS}/sys/arm7/main_core/arm7_dswifi_maxmod.elf

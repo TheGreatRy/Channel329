@@ -194,7 +194,7 @@ void Scene::DrawScene(int scroll_x, int scroll_y, bool &can_move_up, bool &can_m
         {
             if (actor->m_character_type == CHARACTER_TYPE_MAIN)
             {
-                actor->PlayAnimation(current_anim_id, 16, current_flip);
+                actor->PlayAnimation(current_anim_id, 8, current_flip);
             }
             else
             {

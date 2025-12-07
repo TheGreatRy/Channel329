@@ -5,7 +5,7 @@ void Game::InitializeGame()
     // Initialize NitroFS
     // Prepare a NitroFS initialization screen
     NF_Set2D(0, 0);
-    NF_Set2D(1, 0);
+    NF_Set2D(1, 5);
 
     swiWaitForVBlank();
 

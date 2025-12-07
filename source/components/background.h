@@ -19,7 +19,7 @@ public:
     Background() = default;
     ~Background() = default;
     
-    Background(BG_TYPE bg_type, const char *file, const char *name, u32 slot, u32 width, u32 height, u32 tile_start, u32 tile_end);
+    Background(BG_TYPE bg_type, const char *file, const char *name = "default", u32 slot = 0, u32 width = 0, u32 height = 0, u32 tile_start = 0, u32 tile_end = 0);
     
     BG_TYPE m_background_type;
     const char* m_name;
@@ -32,7 +32,7 @@ public:
     int m_screen;
     int m_layer;
 
-    void LoadBackground(int screen, int layer, int copy_dest, bool can_wrap);
+    void LoadBackground(int screen, int layer = 0, int copy_dest = 0, bool can_wrap = false);
     void RemoveBackground();
     
     private:

@@ -19,27 +19,6 @@ int main(int argc, char **argv)
 
     game->InitializeGame();
 
-    // // Load background files from NitroFS
-    // NF_LoadTiledBg("bg/tiny_16", "tiny_16", 256, 256);
-    
-    // NF_CreateTiledBg(0, 2, "tiny_16");
-    
-    // // Load bitmap files from NitroFS
-    // NF_Load8bitsBg("bmp/overworld_options", 0);
-
-    // NF_Copy8bitsBuffer(1, 1, 0);
-
-    // // Load sprite files from NitroFS
-    // NF_LoadSpriteGfx("sprite/cam_front_idle_spritesheet", 0, 32, 32);
-    // NF_LoadSpritePal("sprite/cam_front_idle_spritesheet", 0);
-
-    // // Transfer the required sprites to VRAM
-    // NF_VramSpriteGfx(0, 0, 0, false);
-    // NF_VramSpritePal(0, 0, 0);
-
-    // NF_CreateSprite(0, 0, 0, 0, 100, 50);
-    // NF_SpriteLayer(0, 0, 0);
-
     //Main Scene
     Scene* main_scene = new Scene(GM_STATE_MAIN, 0);
     GameData* main_data = new MainSceneData(main_scene);

@@ -1,6 +1,6 @@
 #include "background.h"
 
-/// @brief Able to initalize all background types. Only use the parameters needed for the background type
+/// @brief Able to initalize all background types. Enter 0 for excluded parameters 
 /// @param bg_type Background type as defined in BG_TYPE (`ALL`)
 /// @param file File path without extension (`ALL`)
 /// @param name File name without extension (`BG_TYPE_AFFINE` and `BG_TYPE_TILED_FULL`)
@@ -9,7 +9,7 @@
 /// @param height Background image height in pixels (`BG_TYPE_AFFINE`, `BG_TYPE_COL`, `BG_TYPE_TILED_FULL`, and `BG_TYPE_TILED_RANGE`)
 /// @param tile_start First tile to load (`BG_TYPE_TILED_RANGE`)
 /// @param tile_end Last tile to load (`BG_TYPE_TILED_RANGE`)
-Background::Background(BG_TYPE bg_type, const char *file, const char *name = "default", u32 slot = 0, u32 width = 0, u32 height = 0, u32 tile_start = 0, u32 tile_end = 0)
+Background::Background(BG_TYPE bg_type, const char *file, const char *name, u32 slot, u32 width, u32 height, u32 tile_start, u32 tile_end)
 {
     m_background_type = bg_type;
     m_name = name;
@@ -43,12 +43,12 @@ Background::Background(BG_TYPE bg_type, const char *file, const char *name = "de
     }
 }
 
-/// @brief Loads backgrounds on the specified screen and/or layer. Only use the parameters needed for the background type. The Collision Background does not need to be loaded with this function
+/// @brief Loads backgrounds on the specified screen and/or layer. Enter 0 for parameters you do not need. `BG_TYPE_COL` does not need to be loaded with this function
 /// @param screen The screen to display to, 0 being the top screen and 1 being the bottom screen (`ALL`)
 /// @param layer The background layer to draw to (`BG_TYPE_AFFINE`, `BG_TYPE_TILED_FULL`, and `BG_TYPE_TILED_RANGE`)
 /// @param copy_dest The memory location to copy the background to, with 0 being VRAM and 0 being the backbuffer (`BG_TYPE_8BIT` and `BG_TYPE_16BIT`) 
 /// @param can_wrap If the background is allowed to wrap the screen (`BG_TYPE_AFFINE`)
-void Background::LoadBackground(int screen, int layer = 0, int copy_dest = 0, bool can_wrap = false)
+void Background::LoadBackground(int screen, int layer, int copy_dest, bool can_wrap)
 {
     m_screen = screen;
     m_layer = layer;
