@@ -102,45 +102,43 @@ void Scene::SwitchAnimations(int &anim_id, bool &flip)
     }
 }
 
-
 void Scene::DeleteAllSceneComponents()
 {
     // Actors
     for (Character *actor : m_actors)
     {
-        for (Animation* anim : actor->m_sprite_animations)
+        for (Animation *anim : actor->m_sprite_animations)
         {
             anim->m_spritesheet->RemoveSprite();
             delete anim;
         }
         delete actor;
     }
-    
+
     // TextConsoles
     for (TextConsole *console : m_main_consoles)
     {
         delete console;
     }
-    
+
     for (TextConsole *console : m_sub_consoles)
     {
         delete console;
     }
-    
+
     // Battles
     for (Battle *battle : m_battles)
     {
         delete battle;
     }
-    
-    //Backgrounds
-    for (Background* background : m_backgrounds)
+
+    // Backgrounds
+    for (Background *background : m_backgrounds)
     {
         background->RemoveBackground();
         delete background;
     }
-    
-    
+
     NF_ResetSpriteBuffers();
     NF_ResetTiledBgBuffers();
     NF_Reset8bitsBgBuffers();
@@ -159,7 +157,7 @@ void Scene::ClearAllTextConsoles()
     }
 }
 
-void Scene::DrawScene(int& scroll_x, int& scroll_y, bool &can_move_up, bool &can_move_down, bool &can_move_left, bool &can_move_right)
+void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can_move_down, bool &can_move_left, bool &can_move_right)
 {
     touchPosition current_pos;
     int current_anim_id = 0;
@@ -167,17 +165,17 @@ void Scene::DrawScene(int& scroll_x, int& scroll_y, bool &can_move_up, bool &can
 
     while (1)
     {
-        
+
         // Update OAM array
         NF_SpriteOamSet(0);
         NF_SpriteOamSet(1);
-        
+
         // Wait for the screen refresh
         swiWaitForVBlank();
 
-         // Update OAM
+        // Update OAM
         oamUpdate(&oamMain);
-        oamUpdate(&oamSub); 
+        oamUpdate(&oamSub);
 
         scanKeys();
 
@@ -194,14 +192,19 @@ void Scene::DrawScene(int& scroll_x, int& scroll_y, bool &can_move_up, bool &can
         // switch scenes
         if (keysUp() & KEY_A)
         {
+            // switch to game
             if (m_scene_gm_state != GM_STATE_BATTLE)
             {
-                m_scene_gm_state = GM_STATE_MAIN;
+                m_switch_gm_state = GM_STATE_BATTLE;
+                m_player_quit = false;
                 break;
             }
-            else if (m_scene_gm_state != GM_STATE_MAIN)
+
+            // switch to main
+            if (m_scene_gm_state != GM_STATE_MAIN)
             {
-                m_scene_gm_state = GM_STATE_BATTLE;
+                m_switch_gm_state = GM_STATE_MAIN;
+                m_player_quit = false;
                 break;
             }
         }
@@ -211,12 +214,11 @@ void Scene::DrawScene(int& scroll_x, int& scroll_y, bool &can_move_up, bool &can
 
         //- - - - - - - - - - - - - - - - - - - - - -//
 
-
         //- - - - - scene components - - - - -//
         // Actors
         for (Character *actor : m_actors)
         {
-            for (Animation* anim : actor->m_sprite_animations)
+            for (Animation *anim : actor->m_sprite_animations)
             {
                 NF_ShowSprite(0, anim->m_spritesheet->m_sprite_id, false);
             }
@@ -231,12 +233,9 @@ void Scene::DrawScene(int& scroll_x, int& scroll_y, bool &can_move_up, bool &can
             }
         }
 
-        for (Background* background : m_backgrounds)
+        for (Background *background : m_backgrounds)
         {
             NF_ScrollBg(0, 3, scroll_x, scroll_y);
         }
-
-        
-
     }
 }
