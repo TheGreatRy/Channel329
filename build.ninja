@@ -219,7 +219,22 @@ build build/nitrofs/sprite/cam_side_walk_spritesheet.img build/nitrofs/sprite/ca
   grit_out_path = build/nitrofs/sprite/cam_side_walk_spritesheet
   options = -W1 -ftB -fh! -m! -gTFF00FF -gt -gB8
 
-build assets_nitrofs_flag: phony build/nitrofs/bg/collision.map build/nitrofs/bg/collision.img build/nitrofs/bg/collision.pal build/nitrofs/bg/overworld.map build/nitrofs/bg/overworld.img build/nitrofs/bg/overworld.pal build/nitrofs/bmp/battle_bottom.map build/nitrofs/bmp/battle_bottom.img build/nitrofs/bmp/battle_bottom.pal build/nitrofs/bmp/battle_top.map build/nitrofs/bmp/battle_top.img build/nitrofs/bmp/battle_top.pal build/nitrofs/bmp/overworld_options.map build/nitrofs/bmp/overworld_options.img build/nitrofs/bmp/overworld_options.pal build/nitrofs/bmp/tutorial_bottom.map build/nitrofs/bmp/tutorial_bottom.img build/nitrofs/bmp/tutorial_bottom.pal build/nitrofs/bmp/tutorial_top.map build/nitrofs/bmp/tutorial_top.img build/nitrofs/bmp/tutorial_top.pal build/nitrofs/sprite/cam_back_idle_spritesheet.img build/nitrofs/sprite/cam_back_idle_spritesheet.pal build/nitrofs/sprite/cam_front_idle_spritesheet.img build/nitrofs/sprite/cam_front_idle_spritesheet.pal build/nitrofs/sprite/cam_side_idle_spritesheet.img build/nitrofs/sprite/cam_side_idle_spritesheet.pal build/nitrofs/sprite/cam_back_walk_spritesheet.img build/nitrofs/sprite/cam_back_walk_spritesheet.pal build/nitrofs/sprite/cam_front_walk_spritesheet.img build/nitrofs/sprite/cam_front_walk_spritesheet.pal build/nitrofs/sprite/cam_side_walk_spritesheet.img build/nitrofs/sprite/cam_side_walk_spritesheet.pal
+build build/nitrofs/sprite/cam_battle_neut.img build/nitrofs/sprite/cam_battle_neut.pal : grit assets/characters/cameron/battle/cam_battle_neut.png || build/nitrofs/sprite
+  in_path_img = assets/characters/cameron/battle/cam_battle_neut.png
+  grit_out_path = build/nitrofs/sprite/cam_battle_neut
+  options = -W1 -ftB -fh! -m! -gTFF00FF -gt -gB8
+
+build build/nitrofs/sprite/cam_miss_battle_spritesheet.img build/nitrofs/sprite/cam_miss_battle_spritesheet.pal : grit assets/characters/cameron/battle/cam_miss_battle_spritesheet.png || build/nitrofs/sprite
+  in_path_img = assets/characters/cameron/battle/cam_miss_battle_spritesheet.png
+  grit_out_path = build/nitrofs/sprite/cam_miss_battle_spritesheet
+  options = -W1 -ftB -fh! -m! -gTFF00FF -gt -gB8
+
+build build/nitrofs/sprite/john_tutorial.img build/nitrofs/sprite/john_tutorial.pal : grit assets/characters/npcs/john_tutorial.png || build/nitrofs/sprite
+  in_path_img = assets/characters/npcs/john_tutorial.png
+  grit_out_path = build/nitrofs/sprite/john_tutorial
+  options = -W1 -ftB -fh! -m! -gTFF00FF -gt -gB8
+
+build assets_nitrofs_flag: phony build/nitrofs/bg/collision.map build/nitrofs/bg/collision.img build/nitrofs/bg/collision.pal build/nitrofs/bg/overworld.map build/nitrofs/bg/overworld.img build/nitrofs/bg/overworld.pal build/nitrofs/bmp/battle_bottom.map build/nitrofs/bmp/battle_bottom.img build/nitrofs/bmp/battle_bottom.pal build/nitrofs/bmp/battle_top.map build/nitrofs/bmp/battle_top.img build/nitrofs/bmp/battle_top.pal build/nitrofs/bmp/overworld_options.map build/nitrofs/bmp/overworld_options.img build/nitrofs/bmp/overworld_options.pal build/nitrofs/bmp/tutorial_bottom.map build/nitrofs/bmp/tutorial_bottom.img build/nitrofs/bmp/tutorial_bottom.pal build/nitrofs/bmp/tutorial_top.map build/nitrofs/bmp/tutorial_top.img build/nitrofs/bmp/tutorial_top.pal build/nitrofs/sprite/cam_back_idle_spritesheet.img build/nitrofs/sprite/cam_back_idle_spritesheet.pal build/nitrofs/sprite/cam_front_idle_spritesheet.img build/nitrofs/sprite/cam_front_idle_spritesheet.pal build/nitrofs/sprite/cam_side_idle_spritesheet.img build/nitrofs/sprite/cam_side_idle_spritesheet.pal build/nitrofs/sprite/cam_back_walk_spritesheet.img build/nitrofs/sprite/cam_back_walk_spritesheet.pal build/nitrofs/sprite/cam_front_walk_spritesheet.img build/nitrofs/sprite/cam_front_walk_spritesheet.pal build/nitrofs/sprite/cam_side_walk_spritesheet.img build/nitrofs/sprite/cam_side_walk_spritesheet.pal build/nitrofs/sprite/cam_battle_neut.img build/nitrofs/sprite/cam_battle_neut.pal build/nitrofs/sprite/cam_miss_battle_spritesheet.img build/nitrofs/sprite/cam_miss_battle_spritesheet.pal build/nitrofs/sprite/john_tutorial.img build/nitrofs/sprite/john_tutorial.pal
 
 build ch329cotmi.nds: ndstool ${BLOCKSDS}/sys/arm7/main_core/arm7_dswifi_maxmod.elf build/arm9/arm9.elf build/nitrofs  assets_nitrofs_flag
   arm7elf = ${BLOCKSDS}/sys/arm7/main_core/arm7_dswifi_maxmod.elf

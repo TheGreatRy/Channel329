@@ -102,43 +102,48 @@ void Scene::SwitchAnimations(int &anim_id, bool &flip)
     }
 }
 
-void Scene::DeleteAllTextures()
-{
-    
-}
 
 void Scene::DeleteAllSceneComponents()
 {
     // Actors
     for (Character *actor : m_actors)
     {
-        // actor->~Character();
+        for (Animation* anim : actor->m_sprite_animations)
+        {
+            anim->m_spritesheet->RemoveSprite();
+            delete anim;
+        }
         delete actor;
     }
-
+    
     // TextConsoles
     for (TextConsole *console : m_main_consoles)
     {
         delete console;
     }
-
+    
     for (TextConsole *console : m_sub_consoles)
     {
         delete console;
     }
-
+    
     // Battles
     for (Battle *battle : m_battles)
     {
         delete battle;
     }
-
+    
     //Backgrounds
     for (Background* background : m_backgrounds)
     {
         background->RemoveBackground();
         delete background;
     }
+    
+    
+    NF_ResetSpriteBuffers();
+    NF_ResetTiledBgBuffers();
+    NF_Reset8bitsBgBuffers();
 }
 
 void Scene::ClearAllTextConsoles()
@@ -159,7 +164,6 @@ void Scene::DrawScene(int& scroll_x, int& scroll_y, bool &can_move_up, bool &can
     touchPosition current_pos;
     int current_anim_id = 0;
     bool current_flip = false;
-
 
     while (1)
     {
@@ -185,6 +189,21 @@ void Scene::DrawScene(int& scroll_x, int& scroll_y, bool &can_move_up, bool &can
         {
             m_player_quit = true;
             break;
+        }
+
+        // switch scenes
+        if (keysUp() & KEY_A)
+        {
+            if (m_scene_gm_state != GM_STATE_BATTLE)
+            {
+                m_scene_gm_state = GM_STATE_MAIN;
+                break;
+            }
+            else if (m_scene_gm_state != GM_STATE_MAIN)
+            {
+                m_scene_gm_state = GM_STATE_BATTLE;
+                break;
+            }
         }
 
         // switch animations on input
@@ -214,10 +233,7 @@ void Scene::DrawScene(int& scroll_x, int& scroll_y, bool &can_move_up, bool &can
 
         for (Background* background : m_backgrounds)
         {
-            background->m_bg_pos->m_x += scroll_x;
-            background->m_bg_pos->m_y += scroll_y;
-            NF_ScrollBg(0, 3, scroll_x , scroll_y);
-            
+            NF_ScrollBg(0, 3, scroll_x, scroll_y);
         }
 
         

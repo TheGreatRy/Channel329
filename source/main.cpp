@@ -24,14 +24,14 @@ int main(int argc, char **argv)
     GameData* main_data = new MainSceneData(main_scene);
     main_data->SetScene(main_scene);
 
-    // //Battle Scene
-    // Scene* battle_scene = new Scene(GM_STATE_BATTLE, 0);
-    // GameData* battle_data = new BattleSceneData(battle_scene);
-    // battle_data->SetScene(battle_scene);
+    //Battle Scene
+    Scene* battle_scene = new Scene(GM_STATE_BATTLE, 0);
+    GameData* battle_data = new BattleSceneData(battle_scene);
+    battle_data->SetScene(battle_scene);
     
     //Add data to the game
     game->AddData(main_data);
-    // game->AddData(battle_data);
+    game->AddData(battle_data);
     
     //run game
     game->RunGame();

@@ -25,7 +25,6 @@ class BattleSceneData : public GameData
     {
         m_scene = scene;
     }
-    
 
     Sprite* enemy;    
     Sprite* attacker;     

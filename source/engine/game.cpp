@@ -88,29 +88,29 @@ void Game::RunCurrentScene(Scene *scene)
 
     scene->DrawScene(scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
 
-    Scene save_state = *scene;
+    // Scene save_state = *scene;
 
-    m_data[data_index]->LoadScene(save_state);
+    // m_data[data_index]->LoadScene(save_state);
 
-    switch (m_data[data_index]->m_scene->m_scene_gm_state)
-    {
-        case GM_STATE_TITLE:
-        m_title_scene = m_data[data_index]->m_scene;
-        break;
-        case GM_STATE_MAIN:
-        m_main_scenes.at(m_current_scene_index) = m_data[data_index]->m_scene;
-        break;
-        case GM_STATE_BATTLE:
-        m_battle_scenes.at(m_current_scene_index) = m_data[data_index]->m_scene;
-        break;
-        case GM_STATE_MENU:
-        m_menu_scene = m_data[data_index]->m_scene;
-        break;
-    }
+    // switch (m_data[data_index]->m_scene->m_scene_gm_state)
+    // {
+    //     case GM_STATE_TITLE:
+    //     m_title_scene = m_data[data_index]->m_scene;
+    //     break;
+    //     case GM_STATE_MAIN:
+    //     m_main_scenes.at(m_current_scene_index) = m_data[data_index]->m_scene;
+    //     break;
+    //     case GM_STATE_BATTLE:
+    //     m_battle_scenes.at(m_current_scene_index) = m_data[data_index]->m_scene;
+    //     break;
+    //     case GM_STATE_MENU:
+    //     m_menu_scene = m_data[data_index]->m_scene;
+    //     break;
+    // }
 
-    scene->ClearAllTextConsoles();
-    // scene->DeleteAllTextures();
-    // scene->DeleteAllSceneComponents();
+    // scene->ClearAllTextConsoles();
+    scene->DeleteAllSceneComponents();
+
     
 }
 

@@ -2,10 +2,10 @@
 
 void MainSceneData::InitializeData()
 {
-    cam_front_idle = new Sprite("sprite/cam_front_idle_spritesheet", 0, 0, 32, 32, 0);
     options_bg = new Background(BG_TYPE_8BIT, "bmp/overworld_options");
     overworld_bg = new Background(BG_TYPE_TILED_FULL, "bg/overworld", "overworld", 0, 512, 512);
-    
+
+    cam_front_idle = new Sprite("sprite/cam_front_idle_spritesheet", 0, 0, 32, 32, 0);
     cam_back_idle = new Sprite("sprite/cam_back_idle_spritesheet", 1, 1, 32, 32, 0);
     cam_side_idle = new Sprite("sprite/cam_side_idle_spritesheet", 2, 2, 32, 32, 0);
     
@@ -18,15 +18,11 @@ void MainSceneData::InitializeData()
 
     // Now that the objects exist, we can load the graphics
     cam_front_idle->LoadSprite(0, 0, 0, cam_draw_pos, false, 0);
-    
     cam_back_idle->LoadSprite(1, 1, 1, cam_draw_pos, false, 0);
-    
     cam_side_idle->LoadSprite(2, 2, 2, cam_draw_pos, false, 0);
-    
     cam_front_walk->LoadSprite(3, 3, 3, cam_draw_pos, false, 0);
-    
     cam_back_walk->LoadSprite(4, 4, 4, cam_draw_pos, false, 0);
-    
+
     cam_side_walk->LoadSprite(5, 5, 5, cam_draw_pos, false, 0);
      
     options_bg->LoadBackground(1, 1, 1);
@@ -54,6 +50,7 @@ void MainSceneData::InitializeData()
     //add m_scene objects now that everything is loaded and added
     //FIFO
     m_scene->AddBackground(options_bg);
+    m_scene->AddBackground(overworld_bg);
     m_scene->AddActor(cam);
     m_scene->m_player_object = cam;
 }

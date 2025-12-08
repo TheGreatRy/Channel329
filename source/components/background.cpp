@@ -83,32 +83,9 @@ void Background::LoadBackground(int screen, int layer, int copy_dest, bool can_w
 
 void Background::RemoveBackground()
 {
-    switch (m_bg_type)
-    {
-        case BG_TYPE_8BIT:
-            UnloadBackgroundRAM();
-            break;
-        case BG_TYPE_16BIT:
-            UnloadBackgroundRAM();
-            break;
-        case BG_TYPE_AFFINE:
-            UnloadBackgroundRAM();
-            NF_DeleteAffineBg(m_screen, m_layer);
-            break;
-        case BG_TYPE_COL:
-            UnloadBackgroundRAM();
-            break;
-        case BG_TYPE_TILED_FULL:
-        //free ram
-            UnloadBackgroundRAM();
-            NF_DeleteTiledBg(m_screen, m_layer);
-            break;
-        case BG_TYPE_TILED_RANGE:
-        //free ram
-            UnloadBackgroundRAM();
-            NF_DeleteTiledBg(m_screen, m_layer);
-            break;
-    }
+    UnloadBackgroundRAM();
+    if (m_bg_type == BG_TYPE_AFFINE) NF_DeleteAffineBg(m_screen, m_layer);
+    else if (m_bg_type == BG_TYPE_TILED_FULL || m_bg_type == BG_TYPE_TILED_RANGE) NF_DeleteTiledBg(m_screen, m_layer);
 }
 
 void Background::UnloadBackgroundRAM()

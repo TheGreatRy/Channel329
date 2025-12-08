@@ -25,14 +25,13 @@ public:
     Background(BG_TYPE bg_type, const char *file, const char *name = "default", u32 slot = 0, u32 width = 0, u32 height = 0, u32 tile_start = 0, u32 tile_end = 0);
     
     BG_TYPE m_bg_type;
-    Position* m_bg_pos = new Position(0,0);
 
     const char* m_name;
-    u32 m_slot = 0;
-    u32 m_width = 0;
-    u32 m_height = 0;
-    u32 m_start_tile = 0;
-    u32 m_end_tile = 0;
+    u32 m_slot;
+    u32 m_width ;
+    u32 m_height;
+    u32 m_start_tile;
+    u32 m_end_tile;
 
     int m_screen;
     int m_layer;

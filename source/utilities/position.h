@@ -3,10 +3,10 @@
 class Position
 {
     public:
-    int m_x;
-    int m_y;
+    float m_x;
+    float m_y;
 
-    Position(int x, int y) :
+    Position(float x, float y) :
         m_x{x},
         m_y{y}
     {}
