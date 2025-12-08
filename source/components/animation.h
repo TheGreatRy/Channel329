@@ -10,6 +10,7 @@ class Animation
     ~Animation() = default;
     
     Sprite* m_spritesheet;
+
     int m_sprite_amount;
     
     int m_time_step = 0;

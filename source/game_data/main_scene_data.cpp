@@ -13,24 +13,21 @@ void MainSceneData::InitializeData()
     cam_back_walk = new Sprite("sprite/cam_back_walk_spritesheet", 4, 4, 32, 32, 0);
     cam_side_walk = new Sprite("sprite/cam_side_walk_spritesheet", 5, 5, 32, 32, 0);
 
+    Position* cam_draw_pos = new Position(((SCREEN_WIDTH/cam_front_idle->m_sprite_w) / 2 - 0.5f) * cam_front_idle->m_sprite_w, 
+        ((SCREEN_HEIGHT/cam_front_idle->m_sprite_h) / 2 - 0.5f) * cam_front_idle->m_sprite_h);
+
     // Now that the objects exist, we can load the graphics
-    cam_front_idle->LoadSprite(0, 0, 0, ((SCREEN_WIDTH/cam_front_idle->m_sprite_w) / 2 - 0.5f) * cam_front_idle->m_sprite_w, 
-        ((SCREEN_HEIGHT/cam_front_idle->m_sprite_h) / 2 - 0.5f) * cam_front_idle->m_sprite_h, false, 0);
+    cam_front_idle->LoadSprite(0, 0, 0, cam_draw_pos, false, 0);
     
-    cam_back_idle->LoadSprite(1, 1, 1, ((SCREEN_WIDTH/cam_back_idle->m_sprite_w) / 2 - 0.5f) * cam_back_idle->m_sprite_w, 
-        ((SCREEN_HEIGHT/cam_back_idle->m_sprite_h) / 2 - 0.5f) * cam_back_idle->m_sprite_h, false, 0);
+    cam_back_idle->LoadSprite(1, 1, 1, cam_draw_pos, false, 0);
     
-    cam_side_idle->LoadSprite(2, 2, 2, ((SCREEN_WIDTH/cam_side_idle->m_sprite_w) / 2 - 0.5f) * cam_side_idle->m_sprite_w, 
-        ((SCREEN_HEIGHT/cam_side_idle->m_sprite_h) / 2 - 0.5f) * cam_side_idle->m_sprite_h, false, 0);
+    cam_side_idle->LoadSprite(2, 2, 2, cam_draw_pos, false, 0);
     
-    cam_front_walk->LoadSprite(3, 3, 3, ((SCREEN_WIDTH/cam_front_walk->m_sprite_w) / 2 - 0.5f) * cam_front_walk->m_sprite_w, 
-        ((SCREEN_HEIGHT/cam_front_walk->m_sprite_h) / 2 - 0.5f) * cam_front_walk->m_sprite_h, false, 0);
+    cam_front_walk->LoadSprite(3, 3, 3, cam_draw_pos, false, 0);
     
-    cam_back_walk->LoadSprite(4, 4, 4, ((SCREEN_WIDTH/cam_back_walk->m_sprite_w) / 2 - 0.5f) * cam_back_walk->m_sprite_w, 
-        ((SCREEN_HEIGHT/cam_back_walk->m_sprite_h) / 2 - 0.5f) * cam_back_walk->m_sprite_h, false, 0);
+    cam_back_walk->LoadSprite(4, 4, 4, cam_draw_pos, false, 0);
     
-    cam_side_walk->LoadSprite(5, 5, 5, ((SCREEN_WIDTH/cam_side_walk->m_sprite_w) / 2 - 0.5f) * cam_side_walk->m_sprite_w, 
-        ((SCREEN_HEIGHT/cam_side_walk->m_sprite_h) / 2 - 0.5f) * cam_side_walk->m_sprite_h, false, 0);
+    cam_side_walk->LoadSprite(5, 5, 5, cam_draw_pos, false, 0);
      
     options_bg->LoadBackground(1, 1, 1);
     overworld_bg->LoadBackground(0, 3);

@@ -45,7 +45,7 @@ public:
     void AddBackground(Background* background);
     void AddBattle(Battle* battle);
 
-    void DrawScene(int scroll_x, int scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right);
+    void DrawScene(int& scroll_x, int& scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right);
     
     void DetectInput(int &scroll_x, int &scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right);
     void SwitchAnimations(int& anim_id, bool& flip);

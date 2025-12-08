@@ -13,20 +13,19 @@ Sprite::Sprite(const char *file, u32 gfx_id, u32 pal_id, u32 width, u32 height, 
     NF_LoadSpritePal(file, pal_id);
 }
 
-void Sprite::LoadSprite(u32 sprite_id, u32 gfx_slot, u32 pal_slot, s32 x, s32 y, bool copy_all_frames, u32 layer)
+void Sprite::LoadSprite(u32 sprite_id, u32 gfx_slot, u32 pal_slot, Position* pos, bool copy_all_frames, u32 layer)
 {
     m_gfx_slot = gfx_slot;
     m_pal_slot = pal_slot;
     m_sprite_id = sprite_id;
-    m_x_pos = x;
-    m_y_pos = y;
+    m_spr_pos = pos;
 
     //move to vram
     NF_VramSpriteGfx(m_screen, m_gfx_id, gfx_slot, copy_all_frames);
     NF_VramSpritePal(m_screen, m_pal_id, pal_slot);
 
     //create sprite
-    NF_CreateSprite(m_screen, m_sprite_id, m_gfx_slot, m_pal_slot, m_x_pos, m_y_pos);
+    NF_CreateSprite(m_screen, m_sprite_id, m_gfx_slot, m_pal_slot, m_spr_pos->m_x, m_spr_pos->m_y);
 
     //free ram 
     NF_UnloadSpriteGfx(m_gfx_id);

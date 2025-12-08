@@ -3,6 +3,9 @@
 //NDS Library Includes
 #include <nf_lib.h>
 
+//Utilities Folder
+#include "../utilities/position.h"
+
 enum BG_TYPE
 {
     BG_TYPE_8BIT,
@@ -21,7 +24,9 @@ public:
     
     Background(BG_TYPE bg_type, const char *file, const char *name = "default", u32 slot = 0, u32 width = 0, u32 height = 0, u32 tile_start = 0, u32 tile_end = 0);
     
-    BG_TYPE m_background_type;
+    BG_TYPE m_bg_type;
+    Position* m_bg_pos = new Position(0,0);
+
     const char* m_name;
     u32 m_slot = 0;
     u32 m_width = 0;

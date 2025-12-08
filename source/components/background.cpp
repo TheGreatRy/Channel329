@@ -11,7 +11,7 @@
 /// @param tile_end Last tile to load (`BG_TYPE_TILED_RANGE`)
 Background::Background(BG_TYPE bg_type, const char *file, const char *name, u32 slot, u32 width, u32 height, u32 tile_start, u32 tile_end)
 {
-    m_background_type = bg_type;
+    m_bg_type = bg_type;
     m_name = name;
     m_slot = slot;
     m_width = width;
@@ -20,7 +20,7 @@ Background::Background(BG_TYPE bg_type, const char *file, const char *name, u32 
     m_end_tile = tile_end;
 
     //load background from nitrofs files
-    switch (m_background_type)
+    switch (m_bg_type)
     {
         case BG_TYPE_8BIT:
             NF_Load8bitsBg(file, m_slot);
@@ -52,7 +52,7 @@ void Background::LoadBackground(int screen, int layer, int copy_dest, bool can_w
 {
     m_screen = screen;
     m_layer = layer;
-    switch (m_background_type)
+    switch (m_bg_type)
     {
         case BG_TYPE_8BIT:
             //moved to vram or buffer
@@ -72,14 +72,10 @@ void Background::LoadBackground(int screen, int layer, int copy_dest, bool can_w
         case BG_TYPE_TILED_FULL:
             //moved to vram
             NF_CreateTiledBg(screen, layer, m_name);
-            //free ram
-            UnloadBackgroundRAM();
             break;
         case BG_TYPE_TILED_RANGE:
             //moved to vram
             NF_CreateTiledBg(screen, layer, m_name);
-            //free ram
-            UnloadBackgroundRAM();
             break;
     }
 }
@@ -87,7 +83,7 @@ void Background::LoadBackground(int screen, int layer, int copy_dest, bool can_w
 
 void Background::RemoveBackground()
 {
-    switch (m_background_type)
+    switch (m_bg_type)
     {
         case BG_TYPE_8BIT:
             UnloadBackgroundRAM();
@@ -103,9 +99,13 @@ void Background::RemoveBackground()
             UnloadBackgroundRAM();
             break;
         case BG_TYPE_TILED_FULL:
+        //free ram
+            UnloadBackgroundRAM();
             NF_DeleteTiledBg(m_screen, m_layer);
             break;
         case BG_TYPE_TILED_RANGE:
+        //free ram
+            UnloadBackgroundRAM();
             NF_DeleteTiledBg(m_screen, m_layer);
             break;
     }
@@ -113,7 +113,7 @@ void Background::RemoveBackground()
 
 void Background::UnloadBackgroundRAM()
 {
-    switch (m_background_type)
+    switch (m_bg_type)
     {
         case BG_TYPE_8BIT:
             NF_Unload8bitsBg(m_slot);

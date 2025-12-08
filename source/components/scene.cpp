@@ -154,7 +154,7 @@ void Scene::ClearAllTextConsoles()
     }
 }
 
-void Scene::DrawScene(int scroll_x, int scroll_y, bool &can_move_up, bool &can_move_down, bool &can_move_left, bool &can_move_right)
+void Scene::DrawScene(int& scroll_x, int& scroll_y, bool &can_move_up, bool &can_move_down, bool &can_move_left, bool &can_move_right)
 {
     touchPosition current_pos;
     int current_anim_id = 0;
@@ -210,6 +210,14 @@ void Scene::DrawScene(int scroll_x, int scroll_y, bool &can_move_up, bool &can_m
             {
                 // play all other animations
             }
+        }
+
+        for (Background* background : m_backgrounds)
+        {
+            background->m_bg_pos->m_x += scroll_x;
+            background->m_bg_pos->m_y += scroll_y;
+            NF_ScrollBg(0, 3, scroll_x , scroll_y);
+            
         }
 
         
