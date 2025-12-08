@@ -18,5 +18,9 @@ void Animation::PlayAnimation(int fps, bool flip_sprites)
         if (m_current_frame_index > m_sprite_amount - 1) 
             m_current_frame_index = 0;   
     }
+    NF_ShowSprite(m_spritesheet->m_screen, m_spritesheet->m_sprite_id, true);
+    
+    NF_HflipSprite(m_spritesheet->m_screen, m_spritesheet->m_sprite_id, flip_sprites);
+    
     NF_SpriteFrame(m_spritesheet->m_screen, m_spritesheet->m_sprite_id, m_current_frame_index);
 }
