@@ -237,7 +237,7 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
 
         for (Background *background : m_backgrounds)
         {
-            if (background->m_layer == 3) NF_ScrollBg(0, 3, scroll_x, scroll_y);
+            if (background->m_bg_type == BG_TYPE_TILED_FULL) NF_ScrollBg(background->m_screen, background->m_layer, scroll_x, scroll_y);
         }
 
         NF_Draw3dSprites();
