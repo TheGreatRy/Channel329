@@ -46,7 +46,7 @@ Background::Background(BG_TYPE bg_type, const char *file, const char *name, u32 
 /// @brief Loads backgrounds on the specified screen and/or layer. Enter 0 for parameters you do not need. `BG_TYPE_COL` does not need to be loaded with this function
 /// @param screen The screen to display to, 0 being the top screen and 1 being the bottom screen (`ALL`)
 /// @param layer The background layer to draw to (`BG_TYPE_AFFINE`, `BG_TYPE_TILED_FULL`, and `BG_TYPE_TILED_RANGE`)
-/// @param copy_dest The memory location to copy the background to, with 0 being VRAM and 0 being the backbuffer (`BG_TYPE_8BIT` and `BG_TYPE_16BIT`) 
+/// @param copy_dest The memory location to copy the background to, with 0 being VRAM and 1 being the backbuffer (`BG_TYPE_8BIT` and `BG_TYPE_16BIT`) 
 /// @param can_wrap If the background is allowed to wrap the screen (`BG_TYPE_AFFINE`)
 void Background::LoadBackground(int screen, int layer, int copy_dest, bool can_wrap)
 {

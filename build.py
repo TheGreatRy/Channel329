@@ -11,8 +11,8 @@ nitrofs.add_nflib_bg_tiled(['assets/map'], 'bg')
 nitrofs.add_nflib_bg_8bit(['assets/backgrounds'], 'bmp')
 nitrofs.add_nflib_sprite_256(['assets/characters/cameron/idle'], 'sprite')
 nitrofs.add_nflib_sprite_256(['assets/characters/cameron/walk'], 'sprite')
-nitrofs.add_nflib_sprite_256(['assets/characters/cameron/battle'], 'sprite')
-nitrofs.add_nflib_sprite_256(['assets/characters/npcs'], 'sprite')
+nitrofs.add_nflib_sprite_3d(['assets/characters/cameron/battle'], 'sprite')
+nitrofs.add_nflib_sprite_3d(['assets/characters/npcs'], 'sprite')
 nitrofs.generate_image()
 
 arm9 = Arm9Binary(

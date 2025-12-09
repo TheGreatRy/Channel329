@@ -5,13 +5,13 @@ void MainSceneData::InitializeData()
     options_bg = new Background(BG_TYPE_8BIT, "bmp/overworld_options");
     overworld_bg = new Background(BG_TYPE_TILED_FULL, "bg/overworld", "overworld", 0, 512, 512);
 
-    cam_front_idle = new Sprite("sprite/cam_front_idle_spritesheet", 0, 0, 32, 32, 0);
-    cam_back_idle = new Sprite("sprite/cam_back_idle_spritesheet", 1, 1, 32, 32, 0);
-    cam_side_idle = new Sprite("sprite/cam_side_idle_spritesheet", 2, 2, 32, 32, 0);
+    cam_front_idle = new Sprite(SPR_TYPE_256,"sprite/cam_front_idle_spritesheet", 0, 0, 32, 32, 0);
+    cam_back_idle = new Sprite(SPR_TYPE_256,"sprite/cam_back_idle_spritesheet", 1, 1, 32, 32, 0);
+    cam_side_idle = new Sprite(SPR_TYPE_256,"sprite/cam_side_idle_spritesheet", 2, 2, 32, 32, 0);
     
-    cam_front_walk = new Sprite("sprite/cam_front_walk_spritesheet", 3, 3, 32, 32, 0);
-    cam_back_walk = new Sprite("sprite/cam_back_walk_spritesheet", 4, 4, 32, 32, 0);
-    cam_side_walk = new Sprite("sprite/cam_side_walk_spritesheet", 5, 5, 32, 32, 0);
+    cam_front_walk = new Sprite(SPR_TYPE_256,"sprite/cam_front_walk_spritesheet", 3, 3, 32, 32, 0);
+    cam_back_walk = new Sprite(SPR_TYPE_256,"sprite/cam_back_walk_spritesheet", 4, 4, 32, 32, 0);
+    cam_side_walk = new Sprite(SPR_TYPE_256,"sprite/cam_side_walk_spritesheet", 5, 5, 32, 32, 0);
 
     Position* cam_draw_pos = new Position(((SCREEN_WIDTH/cam_front_idle->m_sprite_w) / 2 - 0.5f) * cam_front_idle->m_sprite_w, 
         ((SCREEN_HEIGHT/cam_front_idle->m_sprite_h) / 2 - 0.5f) * cam_front_idle->m_sprite_h);

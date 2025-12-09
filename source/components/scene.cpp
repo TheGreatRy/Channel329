@@ -220,7 +220,9 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
         {
             for (Animation *anim : actor->m_sprite_animations)
             {
-                NF_ShowSprite(0, anim->m_spritesheet->m_sprite_id, false);
+                //if(anim->m_spritesheet->m_spr_type == SPR_TYPE_256) 
+                NF_ShowSprite(anim->m_spritesheet->m_screen, anim->m_spritesheet->m_sprite_id, false);
+                //else if(anim->m_spritesheet->m_spr_type == SPR_TYPE_3D)NF_Show3dSprite(anim->m_spritesheet->m_sprite_id, false);
             }
 
             if (actor->m_character_type == CHARACTER_TYPE_MAIN)
@@ -229,13 +231,17 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
             }
             else
             {
-                // play all other animations
+                actor->PlayAnimation(0, 8, false);
             }
         }
 
         for (Background *background : m_backgrounds)
         {
-            NF_ScrollBg(0, 3, scroll_x, scroll_y);
+            if (background->m_layer == 3) NF_ScrollBg(0, 3, scroll_x, scroll_y);
         }
+
+        NF_Draw3dSprites();
+
+        glFlush(0);
     }
 }

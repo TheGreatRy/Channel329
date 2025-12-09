@@ -14,7 +14,7 @@ void Game::InitializeGame()
     NF_SetRootFolder("NITROFS");
 
     // Initialize 2D engine in both screens
-    NF_Set2D(0, 0);
+    NF_Set3D(0, 0);
     NF_Set2D(1, 5);
 
     // Initialize mixed background system
@@ -29,7 +29,9 @@ void Game::InitializeGame()
 
     // Initialize sprite system
     NF_InitSpriteBuffers();
+    NF_Init3dSpriteSys();
     NF_InitSpriteSys(0);        
+    NF_InitSpriteSys(1);        
 
     // Initialize text systems (both screens)
     NF_InitTextSys(0);

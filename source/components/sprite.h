@@ -7,14 +7,21 @@
 
 #include "../utilities/position.h"
 
+enum SPR_TYPE
+{
+    SPR_TYPE_256,
+    SPR_TYPE_3D
+};
+
 class Sprite
 {
 public:
 
     Sprite() = default;
-    Sprite(const char *file, u32 gfx_id, u32 pal_id, u32 width, u32 height, int screen);
+    Sprite(SPR_TYPE spr_type, const char *file, u32 gfx_id, u32 pal_id, u32 width, u32 height, int screen = 0);
     ~Sprite() = default;
 
+    SPR_TYPE m_spr_type;
     Position* m_spr_pos;
     int m_screen;
     u32 m_sprite_id;
