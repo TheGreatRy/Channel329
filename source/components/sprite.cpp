@@ -21,25 +21,27 @@ void Sprite::LoadSprite(u32 sprite_id, u32 gfx_slot, u32 pal_slot, Position *pos
     m_sprite_id = sprite_id;
     m_spr_pos = pos;
 
-    
-
-    if (m_spr_type == SPR_TYPE_256)
+    switch (m_spr_type)
     {
+    case SPR_TYPE_256:
+
         // move to vram
         NF_VramSpriteGfx(m_screen, m_gfx_id, gfx_slot, copy_all_frames);
         NF_VramSpritePal(m_screen, m_pal_id, pal_slot);
 
         // create sprite
         NF_CreateSprite(m_screen, m_sprite_id, m_gfx_slot, m_pal_slot, m_spr_pos->m_x, m_spr_pos->m_y);
-    }
-    else if (m_spr_type == SPR_TYPE_3D)
-    {
+        break;
+    case SPR_TYPE_3D:
+
         NF_Vram3dSpriteGfx(m_gfx_id, gfx_slot, copy_all_frames);
         NF_Vram3dSpritePal(m_pal_id, pal_slot);
-        
+
         // create sprite
         NF_Create3dSprite(m_sprite_id, m_gfx_slot, m_pal_slot, m_spr_pos->m_x, m_spr_pos->m_y);
+        break;
     }
+
     // free ram
     NF_UnloadSpriteGfx(m_gfx_id);
     NF_UnloadSpritePal(m_pal_id);
@@ -63,6 +65,4 @@ void Sprite::RemoveSprite()
         // free vram of screen, no palette option?
         NF_Free3dSpriteGfx(m_gfx_slot);
     }
-    
-
 }

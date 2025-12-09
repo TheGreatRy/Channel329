@@ -5,11 +5,11 @@
 
 //Components Folder
 #include "../components/scene.h"
+#include "../components/sprite.h"
 
-//Shared Graphics
-// #include <../graphics/test_graphics/anuvverbubbla_8x8.h>
-// #include <../graphics/test_graphics/charmap_cellphone.h>
-// #include <../graphics/test_graphics/charmap_futuristic.h>
+//Engine Folder
+//#include "../engine/text_console.h"
+#include "../engine/text.h"
 
 //DS screen size
 #define SCREEN_WIDTH 256

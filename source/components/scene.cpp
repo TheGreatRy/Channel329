@@ -23,6 +23,11 @@ void Scene::AddTextConsole(TextConsole *text_con)
         m_sub_consoles.push_back(text_con);
 }
 
+void Scene::AddTextLayer(Text *text)
+{
+    m_text_layers.push_back(text);
+}
+
 void Scene::AddBattle(Battle *battle)
 {
     m_battles.push_back(battle);
@@ -240,6 +245,12 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
             if (background->m_bg_type == BG_TYPE_TILED_FULL) NF_ScrollBg(background->m_screen, background->m_layer, scroll_x, scroll_y);
         }
 
+        for (Text* text : m_text_layers)
+        {
+            text->WriteText(10, 10, "Hello!");
+        }
+
+        NF_UpdateTextLayers();
         NF_Draw3dSprites();
 
         glFlush(0);

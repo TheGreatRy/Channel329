@@ -3,11 +3,7 @@
 //Game Data Folder
 #include "game_data.h"
 
-//Components Folder
-#include "../components/Sprite.h"
 
-//Engine Folder
-#include "../engine/text_console.h"
 
 class MainSceneData : public GameData
 {
@@ -23,7 +19,7 @@ class MainSceneData : public GameData
     Character* cam;
     Background* options_bg;
     Background* overworld_bg;
-    TextConsole* text_console;
+    Text* test_text;
     
     //Sprite Objects
     Sprite* cam_front_idle;

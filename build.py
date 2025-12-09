@@ -13,6 +13,7 @@ nitrofs.add_nflib_sprite_256(['assets/characters/cameron/idle'], 'sprite')
 nitrofs.add_nflib_sprite_256(['assets/characters/cameron/walk'], 'sprite')
 nitrofs.add_nflib_sprite_3d(['assets/characters/cameron/battle'], 'sprite')
 nitrofs.add_nflib_sprite_3d(['assets/characters/npcs'], 'sprite')
+nitrofs.add_nflib_font(['assets/fonts'], 'fnt')
 nitrofs.generate_image()
 
 arm9 = Arm9Binary(

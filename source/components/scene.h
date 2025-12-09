@@ -17,6 +17,7 @@
 // Engine Folder
 #include "../engine/game_states.h"
 #include "../engine/text_console.h"
+#include "../engine/text.h"
 #include "../engine/battle.h"
 
 class Scene
@@ -28,6 +29,7 @@ public:
 
     std::vector<TextConsole *> m_main_consoles;
     std::vector<TextConsole *> m_sub_consoles;
+    std::vector<Text *> m_text_layers;
     std::vector<Background*> m_backgrounds;
     std::vector<Character *> m_actors;
     std::vector<Battle*> m_battles;
@@ -42,6 +44,7 @@ public:
 
     void AddActor(Character* character);
     void AddTextConsole(TextConsole *text_con);
+    void AddTextLayer(Text *text);
     void AddBackground(Background* background);
     void AddBattle(Battle* battle);
 

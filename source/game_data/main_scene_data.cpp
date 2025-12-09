@@ -13,6 +13,8 @@ void MainSceneData::InitializeData()
     cam_back_walk = new Sprite(SPR_TYPE_256,"sprite/cam_back_walk_spritesheet", 4, 4, 32, 32, 0);
     cam_side_walk = new Sprite(SPR_TYPE_256,"sprite/cam_side_walk_spritesheet", 5, 5, 32, 32, 0);
 
+    test_text = new Text(TEXT_TYPE_CUST, "fnt/test_font", "cam_text", 256, 256, 0);
+
     Position* cam_draw_pos = new Position(((SCREEN_WIDTH/cam_front_idle->m_sprite_w) / 2 - 0.5f) * cam_front_idle->m_sprite_w, 
         ((SCREEN_HEIGHT/cam_front_idle->m_sprite_h) / 2 - 0.5f) * cam_front_idle->m_sprite_h);
 
@@ -27,6 +29,8 @@ void MainSceneData::InitializeData()
      
     options_bg->LoadBackground(1, 1, 1);
     overworld_bg->LoadBackground(0, 3);
+
+    test_text->LoadText(1, 0);
 
     //Animation Objects
     cam_idle_f = new Animation(cam_front_idle, 12);
@@ -51,6 +55,7 @@ void MainSceneData::InitializeData()
     //FIFO
     m_scene->AddBackground(options_bg);
     m_scene->AddBackground(overworld_bg);
+    m_scene->AddTextLayer(test_text);
     m_scene->AddActor(cam);
     m_scene->m_player_object = cam;
 }
