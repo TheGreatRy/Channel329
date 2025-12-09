@@ -158,43 +158,33 @@ build build/arm9/source/game_data/main_scene_data.cpp.o: cxx_arm source/game_dat
 build build/arm9/arm9.elf | build/arm9/arm9.map: ld_arm build/arm9/source/main.cpp.o build/arm9/source/actors/character.cpp.o build/arm9/source/components/animation.cpp.o build/arm9/source/components/background.cpp.o build/arm9/source/components/scene.cpp.o build/arm9/source/components/sprite.cpp.o build/arm9/source/engine/battle.cpp.o build/arm9/source/engine/game.cpp.o build/arm9/source/engine/text.cpp.o build/arm9/source/engine/text_console.cpp.o build/arm9/source/game_data/battle_scene_data.cpp.o build/arm9/source/game_data/main_scene_data.cpp.o || build/arm9
   ldflags = -L${BLOCKSDS}/libs/libnds/lib -L${BLOCKSDSEXT}/nflib/lib -Wl,-Map,build/arm9/arm9.map -mcpu=arm946e-s+nofp -Wl,--start-group -lnds9 -lnflib -lstdc++ -lc -Wl,--end-group -specs=${BLOCKSDS}/sys/crts/ds_arm9.specs 
 
-build build/nitrofs/bg/battle_top.map build/nitrofs/bg/battle_top.img build/nitrofs/bg/battle_top.pal : grit assets/map/battle_top.png || build/nitrofs/bg
-  in_path_img = assets/map/battle_top.png
+build build/nitrofs/bg/battle_top.map build/nitrofs/bg/battle_top.img build/nitrofs/bg/battle_top.pal : grit assets/bg/battle_top.png || build/nitrofs/bg
+  in_path_img = assets/bg/battle_top.png
   grit_out_path = build/nitrofs/bg/battle_top
   options = -W1 -ftB -fh!  -gTFF00FF -gt -gB8 -mR8 -mLs
 
-build build/nitrofs/bg/collision.map build/nitrofs/bg/collision.img build/nitrofs/bg/collision.pal : grit assets/map/collision.png || build/nitrofs/bg
-  in_path_img = assets/map/collision.png
-  grit_out_path = build/nitrofs/bg/collision
-  options = -W1 -ftB -fh!  -gTFF00FF -gt -gB8 -mR8 -mLs
-
-build build/nitrofs/bg/overworld.map build/nitrofs/bg/overworld.img build/nitrofs/bg/overworld.pal : grit assets/map/overworld.png || build/nitrofs/bg
-  in_path_img = assets/map/overworld.png
+build build/nitrofs/bg/overworld.map build/nitrofs/bg/overworld.img build/nitrofs/bg/overworld.pal : grit assets/bg/overworld.png || build/nitrofs/bg
+  in_path_img = assets/bg/overworld.png
   grit_out_path = build/nitrofs/bg/overworld
   options = -W1 -ftB -fh!  -gTFF00FF -gt -gB8 -mR8 -mLs
 
-build build/nitrofs/bg/overworld_col.map build/nitrofs/bg/overworld_col.img build/nitrofs/bg/overworld_col.pal : grit assets/map/overworld_col.png || build/nitrofs/bg
-  in_path_img = assets/map/overworld_col.png
-  grit_out_path = build/nitrofs/bg/overworld_col
-  options = -W1 -ftB -fh!  -gTFF00FF -gt -gB8 -mR8 -mLs
-
-build build/nitrofs/bmp/battle_bottom.map build/nitrofs/bmp/battle_bottom.img build/nitrofs/bmp/battle_bottom.pal : grit assets/backgrounds/battle_bottom.png || build/nitrofs/bmp
-  in_path_img = assets/backgrounds/battle_bottom.png
+build build/nitrofs/bmp/battle_bottom.map build/nitrofs/bmp/battle_bottom.img build/nitrofs/bmp/battle_bottom.pal : grit assets/bitmaps/battle_bottom.png || build/nitrofs/bmp
+  in_path_img = assets/bitmaps/battle_bottom.png
   grit_out_path = build/nitrofs/bmp/battle_bottom
   options = -W1 -ftB -fh!  -gTFF00FF -gb -gB8
 
-build build/nitrofs/bmp/overworld_options.map build/nitrofs/bmp/overworld_options.img build/nitrofs/bmp/overworld_options.pal : grit assets/backgrounds/overworld_options.png || build/nitrofs/bmp
-  in_path_img = assets/backgrounds/overworld_options.png
+build build/nitrofs/bmp/overworld_options.map build/nitrofs/bmp/overworld_options.img build/nitrofs/bmp/overworld_options.pal : grit assets/bitmaps/overworld_options.png || build/nitrofs/bmp
+  in_path_img = assets/bitmaps/overworld_options.png
   grit_out_path = build/nitrofs/bmp/overworld_options
   options = -W1 -ftB -fh!  -gTFF00FF -gb -gB8
 
-build build/nitrofs/bmp/tutorial_bottom.map build/nitrofs/bmp/tutorial_bottom.img build/nitrofs/bmp/tutorial_bottom.pal : grit assets/backgrounds/tutorial_bottom.png || build/nitrofs/bmp
-  in_path_img = assets/backgrounds/tutorial_bottom.png
+build build/nitrofs/bmp/tutorial_bottom.map build/nitrofs/bmp/tutorial_bottom.img build/nitrofs/bmp/tutorial_bottom.pal : grit assets/bitmaps/tutorial_bottom.png || build/nitrofs/bmp
+  in_path_img = assets/bitmaps/tutorial_bottom.png
   grit_out_path = build/nitrofs/bmp/tutorial_bottom
   options = -W1 -ftB -fh!  -gTFF00FF -gb -gB8
 
-build build/nitrofs/bmp/tutorial_top.map build/nitrofs/bmp/tutorial_top.img build/nitrofs/bmp/tutorial_top.pal : grit assets/backgrounds/tutorial_top.png || build/nitrofs/bmp
-  in_path_img = assets/backgrounds/tutorial_top.png
+build build/nitrofs/bmp/tutorial_top.map build/nitrofs/bmp/tutorial_top.img build/nitrofs/bmp/tutorial_top.pal : grit assets/bitmaps/tutorial_top.png || build/nitrofs/bmp
+  in_path_img = assets/bitmaps/tutorial_top.png
   grit_out_path = build/nitrofs/bmp/tutorial_top
   options = -W1 -ftB -fh!  -gTFF00FF -gb -gB8
 
@@ -268,7 +258,12 @@ build build/nitrofs/fnt/test_font.img build/nitrofs/fnt/test_font.pal : grit ass
   grit_out_path = build/nitrofs/fnt/test_font
   options = -W1 -ftB -fh! -m! -gTFF00FF -gt -gB8
 
-build assets_nitrofs_flag: phony build/nitrofs/bg/battle_top.map build/nitrofs/bg/battle_top.img build/nitrofs/bg/battle_top.pal build/nitrofs/bg/collision.map build/nitrofs/bg/collision.img build/nitrofs/bg/collision.pal build/nitrofs/bg/overworld.map build/nitrofs/bg/overworld.img build/nitrofs/bg/overworld.pal build/nitrofs/bg/overworld_col.map build/nitrofs/bg/overworld_col.img build/nitrofs/bg/overworld_col.pal build/nitrofs/bmp/battle_bottom.map build/nitrofs/bmp/battle_bottom.img build/nitrofs/bmp/battle_bottom.pal build/nitrofs/bmp/overworld_options.map build/nitrofs/bmp/overworld_options.img build/nitrofs/bmp/overworld_options.pal build/nitrofs/bmp/tutorial_bottom.map build/nitrofs/bmp/tutorial_bottom.img build/nitrofs/bmp/tutorial_bottom.pal build/nitrofs/bmp/tutorial_top.map build/nitrofs/bmp/tutorial_top.img build/nitrofs/bmp/tutorial_top.pal build/nitrofs/sprite/cam_back_idle_spritesheet.img build/nitrofs/sprite/cam_back_idle_spritesheet.pal build/nitrofs/sprite/cam_front_idle_spritesheet.img build/nitrofs/sprite/cam_front_idle_spritesheet.pal build/nitrofs/sprite/cam_side_idle_spritesheet.img build/nitrofs/sprite/cam_side_idle_spritesheet.pal build/nitrofs/sprite/cam_back_walk_spritesheet.img build/nitrofs/sprite/cam_back_walk_spritesheet.pal build/nitrofs/sprite/cam_front_walk_spritesheet.img build/nitrofs/sprite/cam_front_walk_spritesheet.pal build/nitrofs/sprite/cam_side_walk_spritesheet.img build/nitrofs/sprite/cam_side_walk_spritesheet.pal build/nitrofs/sprite/cam_battle_neut.img build/nitrofs/sprite/cam_battle_neut.pal build/nitrofs/sprite/cam_miss_battle_spritesheet.img build/nitrofs/sprite/cam_miss_battle_spritesheet.pal build/nitrofs/sprite/john_tutorial.img build/nitrofs/sprite/john_tutorial.pal build/nitrofs/sprite/john_tutorial_overworld.img build/nitrofs/sprite/john_tutorial_overworld.pal build/nitrofs/fnt/anuvverbubbla_8x8.img build/nitrofs/fnt/anuvverbubbla_8x8.pal build/nitrofs/fnt/charmap_cellphone.img build/nitrofs/fnt/charmap_cellphone.pal build/nitrofs/fnt/charmap_futuristic.img build/nitrofs/fnt/charmap_futuristic.pal build/nitrofs/fnt/test_font.img build/nitrofs/fnt/test_font.pal
+build build/nitrofs/colbg/overworld_col.map build/nitrofs/colbg/overworld_col.img : grit assets/colbg/overworld_col.png || build/nitrofs/colbg
+  in_path_img = assets/colbg/overworld_col.png
+  grit_out_path = build/nitrofs/colbg/overworld_col
+  options = -W1 -ftB -fh! -p! -gt -gB8 -mRtp -mLf
+
+build assets_nitrofs_flag: phony build/nitrofs/bg/battle_top.map build/nitrofs/bg/battle_top.img build/nitrofs/bg/battle_top.pal build/nitrofs/bg/overworld.map build/nitrofs/bg/overworld.img build/nitrofs/bg/overworld.pal build/nitrofs/bmp/battle_bottom.map build/nitrofs/bmp/battle_bottom.img build/nitrofs/bmp/battle_bottom.pal build/nitrofs/bmp/overworld_options.map build/nitrofs/bmp/overworld_options.img build/nitrofs/bmp/overworld_options.pal build/nitrofs/bmp/tutorial_bottom.map build/nitrofs/bmp/tutorial_bottom.img build/nitrofs/bmp/tutorial_bottom.pal build/nitrofs/bmp/tutorial_top.map build/nitrofs/bmp/tutorial_top.img build/nitrofs/bmp/tutorial_top.pal build/nitrofs/sprite/cam_back_idle_spritesheet.img build/nitrofs/sprite/cam_back_idle_spritesheet.pal build/nitrofs/sprite/cam_front_idle_spritesheet.img build/nitrofs/sprite/cam_front_idle_spritesheet.pal build/nitrofs/sprite/cam_side_idle_spritesheet.img build/nitrofs/sprite/cam_side_idle_spritesheet.pal build/nitrofs/sprite/cam_back_walk_spritesheet.img build/nitrofs/sprite/cam_back_walk_spritesheet.pal build/nitrofs/sprite/cam_front_walk_spritesheet.img build/nitrofs/sprite/cam_front_walk_spritesheet.pal build/nitrofs/sprite/cam_side_walk_spritesheet.img build/nitrofs/sprite/cam_side_walk_spritesheet.pal build/nitrofs/sprite/cam_battle_neut.img build/nitrofs/sprite/cam_battle_neut.pal build/nitrofs/sprite/cam_miss_battle_spritesheet.img build/nitrofs/sprite/cam_miss_battle_spritesheet.pal build/nitrofs/sprite/john_tutorial.img build/nitrofs/sprite/john_tutorial.pal build/nitrofs/sprite/john_tutorial_overworld.img build/nitrofs/sprite/john_tutorial_overworld.pal build/nitrofs/fnt/anuvverbubbla_8x8.img build/nitrofs/fnt/anuvverbubbla_8x8.pal build/nitrofs/fnt/charmap_cellphone.img build/nitrofs/fnt/charmap_cellphone.pal build/nitrofs/fnt/charmap_futuristic.img build/nitrofs/fnt/charmap_futuristic.pal build/nitrofs/fnt/test_font.img build/nitrofs/fnt/test_font.pal build/nitrofs/colbg/overworld_col.map build/nitrofs/colbg/overworld_col.img
 
 build ch329cotmi.nds: ndstool ${BLOCKSDS}/sys/arm7/main_core/arm7_dswifi_maxmod.elf build/arm9/arm9.elf build/nitrofs  assets_nitrofs_flag
   arm7elf = ${BLOCKSDS}/sys/arm7/main_core/arm7_dswifi_maxmod.elf
@@ -282,6 +277,8 @@ build ch329cotmi.nds: ndstool ${BLOCKSDS}/sys/arm7/main_core/arm7_dswifi_maxmod.
 build build/nitrofs/sprite: makedir || build/nitrofs
 
 build build/nitrofs/fnt: makedir || build/nitrofs
+
+build build/nitrofs/colbg: makedir || build/nitrofs
 
 build build/nitrofs/bmp: makedir || build/nitrofs
 

@@ -4,6 +4,7 @@ void MainSceneData::InitializeData()
 {
     options_bg = new Background(BG_TYPE_8BIT, "bmp/overworld_options");
     overworld_bg = new Background(BG_TYPE_TILED_FULL, "bg/overworld", "overworld", 0, 512, 512);
+    overworld_col_bg = new Background(BG_TYPE_COL, "colbg/overworld_col", 0, 0, 512, 512);
 
     cam_front_idle = new Sprite(SPR_TYPE_256,"sprite/cam_front_idle_spritesheet", 0, 0, 32, 32, 0);
     cam_back_idle = new Sprite(SPR_TYPE_256,"sprite/cam_back_idle_spritesheet", 1, 1, 32, 32, 0);
@@ -55,6 +56,7 @@ void MainSceneData::InitializeData()
     //FIFO
     m_scene->AddBackground(options_bg);
     m_scene->AddBackground(overworld_bg);
+    m_scene->AddBackground(overworld_col_bg);
     m_scene->AddTextLayer(test_text);
     m_scene->AddActor(cam);
     m_scene->m_player_object = cam;

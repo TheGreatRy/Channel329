@@ -19,6 +19,7 @@ class MainSceneData : public GameData
     Character* cam;
     Background* options_bg;
     Background* overworld_bg;
+    Background* overworld_col_bg;
     Text* test_text;
     
     //Sprite Objects
