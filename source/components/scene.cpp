@@ -14,6 +14,11 @@ void Scene::AddActor(Character *character)
         m_player_object = character;
 }
 
+void Scene::AddSprite(Sprite *sprite)
+{
+    m_sprites.push_back(sprite);
+}
+
 void Scene::AddTextConsole(TextConsole *text_con)
 {
     // Add the console to the respective vector
@@ -119,6 +124,12 @@ void Scene::DeleteAllSceneComponents()
         }
         delete actor;
     }
+    // Other Sprites
+    for (Sprite* sprite : m_sprites)
+    {
+        sprite->RemoveSprite();
+        delete sprite;
+    }
 
     // TextConsoles
     for (TextConsole *console : m_main_consoles)
@@ -167,6 +178,7 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
     touchPosition current_pos;
     int current_anim_id = 0;
     bool current_flip = false;
+    //NF_Sort3dSprites();
 
     while (1)
     {
@@ -240,18 +252,20 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
             }
         }
 
+        //Backgrounds
         for (Background *background : m_backgrounds)
         {
             if (background->m_bg_type == BG_TYPE_TILED_FULL) NF_ScrollBg(background->m_screen, background->m_layer, scroll_x, scroll_y);
         }
 
+        //Text Layers
         for (Text* text : m_text_layers)
         {
             text->WriteText(10, 10, "Hello!");
         }
 
-        NF_UpdateTextLayers();
         NF_Draw3dSprites();
+        NF_UpdateTextLayers();
 
         glFlush(0);
     }

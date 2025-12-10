@@ -30,6 +30,7 @@ public:
     std::vector<TextConsole *> m_main_consoles;
     std::vector<TextConsole *> m_sub_consoles;
     std::vector<Text *> m_text_layers;
+    std::vector<Sprite *> m_sprites;
     std::vector<Background*> m_backgrounds;
     std::vector<Character *> m_actors;
     std::vector<Battle*> m_battles;
@@ -43,6 +44,7 @@ public:
     Character* m_player_object;
 
     void AddActor(Character* character);
+    void AddSprite(Sprite* sprite);
     void AddTextConsole(TextConsole *text_con);
     void AddTextLayer(Text *text);
     void AddBackground(Background* background);
