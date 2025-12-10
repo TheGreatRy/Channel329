@@ -17,4 +17,5 @@ class Animation
     int m_current_frame_index = 0;
 
     void PlayAnimation(int fps, bool flip_sprites);
+    void PlayAnimation(int fps, bool flip_sprites, int scroll_x, int scroll_y);
 };

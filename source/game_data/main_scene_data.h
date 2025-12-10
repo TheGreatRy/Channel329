@@ -17,12 +17,16 @@ class MainSceneData : public GameData
 
     //Scene Objects
     Character* cam;
+    Character* john_tutorial;
     Background* options_bg;
     Background* overworld_bg;
     Background* overworld_col_bg;
+    TextConsole* text_console;
     Text* test_text;
     
     //Sprite Objects
+    Sprite* john_tutorial_ovwld;
+
     Sprite* cam_front_idle;
     Sprite* cam_back_idle;
     Sprite* cam_side_idle;
@@ -32,6 +36,8 @@ class MainSceneData : public GameData
     Sprite* cam_side_walk;
 
     //Animation Objects
+    Animation* john_tutorial_anim;
+
     Animation* cam_idle_f;
     Animation* cam_idle_b;
     Animation* cam_idle_s;

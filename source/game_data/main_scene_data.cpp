@@ -13,20 +13,26 @@ void MainSceneData::InitializeData()
     cam_front_walk = new Sprite(SPR_TYPE_256,"sprite/cam_front_walk_spritesheet", 3, 3, 32, 32, 0);
     cam_back_walk = new Sprite(SPR_TYPE_256,"sprite/cam_back_walk_spritesheet", 4, 4, 32, 32, 0);
     cam_side_walk = new Sprite(SPR_TYPE_256,"sprite/cam_side_walk_spritesheet", 5, 5, 32, 32, 0);
+    
+    john_tutorial_ovwld = new Sprite(SPR_TYPE_256,"sprite/john_tutorial_overworld", 6, 6, 32, 32, 0);
 
-    test_text = new Text(TEXT_TYPE_CUST, "fnt/test_font", "cam_text", 256, 256, 0);
+    test_text = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "cam_text", 256, 256, 0);
 
     Position* cam_draw_pos = new Position(((SCREEN_WIDTH/cam_front_idle->m_sprite_w) / 2 - 0.5f) * cam_front_idle->m_sprite_w, 
         ((SCREEN_HEIGHT/cam_front_idle->m_sprite_h) / 2 - 0.5f) * cam_front_idle->m_sprite_h);
+
+    Position* john_draw_pos = new Position(-(32.0f * 10.5f) - 16.0f, -(32.0f * 9.0f) - 16.0f);
 
     // Now that the objects exist, we can load the graphics
     cam_front_idle->LoadSprite(0, 0, 0, cam_draw_pos, false, 0);
     cam_back_idle->LoadSprite(1, 1, 1, cam_draw_pos, false, 0);
     cam_side_idle->LoadSprite(2, 2, 2, cam_draw_pos, false, 0);
+    
     cam_front_walk->LoadSprite(3, 3, 3, cam_draw_pos, false, 0);
     cam_back_walk->LoadSprite(4, 4, 4, cam_draw_pos, false, 0);
-
     cam_side_walk->LoadSprite(5, 5, 5, cam_draw_pos, false, 0);
+    
+    john_tutorial_ovwld->LoadSprite(6, 6, 6, john_draw_pos, false, 0);
      
     options_bg->LoadBackground(1, 1, 1);
     overworld_bg->LoadBackground(0, 3);
@@ -42,6 +48,8 @@ void MainSceneData::InitializeData()
     cam_walk_b = new Animation(cam_back_walk, 4);
     cam_walk_s = new Animation(cam_side_walk, 12);
 
+    john_tutorial_anim = new Animation(john_tutorial_ovwld, 1);
+
     //Scene Objects
     cam = new Character(cam_idle_f, "CAMERON", CHARACTER_TYPE_MAIN);
 
@@ -52,6 +60,8 @@ void MainSceneData::InitializeData()
     cam->AddAnimation(cam_walk_b);
     cam->AddAnimation(cam_walk_s);
 
+    john_tutorial = new Character(john_tutorial_anim, "JOHN TUTORIAL", CHARACTER_TYPE_NPC);
+
     //add m_scene objects now that everything is loaded and added
     //FIFO
     m_scene->AddBackground(options_bg);
@@ -59,5 +69,6 @@ void MainSceneData::InitializeData()
     m_scene->AddBackground(overworld_col_bg);
     m_scene->AddTextLayer(test_text);
     m_scene->AddActor(cam);
+    m_scene->AddActor(john_tutorial);
     m_scene->m_player_object = cam;
 }

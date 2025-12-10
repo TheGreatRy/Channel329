@@ -41,4 +41,5 @@ public:
 
     void AddAnimation(Animation* animation);
     void PlayAnimation(int anim_id, int fps, bool flip_sprites);
+    void PlayAnimation(int anim_id, int fps, bool flip_sprites, int scroll_x, int scroll_y);
 };

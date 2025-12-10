@@ -23,6 +23,7 @@ public:
 
     SPR_TYPE m_spr_type;
     Position* m_spr_pos;
+    
     int m_screen;
     u32 m_sprite_id;
     u32 m_gfx_id;

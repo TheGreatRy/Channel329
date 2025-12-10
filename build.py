@@ -12,10 +12,11 @@ nitrofs.add_nflib_bg_8bit(['assets/bitmaps'], 'bmp')
 
 nitrofs.add_nflib_sprite_256(['assets/characters/cameron/idle'], 'sprite')
 nitrofs.add_nflib_sprite_256(['assets/characters/cameron/walk'], 'sprite')
+nitrofs.add_nflib_sprite_256(['assets/characters/npcs/overworld'], 'sprite')
 
 nitrofs.add_nflib_sprite_3d(['assets/text_display'], 'txt')
 nitrofs.add_nflib_sprite_3d(['assets/characters/cameron/battle'], 'sprite')
-nitrofs.add_nflib_sprite_3d(['assets/characters/npcs'], 'sprite')
+nitrofs.add_nflib_sprite_3d(['assets/characters/npcs/battle'], 'sprite')
 
 nitrofs.add_nflib_font(['assets/fonts'], 'fnt')
 nitrofs.add_nflib_colbg(['assets/colbg'], 'colbg')

@@ -42,3 +42,8 @@ void Character::PlayAnimation(int anim_id, int fps, bool flip_sprites)
 {
     m_sprite_animations[anim_id]->PlayAnimation(fps, flip_sprites);
 }
+
+void Character::PlayAnimation(int anim_id, int fps, bool flip_sprites, int scroll_x, int scroll_y)
+{   
+    m_sprite_animations[anim_id]->PlayAnimation(fps, flip_sprites, scroll_x, scroll_y);
+}

@@ -248,7 +248,7 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
             }
             else
             {
-                actor->PlayAnimation(0, 8, false);
+                actor->PlayAnimation(0, 8, false, scroll_x, scroll_y);
             }
         }
 
