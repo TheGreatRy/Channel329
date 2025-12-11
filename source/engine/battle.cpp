@@ -34,14 +34,56 @@ void Battle::AddMultiplePhrases(Phrase *phrases[], int size)
     }
 }
 
+void Battle::CycleTones()
+{
+    auto skl = static_cast<TONE_SKILL>(m_tone_pos);
+    Tone* tone_ptr = new Tone(skl);
+    if (keysUp() & KEY_LEFT)
+    {
+        m_tone_text->ClearText();
+        if (m_tone_pos > 1) m_tone_pos--;
+        m_tone_text->AddText(tone_ptr->GetSkillName());
+        m_tone_text->WriteText();
+    }
+    else if (keysUp() & KEY_RIGHT)
+    {
+        m_tone_text->ClearText();
+        if (m_tone_pos < 31) m_tone_pos++;
+        m_tone_text->AddText(tone_ptr->GetSkillName());
+        m_tone_text->WriteText();
+    }
+    NF_UpdateTextLayers();
+}
+
+void Battle::CycleTopics()
+{
+    auto skl = static_cast<TOPIC_SKILL>(m_topic_pos);
+    Topic* topic_ptr = new Topic(skl);
+    if (keysUp() & KEY_LEFT)
+    {
+        m_topic_text->ClearText();
+        if (m_topic_pos > 1) m_topic_pos--;
+        m_topic_text->AddText(topic_ptr->GetSkillName());
+        m_topic_text->WriteText();
+    }
+    else if (keysUp() & KEY_RIGHT)
+    {
+        m_topic_text->ClearText();
+        if (m_topic_pos < 5) m_topic_pos++;
+        m_topic_text->AddText(topic_ptr->GetSkillName());
+        m_topic_text->WriteText();
+    }
+    NF_UpdateTextLayers();
+}
+
 /// @brief Checks the attacker's phrase against the defender. 0 is `NEGATIVE`, 1 is `UNKNOWN`, 2 is `POSITIVE KNOWN`, 
 // 3 is `NEUTRAL KNOWN`, 4 is `POSITIVE INDIFFERENT`, 5 is `NEUTRAL INDIFFERENT`
 /// @param atk_phr_index 
 /// @return the defender phrase that corresponds to the given tone and topic
 Phrase* Battle::CheckAttackPhrase(int atk_phr_index)
 {
-    Tone* atk_tone = new Tone{m_attack_phrases[atk_phr_index]->m_phrase_tone};
-    Topic* atk_topic = new Topic{m_attack_phrases[atk_phr_index]->m_phrase_topic};
+    Tone* atk_tone = new Tone{m_attack_phrases[atk_phr_index]->m_phrase_tone, m_defender->m_tones[atk_phr_index]->m_tone_type};
+    Topic* atk_topic = new Topic{m_attack_phrases[atk_phr_index]->m_phrase_topic, m_defender->m_topics[atk_phr_index]->m_topic_type};
 
     //search for the attacker's tone in the defenders list of tones
     u32 tone_index = -1;

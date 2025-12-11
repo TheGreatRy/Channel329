@@ -38,9 +38,8 @@ class Topic
 
     const char* GetSkillName()
     {
-        TOPIC_SKILL skl;
         std::string name;
-        switch (skl)
+        switch (m_topic_skill)
         {
             case TOPIC_SKILL_DEFAULT:
                 name = "DEFAULT";

@@ -15,8 +15,7 @@ void BattleSceneData::InitializeData()
     battle_top_bg = new Background(BG_TYPE_TILED_FULL, "bg/battle_top");
     battle_bottom_bg = new Background(BG_TYPE_8BIT, "bmp/battle_bottom");
 
-    m_text_tone = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "text_tone", 256, 256, 0, 2.0f, 2.0f);
-    m_text_topic = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "text_topic", 256, 256, 0, 14.0f, 2.0f);
+    battle_top_bg->is_battle = true;
 
     npc = new Character(npc_temp, "JOHN NPC", CHARACTER_TYPE_NPC);
     cam_attk = new Character(attack_temp, "CAMERON", CHARACTER_TYPE_NPC);
@@ -28,12 +27,6 @@ void BattleSceneData::InitializeData()
     npc->AddMultipleTopics(npc_topics);
     
     test_battle->AddMultiplePhrases(cam_attack_phrases, 6);
-    
-    m_text_tone->LoadText(1, 0);
-    m_text_topic->LoadText(1, 0);
-    
-    m_text_tone->AddText("TONE");
-    m_text_topic->AddText("TOPIC");
 
     test_battle->SetDefender(npc);
     test_battle->SetAttacker(cam_attk);
@@ -41,8 +34,7 @@ void BattleSceneData::InitializeData()
     m_scene->AddBattle(test_battle);
     m_scene->AddBackground(battle_top_bg);
     m_scene->AddBackground(battle_bottom_bg);
-    m_scene->AddTextLayer(m_text_tone);
-    m_scene->AddTextLayer(m_text_topic);
+
     m_scene->AddActor(npc);
     m_scene->AddActor(cam_attk);
 }

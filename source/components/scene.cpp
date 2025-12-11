@@ -137,7 +137,7 @@ void Scene::DeleteAllSceneComponents()
     for (Text* text : m_text_layers)
     {
         text->ClearText();
-        //text->RemoveText();
+        text->RemoveText();
         delete text;
     }
 
@@ -153,6 +153,9 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
     int current_anim_id = 0;
     bool current_flip = false;
     //NF_Sort3dSprites();
+
+    bool shifting_tones = false;
+    bool shifting_topics = false;
 
     while (1)
     {
@@ -183,20 +186,30 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
         // switch scenes
         if (keysUp() & KEY_A)
         {
-            // switch to game
-            if (m_scene_gm_state != GM_STATE_BATTLE)
+            if (shifting_tones || shifting_topics)
             {
-                m_switch_gm_state = GM_STATE_BATTLE;
-                m_player_quit = false;
-                break;
-            }
+                shifting_tones = false;
+                shifting_topics = false;
 
-            // switch to main
-            if (m_scene_gm_state != GM_STATE_MAIN)
+                //send battle response
+            }
+            else
             {
-                m_switch_gm_state = GM_STATE_MAIN;
-                m_player_quit = false;
-                break;
+                // switch to game
+                if (m_scene_gm_state != GM_STATE_BATTLE)
+                {
+                    m_switch_gm_state = GM_STATE_BATTLE;
+                    m_player_quit = false;
+                    break;
+                }
+
+                // switch to main
+                if (m_scene_gm_state != GM_STATE_MAIN)
+                {
+                    m_switch_gm_state = GM_STATE_MAIN;
+                    m_player_quit = false;
+                    break;
+                }
             }
         }
 
@@ -229,13 +242,31 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
         //Backgrounds
         for (Background *background : m_backgrounds)
         {
-            if (background->m_bg_type == BG_TYPE_TILED_FULL) NF_ScrollBg(background->m_screen, background->m_layer, scroll_x, scroll_y);
+            if (background->m_bg_type == BG_TYPE_TILED_FULL && !background->is_battle) NF_ScrollBg(background->m_screen, background->m_layer, scroll_x, scroll_y);
         }
 
         //Text Layers
         for (Text* text : m_text_layers)
         {
             text->WriteText();
+        }
+
+        for (Battle* battle : m_battles)
+        {
+            if (keysUp() & KEY_X) 
+            {
+                shifting_tones = true;
+                shifting_topics = false;
+            }
+            else if (keysUp() & KEY_Y)
+            {
+                shifting_tones = false;
+                shifting_topics = true;
+            }
+
+            if (shifting_tones) battle->CycleTones();
+            else if (shifting_topics) battle->CycleTopics();
+
         }
 
         NF_Draw3dSprites();

@@ -40,9 +40,6 @@ class BattleSceneData : public GameData
     Character* npc;
     Character* cam_attk;
 
-    Text* m_text_tone;
-    Text* m_text_topic;
-
     Tone* npc_tones[4] = {
         new Tone{TONE_SKILL_CASUAL, TONE_TYPE_POSITIVE},
         new Tone{TONE_SKILL_DIRECT, TONE_TYPE_NEGATIVE},

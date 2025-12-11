@@ -65,9 +65,8 @@ class Tone
 
     const char *GetSkillName()
     {
-        TONE_SKILL skl;
         std::string name;
-        switch (skl)
+        switch (m_tone_skill)
         {
             case TONE_SKILL_DEFAULT:
                 name = "DEFAULT";
@@ -120,13 +119,13 @@ class Tone
             case TONE_SKILL_PASSION:
                 name = "PASSIONATE";
                 break;
-            TONE_SKILL_PLAY:
+            case TONE_SKILL_PLAY:
                 name = "PLAYFUL";
                 break;
             case TONE_SKILL_PROFESS:
                 name = "PROFESSIONAL";
                 break;
-            TONE_SKILL_PROVOC:
+            case TONE_SKILL_PROVOC:
                 name = "PROVOCATIVE";
                 break;
             case TONE_SKILL_QUIRKY:
