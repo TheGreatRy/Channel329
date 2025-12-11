@@ -1,0 +1,12 @@
+[project]
+name = "2025-12-11-channel329"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "architectds",
+]
+
+[tool.uv.sources]
+architectds = { git = "https://github.com/AntonioND/architectds" }
