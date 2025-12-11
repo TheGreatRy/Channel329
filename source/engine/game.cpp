@@ -46,11 +46,11 @@ void Game::InitializeScene(Scene *scene)
 {
     int data_index = scene->m_data_index;
 
-    if (!m_data[data_index]->has_initialized)
-    {
+    // if (!m_data[data_index]->has_initialized)
+    // {
         m_data[data_index]->InitializeData();
-        m_data[data_index]->has_initialized = true;
-    }
+    //     m_data[data_index]->has_initialized = true;
+    // }
 }
 
 void Game::AddData(GameData *data)

@@ -124,6 +124,14 @@ void Scene::DeleteAllSceneComponents()
     // Battles
     for (Battle *battle : m_battles)
     {
+        battle->m_tone_text->ClearText();
+        battle->m_tone_text->RemoveText();
+
+        battle->m_topic_text->ClearText();
+        battle->m_topic_text->RemoveText();
+
+        battle->m_battle_response->ClearText();
+        battle->m_battle_response->RemoveText();
         delete battle;
     }
 
