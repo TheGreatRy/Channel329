@@ -44,10 +44,10 @@ public:
     Tone* m_attk_tone;
     Topic* m_attk_topic;
 
-    Text* m_battle_response = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "battle_response", 256, 256, 0, 2.0f, 15.0f);
+    Text* m_battle_response = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "battle_response", 256, 256, 0, 0.0f, 16.0f);
 
-    Text* m_tone_text = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "text_tone", 256, 256, 0, 10.0f, 2.0f);
-    Text* m_topic_text = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "text_topic", 256, 256, 0, 10.0f, 8.0f);
+    Text* m_tone_text = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "text_tone", 256, 256, 0, 12.0f, 4.0f);
+    Text* m_topic_text = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "text_topic", 256, 256, 0, 12.0f, 12.0f);
 
     // skip default value
     int m_tone_pos = 1;
