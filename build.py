@@ -22,12 +22,16 @@ nitrofs.add_nflib_font(['assets/fonts'], 'fnt')
 nitrofs.add_nflib_colbg(['assets/colbg'], 'colbg')
 
 nitrofs.generate_image()
+nitrofs_soundbank_header = nitrofs.add_mmutil(['nitrofs/audio'])
+
 
 arm9 = Arm9Binary(
     sourcedirs=['source'],
     libs=['nds9', 'nflib'],
     libdirs=['${BLOCKSDS}/libs/libnds', '${BLOCKSDSEXT}/nflib']
 )
+
+arm9.add_header_dependencies([nitrofs_soundbank_header])
 arm9.generate_elf()
 
 nds = NdsRom(

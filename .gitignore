@@ -1,4 +1,7 @@
-*.elf
-*.dsl
+__pycache__/
 *.nds
-build/
+*.sav
+build
+.ninja_deps
+.ninja_log
+*.ninja
