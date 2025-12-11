@@ -152,7 +152,8 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
     touchPosition current_pos;
     int current_anim_id = 0;
     bool current_flip = false;
-    //NF_Sort3dSprites();
+    
+    NF_Sort3dSprites();
 
     bool shifting_tones = false;
     bool shifting_topics = false;
@@ -191,7 +192,7 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
                 shifting_tones = false;
                 shifting_topics = false;
 
-                //send battle response
+                m_battles[0]->CheckAttackPhrase();
             }
             else
             {
@@ -242,7 +243,7 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
         //Backgrounds
         for (Background *background : m_backgrounds)
         {
-            if (background->m_bg_type == BG_TYPE_TILED_FULL && !background->is_battle) NF_ScrollBg(background->m_screen, background->m_layer, scroll_x, scroll_y);
+            if (background->m_bg_type == BG_TYPE_TILED_FULL && m_scene_gm_state != GM_STATE_BATTLE) NF_ScrollBg(background->m_screen, background->m_layer, scroll_x, scroll_y);
         }
 
         //Text Layers

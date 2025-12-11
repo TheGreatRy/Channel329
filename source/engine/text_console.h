@@ -45,28 +45,26 @@ public:
     u16 top_y;
     u16 bottom_y;
 
-    //base text console
-    void InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned int main_cons_size, const unsigned int sub_cons_size, PrintConsole* console, 
-        const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int map_base, const unsigned int tile_base, const unsigned int pal_index,
-        const unsigned int start_char, bool is_main, bool load_gr);
+    // //base text console
+    // void InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned int main_cons_size, const unsigned int sub_cons_size, PrintConsole* console, 
+    //     const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int map_base, const unsigned int tile_base, const unsigned int pal_index,
+    //     const unsigned int start_char, bool is_main, bool load_gr);
 
-    //text console with custom fonts and window sizes
-    void InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned int main_cons_size, const unsigned int sub_cons_size, PrintConsole* console, 
-        const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int map_base, const unsigned int tile_base, const unsigned int pal_index, 
-        const unsigned int start_char, bool is_main, bool load_gr, ConsoleFont* font, const unsigned int x_pos, const unsigned int y_pos, 
-        const unsigned int width, const unsigned int height);
+    // //text console with custom fonts and window sizes
+    // void InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned int main_cons_size, const unsigned int sub_cons_size, PrintConsole* console, 
+    //     const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int map_base, const unsigned int tile_base, const unsigned int pal_index, 
+    //     const unsigned int start_char, bool is_main, bool load_gr, ConsoleFont* font, const unsigned int x_pos, const unsigned int y_pos, 
+    //     const unsigned int width, const unsigned int height);
     
-    void SetText(std::string text, bool detect_touch);
+    // void SetText(std::string text, bool detect_touch);
 
-    //display text console to screen
-    void DisplayTextConsole(PrintConsole* text_con);
-    void DisplayTextConsole(PrintConsole* text_con, touchPosition current_pos);
+    // //display text console to screen
+    // void DisplayTextConsole(PrintConsole* text_con);
+    // void DisplayTextConsole(PrintConsole* text_con, touchPosition current_pos);
 
-    void DisplayTextConsole(PrintConsole* text_con, touchPosition current_pos, Battle* battle, int index);
+    // void DisplayTextConsole(PrintConsole* text_con, touchPosition current_pos, Battle* battle, int index);
 
-    void ClearTextConsole(PrintConsole* text_con);
+    // void ClearTextConsole(PrintConsole* text_con);
 
-    void WriteWordsPerLine(std::string sentence, int bpp);
-
-    
+    // void WriteWordsPerLine(std::string sentence, int bpp);
 };

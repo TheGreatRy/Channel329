@@ -36,8 +36,6 @@ public:
     int m_screen;
     int m_layer;
 
-    bool is_battle = false;
-
     void LoadBackground(int screen, int layer = 0, int copy_dest = 0, bool can_wrap = false);
     void RemoveBackground();
     

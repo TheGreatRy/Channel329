@@ -80,22 +80,46 @@ void Battle::CycleTopics()
 // 3 is `NEUTRAL KNOWN`, 4 is `POSITIVE INDIFFERENT`, 5 is `NEUTRAL INDIFFERENT`
 /// @param atk_phr_index 
 /// @return the defender phrase that corresponds to the given tone and topic
-Phrase* Battle::CheckAttackPhrase(int atk_phr_index)
+void Battle::CheckAttackPhrase()
 {
-    Tone* atk_tone = new Tone{m_attack_phrases[atk_phr_index]->m_phrase_tone, m_defender->m_tones[atk_phr_index]->m_tone_type};
-    Topic* atk_topic = new Topic{m_attack_phrases[atk_phr_index]->m_phrase_topic, m_defender->m_topics[atk_phr_index]->m_topic_type};
+    u32 attk_index = -1;
+    for (u32 i = 0; i < m_attack_phrases.size(); i++)
+    {
+        attk_index = (m_attack_phrases[i]->m_phrase_tone == m_attk_tone->m_tone_skill && m_attack_phrases[i]->m_phrase_topic == m_attk_topic->m_topic_skill) ? i : -1;
+        if (attk_index == i) break;
+
+    }
+    if (attk_index != -1)
+    {
+        m_battle_response->AddText(m_attack_phrases[attk_index]->m_text.c_str());
+        
+    }
+    else
+    {
+        m_battle_response->AddText("(You struggle to phrase it that way...)");
+        m_battle_response->WriteText();
+        return;
+    }
+    
+    m_battle_response->WriteText();
+
+    NF_UpdateTextLayers();
+
+    WaitForInput();
+
+    m_battle_response->ClearText();
 
     //search for the attacker's tone in the defenders list of tones
     u32 tone_index = -1;
     for (u32 i = 0; i < m_defender->m_tones.size(); i++)
     {
-        tone_index = (m_defender->m_tones[i] == atk_tone) ? i : -1;
+        tone_index = (m_defender->m_tones[i] == m_attk_tone) ? i : -1;
         if (tone_index == i) break;
     }
 
     if (tone_index != 0)
     {
-        switch(atk_tone->m_tone_type)
+        switch(m_attk_tone->m_tone_type)
         {
             case TONE_TYPE_POSITIVE:
                 m_attacker_advantage = true;
@@ -104,7 +128,9 @@ Phrase* Battle::CheckAttackPhrase(int atk_phr_index)
                 m_attacker_advantage = false;
                 break;
             case TONE_TYPE_NEGATIVE:
-                return m_defend_phrases[0];
+                m_battle_response->AddText(m_defend_phrases[0]->m_text.c_str());
+                return;
+                
         }
     }
 
@@ -112,23 +138,53 @@ Phrase* Battle::CheckAttackPhrase(int atk_phr_index)
     u32 topic_index = -1;
     for (u32 i = 0; i < m_defender->m_topics.size(); i++)
     {
-        topic_index = (m_defender->m_topics[i] == atk_topic) ? i : -1;
+        topic_index = (m_defender->m_topics[i] == m_attk_topic) ? i : -1;
         if (topic_index == i) break;
     }
 
     if (topic_index != 0)
     {
-        switch(atk_topic->m_topic_type)
+        switch(m_attk_topic->m_topic_type)
         {
             case TOPIC_TYPE_KNOWN:
-                if (atk_tone->m_tone_type == TONE_TYPE_POSITIVE) return m_defend_phrases[2];
-                else return m_defend_phrases[3];
+                if (m_attk_tone->m_tone_type == TONE_TYPE_POSITIVE) 
+                    m_battle_response->AddText(m_defend_phrases[2]->m_text.c_str());
+                else 
+                    m_battle_response->AddText(m_defend_phrases[3]->m_text.c_str());
+                break;
                 case TOPIC_TYPE_INDIFF:
-                if (atk_tone->m_tone_type == TONE_TYPE_POSITIVE) return m_defend_phrases[4];
-                else return m_defend_phrases[5];
+                if (m_attk_tone->m_tone_type == TONE_TYPE_POSITIVE) 
+                    m_battle_response->AddText(m_defend_phrases[4]->m_text.c_str());
+                else 
+                    m_battle_response->AddText(m_defend_phrases[4]->m_text.c_str());
+                break;
             case TOPIC_TYPE_UNKNOWN:
-                return m_defend_phrases[1];
+                m_battle_response->AddText(m_defend_phrases[1]->m_text.c_str());
+                break;
         }
     }
-    return new Phrase{"I don't think I understand...", TONE_SKILL_DEFAULT, TOPIC_SKILL_DEFAULT, PHRASE_TYPE_DEFEND};
+
+    else 
+    {
+        m_battle_response->ClearText();
+        m_battle_response->AddText("I don't think I understand...");
+    }
+
+    m_battle_response->WriteText();
+
+    NF_UpdateTextLayers();
+
+    WaitForInput();
+}
+
+void Battle::WaitForInput()
+{
+    while (1)
+    {
+        swiWaitForVBlank();
+
+        scanKeys();
+
+        if (keysUp() & KEY_A) break;
+    }
 }

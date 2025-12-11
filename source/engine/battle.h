@@ -17,9 +17,13 @@ class Battle
 public:
     Battle()
     {
+        m_battle_response->LoadText(0, 1);
         m_tone_text->LoadText(1, 0);
-        m_topic_text->LoadText(1, 1);
+        m_topic_text->LoadText(1, 1); 
 
+        m_battle_response->AddText("CHOOSE TONE AND TOPIC");
+        m_battle_response->WriteText();
+        
         m_tone_text->AddText("SELECT");
         m_tone_text->WriteText();
 
@@ -36,6 +40,11 @@ public:
 
     Character* m_attacker;
     Character* m_defender;
+
+    Tone* m_attk_tone;
+    Topic* m_attk_topic;
+
+    Text* m_battle_response = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "battle_response", 256, 256, 0, 2.0f, 15.0f);
 
     Text* m_tone_text = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "text_tone", 256, 256, 0, 10.0f, 2.0f);
     Text* m_topic_text = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "text_topic", 256, 256, 0, 10.0f, 8.0f);
@@ -55,5 +64,6 @@ public:
     void CycleTones();
     void CycleTopics();
 
-    Phrase* CheckAttackPhrase(int atk_phr_index);
+    void CheckAttackPhrase();
+    void WaitForInput();
 };
