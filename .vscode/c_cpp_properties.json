@@ -5,6 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/libnds/include/",
+                "C:/msys64/opt/wonderful/thirdparty/blocksds/core/libs/maxmod/include/",
                 "C:/msys64/opt/wonderful/thirdparty/blocksds/external/nflib/include/",
                 "C:/msys64/opt/wonderful/thirdparty/blocksds/external/nitro-engine/include/",
                 "C:/msys64/opt/wonderful/toolchain/gcc-arm-none-eabi/arm-none-eabi/include/"

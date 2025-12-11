@@ -7,6 +7,7 @@
 #include <nds.h>
 #include <stdio.h>
 #include <nf_lib.h>
+#include <maxmod9.h>
 
 // Actors Folder
 #include "../actors/character.h"
@@ -19,14 +20,13 @@
 #include "../engine/text_console.h"
 #include "../engine/text.h"
 #include "../engine/battle.h"
-
 class Scene
 {
 public:
+
     Scene() = default;
     Scene(GM_STATE scene_gm_st, int switch_id);
     ~Scene() = default;
-
     std::vector<Text *> m_text_layers;
     std::vector<Sprite *> m_sprites;
     std::vector<Background*> m_backgrounds;
