@@ -6,9 +6,8 @@ The story follows a trio of young newscasters who want to investigate the myster
 
 # Building
 
+You must have the [BlockDS SDK](https://github.com/blocksds/sdk) installed to be able to build this. Then you can just run
+
 ```
 uv run build.py
 ```
-
-# Resources 
-- [BlockDS SDK](https://github.com/blocksds/sdk)
