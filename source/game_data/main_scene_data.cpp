@@ -16,7 +16,7 @@ void MainSceneData::InitializeData()
     
     john_tutorial_ovwld = new Sprite(SPR_TYPE_256,"sprite/john_tutorial_overworld", 6, 6, 32, 32, 0);
 
-    test_text = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "cam_text", 256, 256, 0);
+    test_text = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "cam_text", 256, 256, 0, 10.0f, 10.0f);
 
     Position* cam_draw_pos = new Position(((SCREEN_WIDTH/cam_front_idle->m_sprite_w) / 2 - 0.5f) * cam_front_idle->m_sprite_w, 
         ((SCREEN_HEIGHT/cam_front_idle->m_sprite_h) / 2 - 0.5f) * cam_front_idle->m_sprite_h);
@@ -38,6 +38,7 @@ void MainSceneData::InitializeData()
     overworld_bg->LoadBackground(0, 3);
 
     test_text->LoadText(1, 0);
+    test_text->AddText("Hello!");
 
     //Animation Objects
     cam_idle_f = new Animation(cam_front_idle, 12);

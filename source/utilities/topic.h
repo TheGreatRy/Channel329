@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 enum TOPIC_SKILL
 {
     TOPIC_SKILL_DEFAULT,
@@ -34,4 +36,31 @@ class Topic
     
     ~Topic() = default;
 
+    const char* GetSkillName()
+    {
+        TOPIC_SKILL skl;
+        std::string name;
+        switch (skl)
+        {
+            case TOPIC_SKILL_DEFAULT:
+                name = "DEFAULT";
+                break;
+            case TOPIC_SKILL_HISTORY:
+                name = "HISTORY";
+                break;
+            case TOPIC_SKILL_PEOPLE:
+                name = "PEOPLE";
+                break;
+            case TOPIC_SKILL_UNDGR:
+                name = "UNDERGROUND";
+                break;
+            case TOPIC_SKILL_CRIME:
+                name = "CRIME";
+                break;
+            case TOPIC_SKILL_MAGIC:
+                name = "MAGIC";
+                break;
+        }
+        return name.c_str();
+    }
 };

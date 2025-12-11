@@ -19,15 +19,6 @@ void Scene::AddSprite(Sprite *sprite)
     m_sprites.push_back(sprite);
 }
 
-void Scene::AddTextConsole(TextConsole *text_con)
-{
-    // Add the console to the respective vector
-    if (text_con->m_text_console_type == TEXT_CON_TYPE_MAIN_OPT || text_con->m_text_console_type == TEXT_CON_TYPE_MAIN_TALK)
-        m_main_consoles.push_back(text_con);
-    else if (text_con->m_text_console_type == TEXT_CON_TYPE_SUB_OPT || text_con->m_text_console_type == TEXT_CON_TYPE_SUB_TALK)
-        m_sub_consoles.push_back(text_con);
-}
-
 void Scene::AddTextLayer(Text *text)
 {
     m_text_layers.push_back(text);
@@ -130,18 +121,6 @@ void Scene::DeleteAllSceneComponents()
         sprite->RemoveSprite();
         delete sprite;
     }
-
-    // TextConsoles
-    for (TextConsole *console : m_main_consoles)
-    {
-        delete console;
-    }
-
-    for (TextConsole *console : m_sub_consoles)
-    {
-        delete console;
-    }
-
     // Battles
     for (Battle *battle : m_battles)
     {
@@ -155,23 +134,18 @@ void Scene::DeleteAllSceneComponents()
         delete background;
     }
 
+    for (Text* text : m_text_layers)
+    {
+        text->ClearText();
+        //text->RemoveText();
+        delete text;
+    }
+
     NF_ResetSpriteBuffers();
     NF_ResetTiledBgBuffers();
     NF_Reset8bitsBgBuffers();
 }
 
-void Scene::ClearAllTextConsoles()
-{
-    for (TextConsole *console : m_main_consoles)
-    {
-        console->ClearTextConsole(&console->m_print_console);
-    }
-
-    for (TextConsole *console : m_sub_consoles)
-    {
-        console->ClearTextConsole(&console->m_print_console);
-    }
-}
 
 void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can_move_down, bool &can_move_left, bool &can_move_right)
 {
@@ -261,7 +235,7 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
         //Text Layers
         for (Text* text : m_text_layers)
         {
-            text->WriteText(10, 10, "Hello!");
+            text->WriteText();
         }
 
         NF_Draw3dSprites();

@@ -27,8 +27,6 @@ public:
     Scene(GM_STATE scene_gm_st, int switch_id);
     ~Scene() = default;
 
-    std::vector<TextConsole *> m_main_consoles;
-    std::vector<TextConsole *> m_sub_consoles;
     std::vector<Text *> m_text_layers;
     std::vector<Sprite *> m_sprites;
     std::vector<Background*> m_backgrounds;
@@ -45,7 +43,6 @@ public:
 
     void AddActor(Character* character);
     void AddSprite(Sprite* sprite);
-    void AddTextConsole(TextConsole *text_con);
     void AddTextLayer(Text *text);
     void AddBackground(Background* background);
     void AddBattle(Battle* battle);
@@ -56,7 +53,6 @@ public:
     void SwitchAnimations(int& anim_id, bool& flip);
     
     void DeleteAllSceneComponents();
-    void ClearAllTextConsoles();
 
     const uint32_t screen_width = 256;
     const uint32_t screen_height = 192;
