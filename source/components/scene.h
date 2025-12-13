@@ -28,6 +28,8 @@ public:
     Scene(GM_STATE scene_gm_st, int switch_id);
     ~Scene() = default;
     std::vector<Text *> m_text_layers;
+    std::vector<TextConsole *> m_main_cons;
+    std::vector<TextConsole *> m_sub_cons;
     std::vector<Sprite *> m_sprites;
     std::vector<Background*> m_backgrounds;
     std::vector<Character *> m_actors;
@@ -44,6 +46,7 @@ public:
     void AddActor(Character* character);
     void AddSprite(Sprite* sprite);
     void AddTextLayer(Text *text);
+    void AddTextConsole(TextConsole *text_con);
     void AddBackground(Background* background);
     void AddBattle(Battle* battle);
 

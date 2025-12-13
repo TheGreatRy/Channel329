@@ -24,6 +24,15 @@ void Scene::AddTextLayer(Text *text)
     m_text_layers.push_back(text);
 }
 
+void Scene::AddTextConsole(TextConsole *text_con)
+{
+    if (text_con->m_text_console_type == TEXT_CON_TYPE_MAIN_OPT || text_con->m_text_console_type == TEXT_CON_TYPE_MAIN_TALK)
+        m_main_cons.push_back(text_con);
+
+    else if (text_con->m_text_console_type == TEXT_CON_TYPE_SUB_OPT || text_con->m_text_console_type == TEXT_CON_TYPE_SUB_TALK)
+        m_sub_cons.push_back(text_con);
+}
+
 void Scene::AddBattle(Battle *battle)
 {
     m_battles.push_back(battle);
@@ -142,12 +151,23 @@ void Scene::DeleteAllSceneComponents()
         delete background;
     }
 
-    for (Text* text : m_text_layers)
+    // Text
+    for (TextConsole* main_con : m_main_cons)
     {
-        text->ClearText();
-        text->RemoveText();
-        delete text;
+        delete main_con;
     }
+
+    for (TextConsole* sub_con : m_sub_cons)
+    {
+        delete sub_con;
+    }
+
+    // for (Text* text : m_text_layers)
+    // {
+    //     text->ClearText();
+    //     text->RemoveText();
+    //     delete text;
+    // }
 
     NF_ResetSpriteBuffers();
     NF_ResetTiledBgBuffers();
@@ -254,28 +274,47 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
             if (background->m_bg_type == BG_TYPE_TILED_FULL && m_scene_gm_state != GM_STATE_BATTLE) NF_ScrollBg(background->m_screen, background->m_layer, scroll_x, scroll_y);
         }
 
-        //Text Layers
-        for (Text* text : m_text_layers)
+        // //Text Layers
+        // for (Text* text : m_text_layers)
+        // {
+        //     text->WriteText();
+        // }
+
+        // for (Battle* battle : m_battles)
+        // {
+        //     if (keysUp() & KEY_X) 
+        //     {
+        //         shifting_tones = true;
+        //         shifting_topics = false;
+        //     }
+        //     else if (keysUp() & KEY_Y)
+        //     {
+        //         shifting_tones = false;
+        //         shifting_topics = true;
+        //     }
+
+        //     if (shifting_tones) battle->CycleTones();
+        //     else if (shifting_topics) battle->CycleTopics();
+
+        // }
+
+         // Main Screen Text Consoles
+        for (TextConsole *main_con : m_main_cons)
         {
-            text->WriteText();
+            main_con->DisplayTextConsole(&main_con->m_print_console, current_pos);
         }
 
-        for (Battle* battle : m_battles)
+        int index = 0;
+        // Sub Screen Text Consoles
+        for (TextConsole *sub_con : m_sub_cons)
         {
-            if (keysUp() & KEY_X) 
-            {
-                shifting_tones = true;
-                shifting_topics = false;
-            }
-            else if (keysUp() & KEY_Y)
-            {
-                shifting_tones = false;
-                shifting_topics = true;
-            }
+            if (sub_con->m_text_console_type == TEXT_CON_TYPE_SUB_TALK)
+                sub_con->DisplayTextConsole(&sub_con->m_print_console, current_pos);
+            else if (sub_con->m_text_console_type == TEXT_CON_TYPE_SUB_OPT)
+                sub_con->DisplayTextConsole(&sub_con->m_print_console,
+                                            current_pos, m_battles[0], index);
 
-            if (shifting_tones) battle->CycleTones();
-            else if (shifting_topics) battle->CycleTopics();
-
+            index++;
         }
 
         NF_Draw3dSprites();

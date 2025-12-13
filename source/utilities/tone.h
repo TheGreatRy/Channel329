@@ -129,7 +129,7 @@ class Tone
                 name = "PROVOCATIVE";
                 break;
             case TONE_SKILL_QUIRKY:
-                name = "QURIKY";
+                name = "QUIRKY";
                 break;
             case TONE_SKILL_RESON:
                 name = "RESONATING";
