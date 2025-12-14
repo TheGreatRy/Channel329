@@ -3,6 +3,8 @@
 //Game Data Folder
 #include "game_data.h"
 
+
+
 class MainSceneData : public GameData
 {
     public:
@@ -16,13 +18,11 @@ class MainSceneData : public GameData
     //Scene Objects
     Character* cam;
     Character* john_tutorial;
-
     Background* options_bg;
     Background* overworld_bg;
     Background* overworld_col_bg;
-
     TextConsole* text_console;
-    //Text* test_text;
+    Text* test_text;
     
     //Sprite Objects
     Sprite* john_tutorial_ovwld;
