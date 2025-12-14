@@ -19,8 +19,12 @@
 class Battle
 {
 public:
+
     Battle(ConsoleFont font)
     {
+        //reserve the last 2 spaces for these graphics
+        m_battle_textbox = new Sprite(SPR_TYPE_3D, "txt/battle_phrase_box", 254, 62, 256, 128, 0);
+        m_battle_textbox->LoadSprite(254, 30, 14, new Position(0.0f, 20.0f), true, 3);
         
         m_battle_response = new TextConsole();
         m_tone_text = new TextConsole();
@@ -43,6 +47,8 @@ public:
         
         m_topic_text->SetText("SELECT TOPIC", false);
         m_topic_text->DisplayTextConsole(&m_topic_text->m_print_console);
+
+        
     }
     ~Battle() = default;
 
@@ -55,6 +61,9 @@ public:
 
     Tone* m_attk_tone;
     Topic* m_attk_topic;
+
+    Sprite* m_battle_textbox;
+    Sprite* m_options_textbox;
 
     TextConsole* m_battle_response;
     TextConsole* m_tone_text;

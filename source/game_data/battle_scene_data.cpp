@@ -12,7 +12,7 @@ void BattleSceneData::InitializeData()
 
     //Add data to objects
     enemy->LoadSprite(0, 0, 0, {new Position(20.0f, 10.0f)}, true, 2);
-    attacker->LoadSprite(1,1,1, {new Position(100.0f, 10.0f)}, true, 2);
+    attacker->LoadSprite(1, 1, 1, {new Position(100.0f, 10.0f)}, true, 2);
     
     battle_top_bg->LoadBackground(0, 3);
     battle_bottom_bg->LoadBackground(1, 3, 1);
