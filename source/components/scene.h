@@ -58,6 +58,7 @@ public:
     void SwitchAnimations(int& anim_id, bool& flip);
     
     void DeleteAllSceneComponents();
+    void ClearAllTextConsoles();
 
     const uint32_t screen_width = 256;
     const uint32_t screen_height = 192;

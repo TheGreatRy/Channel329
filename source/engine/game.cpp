@@ -113,7 +113,7 @@ void Game::RunCurrentScene(Scene *scene)
     //     break;
     // }
 
-    // scene->ClearAllTextConsoles();
+    scene->ClearAllTextConsoles();
     scene->DeleteAllSceneComponents();
 
     

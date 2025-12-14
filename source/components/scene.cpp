@@ -165,14 +165,10 @@ void Scene::DeleteAllSceneComponents()
     // Battles
     for (Battle *battle : m_battles)
     {
-        // battle->m_tone_text->ClearText();
-        // battle->m_tone_text->RemoveText();
+        delete battle->m_battle_response;
+        delete battle->m_tone_text;
+        delete battle->m_topic_text;
 
-        // battle->m_topic_text->ClearText();
-        // battle->m_topic_text->RemoveText();
-
-        // battle->m_battle_response->ClearText();
-        // battle->m_battle_response->RemoveText();
         delete battle;
     }
 
@@ -208,6 +204,26 @@ void Scene::DeleteAllSceneComponents()
     NF_ResetRawSoundBuffers();
 }
 
+void Scene::ClearAllTextConsoles()
+{
+    for (Battle* battle : m_battles)
+    {
+        battle->m_battle_response->ClearTextConsole(&battle->m_battle_response->m_print_console);
+        battle->m_tone_text->ClearTextConsole(&battle->m_tone_text->m_print_console);
+        battle->m_topic_text->ClearTextConsole(&battle->m_topic_text->m_print_console);
+    }
+
+    // Text
+    for (TextConsole* main_con : m_main_cons)
+    {
+        main_con->ClearTextConsole(&main_con->m_print_console);
+    }
+
+    for (TextConsole* sub_con : m_sub_cons)
+    {
+        sub_con->ClearTextConsole(&sub_con->m_print_console);
+    }
+}
 
 void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can_move_down, bool &can_move_left, bool &can_move_right)
 {
@@ -255,7 +271,7 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
             if (shifting_tones || shifting_topics)
             {
                 confirm = true;
-                
+
                 shifting_tones = false;
                 shifting_topics = false;
 
