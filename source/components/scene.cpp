@@ -67,6 +67,12 @@ void Scene::CheckCollision(Background* col_bg, int &scroll_x, int &scroll_y, boo
         can_move_right = (NF_GetPoint(col_bg->m_slot, scroll_x + 144, scroll_y + 80 + y) == 3) ? false : true;
         if (can_move_right == false) break;
     }
+    if (keysUp() & KEY_B)
+    {
+        std::string col_out = "MOVE UP? " + std::to_string(can_move_up) + "\nMOVE DOWN? " + std::to_string(can_move_down) + "\nMOVE LEFT? " + std::to_string(can_move_left) + "\nMOVE RIGHT? " + std::to_string(can_move_right);
+        m_sub_cons[0]->SetText(col_out, false);
+        m_sub_cons[0]->DisplayTextConsole(&m_sub_cons[0]->m_print_console);
+    }
 }
 
 void Scene::AddBackground(Background *background)
@@ -328,9 +334,8 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
             if (m_scene_gm_state != GM_STATE_BATTLE && background->m_screen == 0) 
             {
                 NF_ScrollBg(background->m_screen, background->m_layer, scroll_x, scroll_y);
-                if (background->m_bg_type == BG_TYPE_COL) CheckCollision(background, scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
-
             }
+            if (background->m_bg_type == BG_TYPE_COL) CheckCollision(background, scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
         }
 
         // //Text Layers
@@ -376,6 +381,8 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
             // std::string col = std::to_string(NF_GetPoint(0, 128 + scroll_x, 96 + scroll_y));
             // sub_con->SetText(col, false);
             // sub_con->DisplayTextConsole(&sub_con->m_print_console);
+
+
 
             //index++;
         }
