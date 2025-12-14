@@ -20,7 +20,6 @@ class MainSceneData : public GameData
     Background* overworld_bg;
     Background* overworld_col_bg;
     TextConsole* text_console;
-    Text* test_text;
     
     //Sprite Objects
     Sprite* john_tutorial_ovwld;

@@ -16,14 +16,10 @@ void MainSceneData::InitializeData()
     
     john_tutorial_ovwld = new Sprite(SPR_TYPE_256,"sprite/john_tutorial_overworld", 6, 6, 32, 32, 0);
 
-    //test_text = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "cam_text", 256, 256, 0, 2.5f, 2.5f);
-
-    text_console = new TextConsole();
-
+    text_console = new TextConsole();\
     text_console->InitializeTextConsole(TEXT_CON_TYPE_SUB_TALK, new PrintConsole, 0, BgType_Text8bpp, BgSize_T_256x256, 0, 3, 0, 0, false, false, 
         &font_anuvverbubbla, 3, 3, 23, 20);
-
-
+    
     Position* cam_draw_pos = new Position(((SCREEN_WIDTH/cam_front_idle->m_sprite_w) / 2 - 0.5f) * cam_front_idle->m_sprite_w, 
         ((SCREEN_HEIGHT/cam_front_idle->m_sprite_h) / 2 - 0.5f) * cam_front_idle->m_sprite_h);
 
@@ -47,6 +43,7 @@ void MainSceneData::InitializeData()
     // test_text->AddText("Hello! Welcome to the demo of Channel329: Crimes of the Magically Inclined!\n\nThis is meant to be a proof of concept as well as my first game for the DS console.\n\nCONTROLS\n\nOverworld:\nDPAD: Move\nA:Interact\n\nBattle:\nX: Change Tone\nY: Change Topic\nA: Proceed");
 
     text_console->SetText("HELLO! WELLCOME TO THE DEMO OF CHANNEL329: CRIMES OF THE MAGICALLY INCLINED!\n\nTHIS IS MEANT TO BE A PROOF OF CONCEPT AS WELL AS MY FIRST GAME FOR THE DS CONSOLE.\n\nCONTROLS\n\nOVERWORLD:\nDPAD: MOVE\nA:INTERACT\n\nBATTLE:\nX: CHANGE TONE\nY: CHANGE TOPIC\nA: PROCEED", false);
+
 
     //Animation Objects
     cam_idle_f = new Animation(cam_front_idle, 12);
