@@ -220,6 +220,8 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
     bool shifting_tones = false;
     bool shifting_topics = false;
 
+    bool confirm = false;
+
     while (1)
     {
 
@@ -249,8 +251,10 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
         // switch scenes
         if (keysUp() & KEY_A)
         {
+            //accept user input
             if (shifting_tones || shifting_topics)
             {
+                confirm = true;
                 shifting_tones = false;
                 shifting_topics = false;
 
@@ -319,22 +323,26 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
         //     text->WriteText();
         // }
 
-        for (Battle* battle : m_battles)
+        for (Battle *battle : m_battles)
         {
-            if (keysUp() & KEY_X) 
+            if (!confirm)
             {
-                shifting_tones = true;
-                shifting_topics = false;
-            }
-            else if (keysUp() & KEY_Y)
-            {
-                shifting_tones = false;
-                shifting_topics = true;
-            }
+                if (keysUp() & KEY_X)
+                {
+                    shifting_tones = true;
+                    shifting_topics = false;
+                }
+                else if (keysUp() & KEY_Y)
+                {
+                    shifting_tones = false;
+                    shifting_topics = true;
+                }
 
-            if (shifting_tones) battle->CycleTones();
-            else if (shifting_topics) battle->CycleTopics();
-
+                if (shifting_tones)
+                    battle->CycleTones();
+                else if (shifting_topics)
+                    battle->CycleTopics();
+            }
         }
 
          // Main Screen Text Consoles

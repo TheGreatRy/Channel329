@@ -36,49 +36,41 @@ void Battle::AddMultiplePhrases(Phrase *phrases[], int size)
 
 void Battle::CycleTones()
 {
-    auto skl = static_cast<TONE_SKILL>(m_tone_pos);
-    Tone* tone_ptr = new Tone(skl);
     if (keysUp() & KEY_LEFT)
     {
-        if (m_tone_pos > 1) m_tone_pos--;
-        m_tone_text->SetText(tone_ptr->GetSkillName(), false);
-        m_tone_text->DisplayTextConsole(&m_tone_text->m_print_console);
+        (m_tone_pos > 1) ? m_tone_pos-- : m_tone_pos = 1;
     }
     else if (keysUp() & KEY_RIGHT)
     {
-        if (m_tone_pos < 31) m_tone_pos++;
-        m_tone_text->SetText(tone_ptr->GetSkillName(), false);
-        m_tone_text->DisplayTextConsole(&m_tone_text->m_print_console);
+        (m_tone_pos < 31) ? m_tone_pos++ : m_tone_pos = 31;
     }
 
-    //NF_UpdateTextLayers();
+    m_attk_tone = new Tone(static_cast<TONE_SKILL>(m_tone_pos));
+    m_tone_text->SetText(m_attk_tone->GetSkillName(), false);
+    m_tone_text->DisplayTextConsole(&m_tone_text->m_print_console);
+    
+    ValidateToneTopicChoice();
 }
 
 void Battle::CycleTopics()
 {
-    auto skl = static_cast<TOPIC_SKILL>(m_topic_pos);
-    Topic* topic_ptr = new Topic(skl);
     if (keysUp() & KEY_LEFT)
     {
-        if (m_topic_pos > 1) m_topic_pos--;
-        m_topic_text->SetText(topic_ptr->GetSkillName(), false);
-        m_topic_text->DisplayTextConsole(&m_topic_text->m_print_console);
+        (m_topic_pos > 1) ? m_topic_pos-- : m_topic_pos = 1;
     }
     else if (keysUp() & KEY_RIGHT)
     {
-        if (m_topic_pos < 5) m_topic_pos++;
-        m_topic_text->SetText(topic_ptr->GetSkillName(), false);
-        m_topic_text->DisplayTextConsole(&m_topic_text->m_print_console);
+        (m_topic_pos < 5) ? m_topic_pos++ : m_topic_pos = 5;
     }
 
-    //NF_UpdateTextLayers();
+    m_attk_topic = new Topic(static_cast<TOPIC_SKILL>(m_topic_pos));
+    m_topic_text->SetText(m_attk_topic->GetSkillName(), false);
+    m_topic_text->DisplayTextConsole(&m_topic_text->m_print_console);
+    
+    ValidateToneTopicChoice();
 }
 
-/// @brief Checks the attacker's phrase against the defender. 0 is `NEGATIVE`, 1 is `UNKNOWN`, 2 is `POSITIVE KNOWN`, 
-// 3 is `NEUTRAL KNOWN`, 4 is `POSITIVE INDIFFERENT`, 5 is `NEUTRAL INDIFFERENT`
-/// @param atk_phr_index 
-/// @return the defender phrase that corresponds to the given tone and topic
-void Battle::CheckAttackPhrase()
+void Battle::ValidateToneTopicChoice()
 {
     u32 attk_index = -1;
     for (u32 i = 0; i < m_attack_phrases.size(); i++)
@@ -95,27 +87,29 @@ void Battle::CheckAttackPhrase()
     else
     {
         m_battle_response->SetText("(YOU STRUGGLE TO PHRASE IT THAT WAY...)", false);
-        m_battle_response->DisplayTextConsole(&m_battle_response->m_print_console);
-        return;
     }
-    
+
     m_battle_response->DisplayTextConsole(&m_battle_response->m_print_console);
+}
 
-    NF_UpdateTextLayers();
-
-    WaitForInput();
-
+/// @brief Checks the attacker's phrase against the defender. 0 is `NEGATIVE`, 1 is `UNKNOWN`, 2 is `POSITIVE KNOWN`, 
+// 3 is `NEUTRAL KNOWN`, 4 is `POSITIVE INDIFFERENT`, 5 is `NEUTRAL INDIFFERENT` 
+/// @return the defender phrase that corresponds to the given tone and topic
+void Battle::CheckAttackPhrase()
+{
     //search for the attacker's tone in the defenders list of tones
     u32 tone_index = -1;
     for (u32 i = 0; i < m_defender->m_tones.size(); i++)
     {
-        tone_index = (m_defender->m_tones[i] == m_attk_tone) ? i : -1;
+        tone_index = (m_defender->m_tones[i]->m_tone_skill == m_attk_tone->m_tone_skill) ? i : -1;
         if (tone_index == i) break;
     }
 
-    if (tone_index != 0)
+    if (tone_index != -1)
     {
-        switch(m_attk_tone->m_tone_type)
+        TONE_TYPE tty = m_defender->m_tones[tone_index]->m_tone_type;
+        
+        switch(tty)
         {
             case TONE_TYPE_POSITIVE:
                 m_attacker_advantage = true;
@@ -126,30 +120,35 @@ void Battle::CheckAttackPhrase()
             case TONE_TYPE_NEGATIVE:
                 m_battle_response->SetText(m_defend_phrases[0]->m_text, false);
                 return;
-                
         }
+    }
+    else
+    {
+        m_battle_response->SetText("I DON'T THINK I UNDERSTAND...", false);
     }
 
      //search for the attacker's tone in the defenders list of tones
     u32 topic_index = -1;
     for (u32 i = 0; i < m_defender->m_topics.size(); i++)
     {
-        topic_index = (m_defender->m_topics[i] == m_attk_topic) ? i : -1;
+        topic_index = (m_defender->m_topics[i]->m_topic_skill == m_attk_topic->m_topic_skill) ? i : -1;
         if (topic_index == i) break;
     }
 
-    if (topic_index != 0)
+    if (topic_index != -1)
     {
-        switch(m_attk_topic->m_topic_type)
+        TOPIC_TYPE tty = m_defender->m_topics[topic_index]->m_topic_type;
+        
+        switch(tty)
         {
             case TOPIC_TYPE_KNOWN:
-                if (m_attk_tone->m_tone_type == TONE_TYPE_POSITIVE) 
+                if (m_defender->m_tones[tone_index]->m_tone_type == TONE_TYPE_POSITIVE) 
                     m_battle_response->SetText(m_defend_phrases[2]->m_text, false);
                 else 
                     m_battle_response->SetText(m_defend_phrases[3]->m_text, false);
                 break;
                 case TOPIC_TYPE_INDIFF:
-                if (m_attk_tone->m_tone_type == TONE_TYPE_POSITIVE) 
+                if (m_defender->m_tones[tone_index]->m_tone_type  == TONE_TYPE_POSITIVE) 
                     m_battle_response->SetText(m_defend_phrases[4]->m_text, false);
                 else 
                     m_battle_response->SetText(m_defend_phrases[4]->m_text, false);
@@ -166,10 +165,6 @@ void Battle::CheckAttackPhrase()
     }
 
     m_battle_response->DisplayTextConsole(&m_battle_response->m_print_console);
-
-    //NF_UpdateTextLayers();
-
-    WaitForInput();
 }
 
 void Battle::WaitForInput()

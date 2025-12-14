@@ -59,8 +59,8 @@ public:
     Character* m_attacker;
     Character* m_defender;
 
-    Tone* m_attk_tone;
-    Topic* m_attk_topic;
+    Tone* m_attk_tone = new Tone(TONE_SKILL_DEFAULT);
+    Topic* m_attk_topic = new Topic(TOPIC_SKILL_DEFAULT);
 
     // Sprite* m_battle_textbox;
     // Sprite* m_options_textbox;
@@ -83,6 +83,7 @@ public:
 
     void CycleTones();
     void CycleTopics();
+    void ValidateToneTopicChoice();
 
     void CheckAttackPhrase();
     void WaitForInput();

@@ -15,7 +15,7 @@ void BattleSceneData::InitializeData()
     attacker->LoadSprite(1, 1, 1, {new Position(100.0f, 10.0f)}, true, 2);
     
     battle_top_bg->LoadBackground(0, 3);
-    battle_bottom_bg->LoadBackground(1, 3, 1);
+    battle_bottom_bg->LoadBackground(1, 0, 1);
 
     //create objects that depends on the ones above
     npc_temp = new Animation(enemy, 1);

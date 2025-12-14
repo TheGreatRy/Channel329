@@ -40,7 +40,7 @@ void MainSceneData::InitializeData()
     
     john_tutorial_ovwld->LoadSprite(6, 6, 6, john_draw_pos, false, 0);
      
-    options_bg->LoadBackground(1, 1, 1);
+    options_bg->LoadBackground(1, 0, 1);
     overworld_bg->LoadBackground(0, 3);
 
     // test_text->LoadText(1, 0);
