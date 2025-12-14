@@ -17,7 +17,6 @@ void MainSceneData::InitializeData()
     john_tutorial_ovwld = new Sprite(SPR_TYPE_256,"sprite/john_tutorial_overworld", 6, 6, 32, 32, 0);
 
     //test_text = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "cam_text", 256, 256, 0, 2.5f, 2.5f);
-
     text_console = new TextConsole();
 
     text_console->InitializeTextConsole(TEXT_CON_TYPE_SUB_TALK, m_scene->m_main_cons.size(), m_scene->m_sub_cons.size(), new PrintConsole, 
@@ -72,12 +71,17 @@ void MainSceneData::InitializeData()
     john_tutorial = new Character(john_tutorial_anim, "JOHN TUTORIAL", CHARACTER_TYPE_NPC);
 
     //add m_scene objects now that everything is loaded and added
-    //FIFO
+
+    // Backgrounds
     m_scene->AddBackground(options_bg);
     m_scene->AddBackground(overworld_bg);
     m_scene->AddBackground(overworld_col_bg);
+
+    // Text
     m_scene->AddTextConsole(text_console);
     //m_scene->AddTextLayer(test_text);
+
+    // Actors
     m_scene->AddActor(cam);
     m_scene->AddActor(john_tutorial);
     m_scene->m_player_object = cam;

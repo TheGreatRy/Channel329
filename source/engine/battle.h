@@ -10,27 +10,37 @@
 #include "../utilities/phrase.h"
 
 // Engine Folder
-#include "text.h"
+//#include "text.h"
+#include "text_console.h"
+
+// Shared Graphics
+#include "fonts/blk_anuvverbubbla_8x8_png.h"
 
 class Battle
 {
 public:
     Battle()
     {
-        m_battle_response->LoadText(0, 1);
-        m_tone_text->LoadText(1, 0);
-        m_topic_text->LoadText(1, 1); 
+        m_battle_response = new TextConsole();
+        m_tone_text = new TextConsole();
+        m_topic_text = new TextConsole();
+        // Set Text
+        // m_battle_response->LoadText(0, 1);
+        // m_tone_text->LoadText(1, 0);
+        // m_topic_text->LoadText(1, 1); 
 
-        m_battle_response->AddText("CHOOSE TONE AND TOPIC");
-        m_battle_response->WriteText();
+        // m_battle_response->AddText("CHOOSE TONE AND TOPIC");
+        // m_battle_response->WriteText();
         
-        m_tone_text->AddText("SELECT");
-        m_tone_text->WriteText();
+        // m_tone_text->AddText("SELECT");
+        // m_tone_text->WriteText();
 
-        m_topic_text->AddText("SELECT");
-        m_topic_text->WriteText();
+        // m_topic_text->AddText("SELECT");
+        // m_topic_text->WriteText();
 
-        NF_UpdateTextLayers();
+        // NF_UpdateTextLayers();
+
+        // Set Text Consoles
     }
     ~Battle() = default;
 
@@ -44,10 +54,13 @@ public:
     Tone* m_attk_tone;
     Topic* m_attk_topic;
 
-    Text* m_battle_response = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "battle_response", 256, 256, 0, 0.0f, 16.0f);
+    // Text* m_battle_response = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "battle_response", 256, 256, 0, 0.0f, 16.0f);
+    // Text* m_tone_text = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "text_tone", 256, 256, 0, 12.0f, 4.0f);
+    // Text* m_topic_text = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "text_topic", 256, 256, 0, 12.0f, 12.0f);
 
-    Text* m_tone_text = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "text_tone", 256, 256, 0, 12.0f, 4.0f);
-    Text* m_topic_text = new Text(TEXT_TYPE_CUST, "fnt/charmap_cellphone", "text_topic", 256, 256, 0, 12.0f, 12.0f);
+    TextConsole* m_battle_response;
+    TextConsole* m_tone_text;
+    TextConsole* m_topic_text;
 
     // skip default value
     int m_tone_pos = 1;

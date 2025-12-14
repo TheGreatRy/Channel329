@@ -1,18 +1,18 @@
 #pragma once
 
-//NDS includes
+// NDS includes
 #include <nds.h>
 
-//Components Folder
+// Components Folder
 #include "../components/scene.h"
 #include "../components/sprite.h"
 
-//Engine Folder
+// Engine Folder
+//#include "../engine/text.h"
 #include "../engine/text_console.h"
-#include "../engine/text.h"
 
+// Shared Graphics
 #include "fonts/blk_anuvverbubbla_8x8_png.h"
-
 
 //DS screen size
 #define SCREEN_WIDTH 256

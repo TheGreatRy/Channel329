@@ -9,15 +9,6 @@
 //Engine Folder
 #include "../engine/text_console.h"
 
-// // Graphics Folder
-// //Battle Stills / Animations
-// #include "../graphics/characters/cameron/battle/cam_battle.h"
-
-// //Test / Other Graphics
-// #include "../graphics/characters/talkingnpc.h"
-// #include "../graphics/backgrounds/battle_bottom.h"
-// #include "../graphics/backgrounds/battle_top.h"
-
 class BattleSceneData : public GameData
 {
     public:

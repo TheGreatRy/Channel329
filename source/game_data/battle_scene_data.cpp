@@ -2,9 +2,10 @@
 
 void BattleSceneData::InitializeData()
 {
+    test_battle = new Battle();
+    
     enemy = new Sprite(SPR_TYPE_3D, "sprite/cam_battle_neut", 0, 0, 128, 128);       
     attacker = new Sprite(SPR_TYPE_3D,"sprite/john_tutorial", 1, 1, 128, 128);       
-    test_battle = new Battle();
 
     enemy->LoadSprite(0, 0, 0, {new Position(20.0f, 10.0f)}, true, 2);
     attacker->LoadSprite(1,1,1, {new Position(100.0f, 10.0f)}, true, 2);
