@@ -31,7 +31,6 @@ void BattleSceneData::InitializeData()
     test_battle->AddMultiplePhrases(defender_phrases, 6);
 
     test_battle->SetDefender(npc);
-    test_battle->SetAttacker(cam_attk);
 
     //Add everything to the scene
     m_scene->AddBattle(test_battle);

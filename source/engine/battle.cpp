@@ -1,10 +1,5 @@
 #include "battle.h"
 
-void Battle::SetAttacker(Character *attacker)
-{
-    m_attacker = attacker;
-}
-
 void Battle::SetDefender(Character *defender)
 {
     m_defender = defender;
@@ -45,7 +40,7 @@ void Battle::CycleTones()
         (m_tone_pos < 31) ? m_tone_pos++ : m_tone_pos = 31;
     }
 
-    m_attk_tone = new Tone(static_cast<TONE_SKILL>(m_tone_pos));
+    m_attk_tone = new Tone(static_cast<TONE_SKILL>(m_tone_pos), TONE_TYPE_NONE);
     m_tone_text->SetText(m_attk_tone->GetSkillName(), false);
     m_tone_text->DisplayTextConsole(&m_tone_text->m_print_console);
     
@@ -63,7 +58,7 @@ void Battle::CycleTopics()
         (m_topic_pos < 5) ? m_topic_pos++ : m_topic_pos = 5;
     }
 
-    m_attk_topic = new Topic(static_cast<TOPIC_SKILL>(m_topic_pos));
+    m_attk_topic = new Topic(static_cast<TOPIC_SKILL>(m_topic_pos), TOPIC_TYPE_NONE);
     m_topic_text->SetText(m_attk_topic->GetSkillName(), false);
     m_topic_text->DisplayTextConsole(&m_topic_text->m_print_console);
     
@@ -98,11 +93,11 @@ void Battle::ValidateToneTopicChoice()
 void Battle::CheckAttackPhrase()
 {
     //search for the attacker's tone in the defenders list of tones
-    u32 tone_index = -1;
+    int tone_index = -1;
     for (u32 i = 0; i < m_defender->m_tones.size(); i++)
     {
         tone_index = (m_defender->m_tones[i]->m_tone_skill == m_attk_tone->m_tone_skill) ? i : -1;
-        if (tone_index == i) break;
+        if (tone_index != -1) break;
     }
 
     if (tone_index != -1)
@@ -119,20 +114,25 @@ void Battle::CheckAttackPhrase()
                 break;
             case TONE_TYPE_NEGATIVE:
                 m_battle_response->SetText(m_defend_phrases[0]->m_text, false);
+                m_battle_response->DisplayTextConsole(&m_battle_response->m_print_console);
+                return;
+            case TONE_TYPE_NONE:
+                m_battle_response->SetText("IF YOU ARE SEEING THIS, YOU INITIALIZED YOUR TONES WRONG", false);
+                m_battle_response->DisplayTextConsole(&m_battle_response->m_print_console);
                 return;
         }
     }
     else
     {
-        m_battle_response->SetText("I DON'T THINK I UNDERSTAND...", false);
+        //m_battle_response->SetText("I DON'T THINK I UNDERSTAND...", false);
     }
 
      //search for the attacker's tone in the defenders list of tones
-    u32 topic_index = -1;
+    int topic_index = -1;
     for (u32 i = 0; i < m_defender->m_topics.size(); i++)
     {
         topic_index = (m_defender->m_topics[i]->m_topic_skill == m_attk_topic->m_topic_skill) ? i : -1;
-        if (topic_index == i) break;
+        if (topic_index != -1) break;
     }
 
     if (topic_index != -1)
@@ -142,13 +142,13 @@ void Battle::CheckAttackPhrase()
         switch(tty)
         {
             case TOPIC_TYPE_KNOWN:
-                if (m_defender->m_tones[tone_index]->m_tone_type == TONE_TYPE_POSITIVE) 
+                if (m_attacker_advantage) 
                     m_battle_response->SetText(m_defend_phrases[2]->m_text, false);
                 else 
                     m_battle_response->SetText(m_defend_phrases[3]->m_text, false);
                 break;
                 case TOPIC_TYPE_INDIFF:
-                if (m_defender->m_tones[tone_index]->m_tone_type  == TONE_TYPE_POSITIVE) 
+                if (m_attacker_advantage) 
                     m_battle_response->SetText(m_defend_phrases[4]->m_text, false);
                 else 
                     m_battle_response->SetText(m_defend_phrases[4]->m_text, false);
@@ -156,12 +156,16 @@ void Battle::CheckAttackPhrase()
             case TOPIC_TYPE_UNKNOWN:
                 m_battle_response->SetText(m_defend_phrases[1]->m_text, false);
                 break;
+            case TOPIC_TYPE_NONE:
+                m_battle_response->SetText("IF YOU ARE SEEING THIS, YOU INITIALIZED YOUR TOPICS WRONG", false);
+                m_battle_response->DisplayTextConsole(&m_battle_response->m_print_console);
+                return;
         }
     }
 
     else 
     {
-        m_battle_response->SetText("I DON'T THINK I UNDERSTAND...", false);
+        //m_battle_response->SetText("I DON'T THINK I UNDERSTAND...", false);
     }
 
     m_battle_response->DisplayTextConsole(&m_battle_response->m_print_console);

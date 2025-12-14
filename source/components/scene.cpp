@@ -255,6 +255,7 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
             if (shifting_tones || shifting_topics)
             {
                 confirm = true;
+                
                 shifting_tones = false;
                 shifting_topics = false;
 

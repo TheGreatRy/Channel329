@@ -55,12 +55,10 @@ public:
     std::vector<Phrase *> m_attack_phrases;
     std::vector<Phrase *> m_defend_phrases;
     std::vector<Phrase *> m_boss_phrases;
-
-    Character* m_attacker;
     Character* m_defender;
 
-    Tone* m_attk_tone = new Tone(TONE_SKILL_DEFAULT);
-    Topic* m_attk_topic = new Topic(TOPIC_SKILL_DEFAULT);
+    Tone* m_attk_tone = new Tone(TONE_SKILL_DEFAULT, TONE_TYPE_NONE);
+    Topic* m_attk_topic = new Topic(TOPIC_SKILL_DEFAULT, TOPIC_TYPE_NONE);
 
     // Sprite* m_battle_textbox;
     // Sprite* m_options_textbox;
@@ -75,7 +73,6 @@ public:
 
     bool m_attacker_advantage = false;
 
-    void SetAttacker(Character *attacker);
     void SetDefender(Character *defender);
 
     void AddSinglePhrase(Phrase *phrase);
