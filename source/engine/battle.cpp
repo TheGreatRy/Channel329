@@ -90,6 +90,7 @@ void Battle::ValidateToneTopicChoice()
 /// @return the defender phrase that corresponds to the given tone and topic
 void Battle::CheckAttackPhrase()
 {
+    if (m_attk_tone->m_tone_type == TONE_TYPE_NONE || m_attk_topic->m_topic_type == TOPIC_TYPE_NONE) return;
     //search for the attacker's tone in the defenders list of tones
     int tone_index = -1;
     for (u32 i = 0; i < m_defender->m_tones.size(); i++)

@@ -280,6 +280,7 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
 
     while (1)
     {
+
         // Update OAM array
         NF_SpriteOamSet(0);
         NF_SpriteOamSet(1);
@@ -369,7 +370,7 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
             }
         }
 
-        // Backgrounds
+        //Backgrounds
         for (Background *background : m_backgrounds)
         {
             if (m_scene_gm_state != GM_STATE_BATTLE && background->m_screen == 0) 
@@ -383,7 +384,6 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
             }
         }
 
-        // Battles
         for (Battle *battle : m_battles)
         {
             if (!confirm)
