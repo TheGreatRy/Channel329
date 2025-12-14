@@ -40,19 +40,18 @@ void Battle::CycleTones()
     Tone* tone_ptr = new Tone(skl);
     if (keysUp() & KEY_LEFT)
     {
-        m_tone_text->ClearTextConsole(&m_tone_text->m_print_console);
         if (m_tone_pos > 1) m_tone_pos--;
         m_tone_text->SetText(tone_ptr->GetSkillName(), false);
         m_tone_text->DisplayTextConsole(&m_tone_text->m_print_console);
     }
     else if (keysUp() & KEY_RIGHT)
     {
-        m_tone_text->ClearTextConsole(&m_tone_text->m_print_console);
         if (m_tone_pos < 31) m_tone_pos++;
         m_tone_text->SetText(tone_ptr->GetSkillName(), false);
         m_tone_text->DisplayTextConsole(&m_tone_text->m_print_console);
     }
-    NF_UpdateTextLayers();
+
+    //NF_UpdateTextLayers();
 }
 
 void Battle::CycleTopics()
@@ -61,14 +60,12 @@ void Battle::CycleTopics()
     Topic* topic_ptr = new Topic(skl);
     if (keysUp() & KEY_LEFT)
     {
-        m_topic_text->ClearTextConsole(&m_topic_text->m_print_console);
         if (m_topic_pos > 1) m_topic_pos--;
         m_topic_text->SetText(topic_ptr->GetSkillName(), false);
         m_topic_text->DisplayTextConsole(&m_topic_text->m_print_console);
     }
     else if (keysUp() & KEY_RIGHT)
     {
-        m_topic_text->ClearTextConsole(&m_topic_text->m_print_console);
         if (m_topic_pos < 5) m_topic_pos++;
         m_topic_text->SetText(topic_ptr->GetSkillName(), false);
         m_topic_text->DisplayTextConsole(&m_topic_text->m_print_console);
@@ -97,7 +94,7 @@ void Battle::CheckAttackPhrase()
     }
     else
     {
-        m_battle_response->SetText("(You struggle to phrase it that way...)", false);
+        m_battle_response->SetText("(YOU STRUGGLE TO PHRASE IT THAT WAY...)", false);
         m_battle_response->DisplayTextConsole(&m_battle_response->m_print_console);
         return;
     }
@@ -107,8 +104,6 @@ void Battle::CheckAttackPhrase()
     NF_UpdateTextLayers();
 
     WaitForInput();
-
-    m_battle_response->ClearTextConsole(&m_battle_response->m_print_console);
 
     //search for the attacker's tone in the defenders list of tones
     u32 tone_index = -1;
@@ -167,8 +162,7 @@ void Battle::CheckAttackPhrase()
 
     else 
     {
-        m_battle_response->ClearTextConsole(&m_battle_response->m_print_console);
-        m_battle_response->SetText("I don't think I understand...", false);
+        m_battle_response->SetText("I DON'T THINK I UNDERSTAND...", false);
     }
 
     m_battle_response->DisplayTextConsole(&m_battle_response->m_print_console);

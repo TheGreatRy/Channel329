@@ -340,24 +340,24 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
          // Main Screen Text Consoles
         for (TextConsole *main_con : m_main_cons)
         {
-            main_con->DisplayTextConsole(&main_con->m_print_console);
+            if (m_scene_gm_state != GM_STATE_BATTLE) main_con->DisplayTextConsole(&main_con->m_print_console);
         }
 
-        int index = 0;
+        //int index = 0;
         // Sub Screen Text Consoles
         for (TextConsole *sub_con : m_sub_cons)
         {
-            sub_con->DisplayTextConsole(&sub_con->m_print_console, current_pos);
+            if (m_scene_gm_state != GM_STATE_BATTLE) sub_con->DisplayTextConsole(&sub_con->m_print_console, current_pos);
 
             // std::string col = std::to_string(NF_GetPoint(0, 128, 96));
             // sub_con->SetText(col, false);
             // sub_con->DisplayTextConsole(&sub_con->m_print_console);
 
-            index++;
+            //index++;
         }
 
         NF_Draw3dSprites();
-        NF_UpdateTextLayers();
+        //NF_UpdateTextLayers();
 
         glFlush(0);
     }

@@ -85,6 +85,7 @@ void TextConsole::SetText(std::string text, bool detect_touch)
 //Display text without detecting user input
 void TextConsole::DisplayTextConsole(PrintConsole *text_con)
 {
+    ClearTextConsole(&m_print_console);
     consoleSelect(text_con);
     printf("\x1b[2J");
     printf(m_text.c_str());
@@ -93,6 +94,7 @@ void TextConsole::DisplayTextConsole(PrintConsole *text_con)
 //Display text based on user input
 void TextConsole::DisplayTextConsole(PrintConsole* text_con, touchPosition current_pos)
 {
+    ClearTextConsole(&m_print_console);
     consoleSelect(text_con);
 
     if (keysHeld() & KEY_TOUCH)

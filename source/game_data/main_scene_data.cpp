@@ -76,8 +76,9 @@ void MainSceneData::InitializeData()
     m_scene->AddBackground(options_bg);
     m_scene->AddBackground(overworld_bg);
     m_scene->AddBackground(overworld_col_bg);
+    
     m_scene->AddTextConsole(text_console);
-    //m_scene->AddTextLayer(test_text);
+
     m_scene->AddActor(cam);
     m_scene->AddActor(john_tutorial);
     m_scene->m_player_object = cam;
