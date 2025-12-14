@@ -36,8 +36,8 @@ public:
     void AddSingleTone(Tone* tone);
     void AddSingleTopic(Topic* topic);
     
-    void AddMultipleTones(Tone* tones[]);
-    void AddMultipleTopics(Topic* topics[]);
+    void AddMultipleTones(Tone* tones[], int size);
+    void AddMultipleTopics(Topic* topics[], int size);
 
     void AddAnimation(Animation* animation);
     void PlayAnimation(int anim_id, int fps, bool flip_sprites);

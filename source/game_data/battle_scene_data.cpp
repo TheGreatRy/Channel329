@@ -24,8 +24,8 @@ void BattleSceneData::InitializeData()
     npc = new Character(npc_temp, "JOHN NPC", CHARACTER_TYPE_NPC);
     cam_attk = new Character(attack_temp, "CAMERON", CHARACTER_TYPE_NPC);
     
-    npc->AddMultipleTones(npc_tones);
-    npc->AddMultipleTopics(npc_topics);
+    npc->AddMultipleTones(npc_tones, 4);
+    npc->AddMultipleTopics(npc_topics, 4);
 
     test_battle->AddMultiplePhrases(cam_attack_phrases, 7);
     test_battle->AddMultiplePhrases(defender_phrases, 6);

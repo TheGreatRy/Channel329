@@ -73,17 +73,17 @@ class BattleSceneData : public GameData
     
     Phrase* defender_phrases[6] = {
         //defender wins (neg)
-        new Phrase{"That's pretty rude, buster!", TONE_SKILL_DIRECT, TOPIC_SKILL_PEOPLE, PHRASE_TYPE_DEFEND},
+        new Phrase{"THAT'S PRETTY RUDE, BUSTER!", TONE_SKILL_DIRECT, TOPIC_SKILL_PEOPLE, PHRASE_TYPE_DEFEND},
         //defender wins (unknown)
-        new Phrase{"I don't know anything about that...", TONE_SKILL_AUTHOR, TOPIC_SKILL_CRIME, PHRASE_TYPE_DEFEND},
+        new Phrase{"I DON'T KNOW ANYTHING ABOUT THAT...", TONE_SKILL_AUTHOR, TOPIC_SKILL_CRIME, PHRASE_TYPE_DEFEND},
         //(KnPos)
-        new Phrase{"Oh sure! There's my neighbor Tony... and my other neighbor Toni...", TONE_SKILL_CASUAL, TOPIC_SKILL_PEOPLE, PHRASE_TYPE_DEFEND},
+        new Phrase{"OH SURE! THERE'S MY NEIGHBOR TONY... aND MY OTHER NEIGHBOR TONI...", TONE_SKILL_CASUAL, TOPIC_SKILL_PEOPLE, PHRASE_TYPE_DEFEND},
         //(KnNt)
-        new Phrase{"Hmmm, well there are a lot of people in this town and I don't them all, but...", TONE_SKILL_PROFESS, TOPIC_SKILL_PEOPLE, PHRASE_TYPE_DEFEND},
+        new Phrase{"HMMM, WELL THERE ARE A LOT OF PEOPLE HERE. I DON'T KNOW THEM ALL, BUT...", TONE_SKILL_PROFESS, TOPIC_SKILL_PEOPLE, PHRASE_TYPE_DEFEND},
         //(InPos)
-        new Phrase{"Not really, but Sally down south would know more!", TONE_SKILL_CASUAL, TOPIC_SKILL_HISTORY, PHRASE_TYPE_DEFEND},
+        new Phrase{"NOT REALLY, BUT SALLY DOWN SOUTH WOULD KNOW!", TONE_SKILL_CASUAL, TOPIC_SKILL_HISTORY, PHRASE_TYPE_DEFEND},
         //(InNt)
-        new Phrase{"Ah, I'm not the best at magic, sorry...", TONE_SKILL_PROFESS, TOPIC_SKILL_MAGIC, PHRASE_TYPE_DEFEND}
+        new Phrase{"AH, I'M NOT THE BEST AT MAGIC, SORRY...", TONE_SKILL_PROFESS, TOPIC_SKILL_MAGIC, PHRASE_TYPE_DEFEND}
     };
     
 
