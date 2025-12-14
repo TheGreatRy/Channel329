@@ -165,14 +165,14 @@ void Scene::DeleteAllSceneComponents()
     // Battles
     for (Battle *battle : m_battles)
     {
-        battle->m_tone_text->ClearText();
-        battle->m_tone_text->RemoveText();
+        // battle->m_tone_text->ClearText();
+        // battle->m_tone_text->RemoveText();
 
-        battle->m_topic_text->ClearText();
-        battle->m_topic_text->RemoveText();
+        // battle->m_topic_text->ClearText();
+        // battle->m_topic_text->RemoveText();
 
-        battle->m_battle_response->ClearText();
-        battle->m_battle_response->RemoveText();
+        // battle->m_battle_response->ClearText();
+        // battle->m_battle_response->RemoveText();
         delete battle;
     }
 
@@ -340,18 +340,14 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
          // Main Screen Text Consoles
         for (TextConsole *main_con : m_main_cons)
         {
-            main_con->DisplayTextConsole(&main_con->m_print_console, current_pos);
+            main_con->DisplayTextConsole(&main_con->m_print_console);
         }
 
         int index = 0;
         // Sub Screen Text Consoles
         for (TextConsole *sub_con : m_sub_cons)
         {
-            if (sub_con->m_text_console_type == TEXT_CON_TYPE_SUB_TALK)
-                sub_con->DisplayTextConsole(&sub_con->m_print_console, current_pos);
-            else if (sub_con->m_text_console_type == TEXT_CON_TYPE_SUB_OPT)
-                sub_con->DisplayTextConsole(&sub_con->m_print_console,
-                                            current_pos, m_battles[0], index);
+            sub_con->DisplayTextConsole(&sub_con->m_print_console, current_pos);
 
             // std::string col = std::to_string(NF_GetPoint(0, 128, 96));
             // sub_con->SetText(col, false);

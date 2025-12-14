@@ -3,8 +3,6 @@
 //Game Data Folder
 #include "game_data.h"
 
-
-
 class MainSceneData : public GameData
 {
     public:

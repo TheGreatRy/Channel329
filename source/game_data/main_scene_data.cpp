@@ -20,8 +20,8 @@ void MainSceneData::InitializeData()
 
     text_console = new TextConsole();
 
-    text_console->InitializeTextConsole(TEXT_CON_TYPE_SUB_TALK, m_scene->m_main_cons.size(), m_scene->m_sub_cons.size(), new PrintConsole, 
-    0, BgType_Text8bpp, BgSize_T_256x256, 0, 3, 4, 0, false, false, &font_anuvverbubbla, 3, 3, 23, 20);
+    text_console->InitializeTextConsole(TEXT_CON_TYPE_SUB_TALK, new PrintConsole, 0, BgType_Text8bpp, BgSize_T_256x256, 0, 3, 0, 0, false, false, 
+        &font_anuvverbubbla, 3, 3, 23, 20);
 
 
     Position* cam_draw_pos = new Position(((SCREEN_WIDTH/cam_front_idle->m_sprite_w) / 2 - 0.5f) * cam_front_idle->m_sprite_w, 

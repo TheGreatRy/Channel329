@@ -1,6 +1,6 @@
 #include "text_console.h"
 
-void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned int main_cons_size, const unsigned int sub_cons_size,
+void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type,
                                         PrintConsole *text_con, const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int map_base, 
                                         const unsigned int tile_base, const unsigned int pal_index, const unsigned int start_char, bool is_main, bool load_gr)
 {
@@ -24,13 +24,13 @@ void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned i
     m_print_console = *text_con;
 }
 
-void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type, const unsigned int main_cons_size, const unsigned int sub_cons_size,
+void TextConsole::InitializeTextConsole(TEXT_CON_TYPE con_type,
                                         PrintConsole* text_con, const unsigned int layer, BgType bg_type, BgSize bg_size, const unsigned int tile_base, 
                                         const unsigned int map_base, const unsigned int pal_index, const unsigned int start_char, bool is_main, bool load_gr, 
                                         ConsoleFont* font, const unsigned int x_pos, const unsigned int y_pos, const unsigned int width, const unsigned int height)
 {
     // Use the base initializer
-    InitializeTextConsole(con_type, main_cons_size, sub_cons_size, text_con, layer, bg_type, bg_size, map_base, tile_base, pal_index, start_char, is_main, load_gr);
+    InitializeTextConsole(con_type, text_con, layer, bg_type, bg_size, map_base, tile_base, pal_index, start_char, is_main, load_gr);
 
     // Set custom graphics
     consoleSetFont(&m_print_console, font);
@@ -109,40 +109,6 @@ void TextConsole::DisplayTextConsole(PrintConsole* text_con, touchPosition curre
     {
         printf("\x1b[2J");
         printf(m_text.c_str());
-    }
-}
-
-
-//Display text based on the current battle
-void TextConsole::DisplayTextConsole(PrintConsole *text_con, touchPosition current_pos, Battle *battle, int index)
-{
-    consoleSelect(text_con);
-
-    if (keysHeld() & KEY_TOUCH)
-    {
-        touchRead(&current_pos);
-    }
-
-    if (current_pos.px >= left_x && current_pos.px <= right_x && current_pos.py >= top_y && current_pos.py <= bottom_y)
-    {
-        printf("\x1b[2J");
-        //WriteWordsPerLine(win_text, 4);
-
-        // for (std::string line : m_words_per_line)
-        // {
-        //     printf(line.c_str());
-        // }
-        //printf(result->m_text.c_str());
-    }
-    else
-    {
-        printf("\x1b[2J"); 
-        // WriteWordsPerLine(battle->m_attack_phrases[index]->m_text, 4);
-        // for (std::string line : m_words_per_line)
-        // {
-        //     printf(line.c_str());
-        // }
-        printf(battle->m_attack_phrases[index]->m_text.c_str());
     }
 }
 

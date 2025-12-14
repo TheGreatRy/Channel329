@@ -13,7 +13,6 @@
 
 #include "fonts/blk_anuvverbubbla_8x8_png.h"
 
-
 //DS screen size
 #define SCREEN_WIDTH 256
 #define SCREEN_HEIGHT 192

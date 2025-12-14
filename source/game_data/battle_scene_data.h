@@ -4,7 +4,7 @@
 #include "game_data.h"
 
 //Components Folder
-#include "../components/Sprite.h"
+#include "../components/sprite.h"
 
 //Engine Folder
 #include "../engine/text_console.h"
