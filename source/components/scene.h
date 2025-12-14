@@ -51,6 +51,7 @@ public:
     void AddBattle(Battle* battle);
 
     void CheckCollision(Background* col_bg, int &scroll_x, int &scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right);
+    void CheckInteractions(Background* col_bg, int &scroll_x, int &scroll_y, bool& can_battle);
 
     void DrawScene(int& scroll_x, int& scroll_y, bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right);
     
@@ -59,6 +60,8 @@ public:
     
     void DeleteAllSceneComponents();
     void ClearAllTextConsoles();
+
+    void ValidateColBg(bool& can_move_up, bool& can_move_down, bool& can_move_left, bool& can_move_right,  bool& can_battle);
 
     const uint32_t screen_width = 256;
     const uint32_t screen_height = 192;
