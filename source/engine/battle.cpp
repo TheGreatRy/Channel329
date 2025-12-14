@@ -67,17 +67,15 @@ void Battle::CycleTopics()
 
 void Battle::ValidateToneTopicChoice()
 {
-    u32 attk_index = -1;
+    int attk_index = -1;
     for (u32 i = 0; i < m_attack_phrases.size(); i++)
     {
         attk_index = (m_attack_phrases[i]->m_phrase_tone == m_attk_tone->m_tone_skill && m_attack_phrases[i]->m_phrase_topic == m_attk_topic->m_topic_skill) ? i : -1;
         if (attk_index == i) break;
-
     }
     if (attk_index != -1)
     {
         m_battle_response->SetText(m_attack_phrases[attk_index]->m_text, false);
-        
     }
     else
     {
@@ -169,6 +167,8 @@ void Battle::CheckAttackPhrase()
     }
 
     m_battle_response->DisplayTextConsole(&m_battle_response->m_print_console);
+
+    WaitForInput();
 }
 
 void Battle::WaitForInput()

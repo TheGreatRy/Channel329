@@ -280,7 +280,6 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
 
     while (1)
     {
-
         // Update OAM array
         NF_SpriteOamSet(0);
         NF_SpriteOamSet(1);
@@ -370,7 +369,7 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
             }
         }
 
-        //Backgrounds
+        // Backgrounds
         for (Background *background : m_backgrounds)
         {
             if (m_scene_gm_state != GM_STATE_BATTLE && background->m_screen == 0) 
@@ -384,10 +383,12 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
             }
         }
 
+        // Battles
         for (Battle *battle : m_battles)
         {
             if (!confirm)
             {
+                
                 if (keysUp() & KEY_X)
                 {
                     shifting_tones = true;
@@ -412,7 +413,6 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
             if (m_scene_gm_state != GM_STATE_BATTLE) main_con->DisplayTextConsole(&main_con->m_print_console);
         }
 
-        //int index = 0;
         // Sub Screen Text Consoles
         for (TextConsole *sub_con : m_sub_cons)
         {
@@ -426,6 +426,7 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
             {
                 ValidateColBg(can_move_up, can_move_down, can_move_left, can_move_right, can_battle);
             }
+            
         }
 
         NF_Draw3dSprites();
