@@ -40,6 +40,9 @@ void Game::InitializeGame()
     // Initialize audio
     soundEnable();
     NF_InitRawSoundBuffers();
+
+    // Initialize collision map buffers
+    NF_InitCmapBuffers();
 }
 
 void Game::InitializeScene(Scene *scene)

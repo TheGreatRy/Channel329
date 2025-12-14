@@ -38,6 +38,38 @@ void Scene::AddBattle(Battle *battle)
     m_battles.push_back(battle);
 }
 
+void Scene::CheckCollision(Background* col_bg, int &scroll_x, int &scroll_y, bool &can_move_up, bool &can_move_down, bool &can_move_left, bool &can_move_right)
+{
+    
+    
+    for (int x = 0; x < 32; x ++)
+    {
+        can_move_up = (NF_GetPoint(col_bg->m_slot, scroll_x + 128, scroll_y + 96) == 2) ? false : true;
+        if (can_move_up == false) break;
+    }
+
+    // //Check bottom 
+    // for (int x = 0; x < 32; x ++)
+    // {
+    //     can_move_down = (NF_GetPoint(col_bg->m_slot, (7 * 16) + x, 7 * 16) == 2) ? false : true;
+    //     if (can_move_down == false) break;
+    // }
+
+    // //Check left side of sprite
+    // for (int y = 0; y < 32; y++)
+    // {
+    //     can_move_left = (NF_GetPoint(col_bg->m_slot, 9 * 16, (5 * 16) + y) == 2) ? false : true;
+    //     if (can_move_left == false) break;
+    // }
+
+    // //Check right of sprite
+    // for (int y = 0; y < 32; y++)
+    // {
+    //     can_move_right = (NF_GetPoint(col_bg->m_slot, 7 * 16, (5 * 16) + y) == 2) ? false : true;
+    //     if (can_move_right == false) break;
+    // }
+}
+
 void Scene::AddBackground(Background *background)
 {
     m_backgrounds.push_back(background);
@@ -172,6 +204,8 @@ void Scene::DeleteAllSceneComponents()
     NF_ResetSpriteBuffers();
     NF_ResetTiledBgBuffers();
     NF_Reset8bitsBgBuffers();
+    NF_ResetCmapBuffers();
+    NF_ResetRawSoundBuffers();
 }
 
 
@@ -271,7 +305,12 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
         //Backgrounds
         for (Background *background : m_backgrounds)
         {
-            if (background->m_bg_type == BG_TYPE_TILED_FULL && m_scene_gm_state != GM_STATE_BATTLE) NF_ScrollBg(background->m_screen, background->m_layer, scroll_x, scroll_y);
+            if (m_scene_gm_state != GM_STATE_BATTLE && background->m_screen == 0) 
+            {
+                NF_ScrollBg(background->m_screen, background->m_layer, scroll_x, scroll_y);
+                if (background->m_bg_type == BG_TYPE_COL) CheckCollision(background, scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
+
+            }
         }
 
         // //Text Layers
@@ -313,6 +352,10 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
             else if (sub_con->m_text_console_type == TEXT_CON_TYPE_SUB_OPT)
                 sub_con->DisplayTextConsole(&sub_con->m_print_console,
                                             current_pos, m_battles[0], index);
+
+            // std::string col = std::to_string(NF_GetPoint(0, 128, 96));
+            // sub_con->SetText(col, false);
+            // sub_con->DisplayTextConsole(&sub_con->m_print_console);
 
             index++;
         }

@@ -4,7 +4,7 @@ void MainSceneData::InitializeData()
 {
     options_bg = new Background(BG_TYPE_8BIT, "bmp/overworld_options");
     overworld_bg = new Background(BG_TYPE_TILED_FULL, "bg/overworld", "overworld", 0, 512, 512);
-    overworld_col_bg = new Background(BG_TYPE_COL, "colbg/overworld_col", 0, 0, 512, 512);
+    overworld_col_bg = new Background(BG_TYPE_COL, "colbg/overworld_col", "default", 0, 512, 512);
 
     cam_front_idle = new Sprite(SPR_TYPE_256,"sprite/cam_front_idle_spritesheet", 0, 0, 32, 32, 0);
     cam_back_idle = new Sprite(SPR_TYPE_256,"sprite/cam_back_idle_spritesheet", 1, 1, 32, 32, 0);
@@ -27,7 +27,7 @@ void MainSceneData::InitializeData()
     Position* cam_draw_pos = new Position(((SCREEN_WIDTH/cam_front_idle->m_sprite_w) / 2 - 0.5f) * cam_front_idle->m_sprite_w, 
         ((SCREEN_HEIGHT/cam_front_idle->m_sprite_h) / 2 - 0.5f) * cam_front_idle->m_sprite_h);
 
-    Position* john_draw_pos = new Position(-(32.0f * 10.5f) - 16.0f, -(32.0f * 9.0f) - 16.0f);
+    Position* john_draw_pos = new Position(20.0f * 16.0f, 16.0f * 16.0f);
 
     // Now that the objects exist, we can load the graphics
     cam_front_idle->LoadSprite(0, 0, 0, cam_draw_pos, false, 0);

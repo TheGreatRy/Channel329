@@ -21,8 +21,6 @@ nitrofs.add_nflib_sprite_3d(['assets/characters/npcs/battle'], 'sprite')
 nitrofs.add_nflib_font(['assets/fonts'], 'fnt')
 nitrofs.add_nflib_colbg(['assets/colbg'], 'colbg')
 
-#nitrofs.add_grit(['assets/libnds_fonts'])
-
 nitrofs_soundbank_header = nitrofs.add_mmutil(['assets/audio'])
 
 nitrofs.generate_image()
