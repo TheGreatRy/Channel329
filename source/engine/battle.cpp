@@ -124,7 +124,7 @@ void Battle::CheckAttackPhrase()
     }
     else
     {
-        //m_battle_response->SetText("I DON'T THINK I UNDERSTAND...", false);
+        m_battle_response->SetText("I DON'T THINK I UNDERSTAND...", false);
     }
 
      //search for the attacker's tone in the defenders list of tones
@@ -165,7 +165,7 @@ void Battle::CheckAttackPhrase()
 
     else 
     {
-        //m_battle_response->SetText("I DON'T THINK I UNDERSTAND...", false);
+        m_battle_response->SetText("I DON'T THINK I UNDERSTAND...", false);
     }
 
     m_battle_response->DisplayTextConsole(&m_battle_response->m_print_console);

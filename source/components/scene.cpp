@@ -41,33 +41,32 @@ void Scene::AddBattle(Battle *battle)
 void Scene::CheckCollision(Background* col_bg, int &scroll_x, int &scroll_y, bool &can_move_up, bool &can_move_down, bool &can_move_left, bool &can_move_right)
 {
     
-    
     for (int x = 0; x < 32; x ++)
     {
-        can_move_up = (NF_GetPoint(col_bg->m_slot, scroll_x + 128, scroll_y + 96) == 2) ? false : true;
+        can_move_up = (NF_GetPoint(col_bg->m_slot, scroll_x + 112 + x, scroll_y + 80) == 3) ? false : true;
         if (can_move_up == false) break;
     }
 
-    // //Check bottom 
-    // for (int x = 0; x < 32; x ++)
-    // {
-    //     can_move_down = (NF_GetPoint(col_bg->m_slot, (7 * 16) + x, 7 * 16) == 2) ? false : true;
-    //     if (can_move_down == false) break;
-    // }
+    //Check bottom 
+    for (int x = 0; x < 32; x ++)
+    {
+        can_move_down = (NF_GetPoint(col_bg->m_slot, scroll_x + 112 + x, scroll_y + 112) == 3) ? false : true;
+        if (can_move_down == false) break;
+    }
 
-    // //Check left side of sprite
-    // for (int y = 0; y < 32; y++)
-    // {
-    //     can_move_left = (NF_GetPoint(col_bg->m_slot, 9 * 16, (5 * 16) + y) == 2) ? false : true;
-    //     if (can_move_left == false) break;
-    // }
+    //Check left side of sprite
+    for (int y = 0; y < 32; y++)
+    {
+        can_move_left = (NF_GetPoint(col_bg->m_slot, scroll_x + 112, scroll_y + 80 + y) == 3) ? false : true;
+        if (can_move_left == false) break;
+    }
 
-    // //Check right of sprite
-    // for (int y = 0; y < 32; y++)
-    // {
-    //     can_move_right = (NF_GetPoint(col_bg->m_slot, 7 * 16, (5 * 16) + y) == 2) ? false : true;
-    //     if (can_move_right == false) break;
-    // }
+    //Check right of sprite
+    for (int y = 0; y < 32; y++)
+    {
+        can_move_right = (NF_GetPoint(col_bg->m_slot, scroll_x + 144, scroll_y + 80 + y) == 3) ? false : true;
+        if (can_move_right == false) break;
+    }
 }
 
 void Scene::AddBackground(Background *background)
@@ -374,7 +373,7 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
         {
             if (m_scene_gm_state != GM_STATE_BATTLE) sub_con->DisplayTextConsole(&sub_con->m_print_console, current_pos);
 
-            // std::string col = std::to_string(NF_GetPoint(0, 128, 96));
+            // std::string col = std::to_string(NF_GetPoint(0, 128 + scroll_x, 96 + scroll_y));
             // sub_con->SetText(col, false);
             // sub_con->DisplayTextConsole(&sub_con->m_print_console);
 
