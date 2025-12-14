@@ -319,23 +319,23 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
         //     text->WriteText();
         // }
 
-        // for (Battle* battle : m_battles)
-        // {
-        //     if (keysUp() & KEY_X) 
-        //     {
-        //         shifting_tones = true;
-        //         shifting_topics = false;
-        //     }
-        //     else if (keysUp() & KEY_Y)
-        //     {
-        //         shifting_tones = false;
-        //         shifting_topics = true;
-        //     }
+        for (Battle* battle : m_battles)
+        {
+            if (keysUp() & KEY_X) 
+            {
+                shifting_tones = true;
+                shifting_topics = false;
+            }
+            else if (keysUp() & KEY_Y)
+            {
+                shifting_tones = false;
+                shifting_topics = true;
+            }
 
-        //     if (shifting_tones) battle->CycleTones();
-        //     else if (shifting_topics) battle->CycleTopics();
+            if (shifting_tones) battle->CycleTones();
+            else if (shifting_topics) battle->CycleTopics();
 
-        // }
+        }
 
          // Main Screen Text Consoles
         for (TextConsole *main_con : m_main_cons)
