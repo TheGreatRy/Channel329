@@ -317,12 +317,12 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
 
                 m_battles[0]->CheckAttackPhrase();
             }
-            else if (can_battle)
+            else
             {
                 // switch to game
                 if (m_scene_gm_state != GM_STATE_BATTLE)
                 {
-                    m_switch_gm_state = GM_STATE_BATTLE;
+                    if (can_battle) m_switch_gm_state = GM_STATE_BATTLE;
                     m_player_quit = false;
                     break;
                 }
@@ -374,7 +374,6 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
             {
                 CheckCollision(background, scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
                 CheckInteractions(background, scroll_x, scroll_y, can_battle);
-                ValidateColBg(can_move_up, can_move_down, can_move_left, can_move_right, can_battle);
             }
         }
 
@@ -417,7 +416,15 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
         for (TextConsole *sub_con : m_sub_cons)
         {
             if (m_scene_gm_state != GM_STATE_BATTLE) sub_con->DisplayTextConsole(&sub_con->m_print_console, current_pos);
-
+            if (m_scene_gm_state != GM_STATE_BATTLE && can_battle)
+            {
+                sub_con->SetText("WOULD YOU LIKE TO INTERROGATE THIS NPC?\nA: YES\nB: NO", false);
+                sub_con->DisplayTextConsole(&sub_con->m_print_console);
+            }
+            else if (keysUp() & KEY_B)
+            {
+                ValidateColBg(can_move_up, can_move_down, can_move_left, can_move_right, can_battle);
+            }
             //index++;
         }
 
