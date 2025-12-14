@@ -317,23 +317,30 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
 
                 m_battles[0]->CheckAttackPhrase();
             }
-            else
+            else if (can_battle)
             {
                 // switch to game
                 if (m_scene_gm_state != GM_STATE_BATTLE)
                 {
-                    if (can_battle) m_switch_gm_state = GM_STATE_BATTLE;
-                    m_player_quit = false;
-                    break;
-                }
 
-                // switch to main
-                if (m_scene_gm_state != GM_STATE_MAIN)
-                {
-                    m_switch_gm_state = GM_STATE_MAIN;
-                    m_player_quit = false;
-                    break;
+                    if (keysUp() & KEY_A)
+                    {
+                        m_switch_gm_state = GM_STATE_BATTLE;
+                        break;
+                    }
+                    else if (keysUp() & KEY_B)
+                        break;
                 }
+                m_player_quit = false;
+                break;
+            }
+
+            // switch to main
+            if (m_scene_gm_state != GM_STATE_MAIN)
+            {
+                m_switch_gm_state = GM_STATE_MAIN;
+                m_player_quit = false;
+                break;
             }
         }
 
@@ -377,12 +384,6 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
             }
         }
 
-        // //Text Layers
-        // for (Text* text : m_text_layers)
-        // {
-        //     text->WriteText();
-        // }
-
         for (Battle *battle : m_battles)
         {
             if (!confirm)
@@ -421,15 +422,13 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
                 sub_con->SetText("WOULD YOU LIKE TO INTERROGATE THIS NPC?\nA: YES\nB: NO", false);
                 sub_con->DisplayTextConsole(&sub_con->m_print_console);
             }
-            else if (keysUp() & KEY_B)
+            else if (m_scene_gm_state != GM_STATE_BATTLE && !can_battle)
             {
                 ValidateColBg(can_move_up, can_move_down, can_move_left, can_move_right, can_battle);
             }
-            //index++;
         }
 
         NF_Draw3dSprites();
-        //NF_UpdateTextLayers();
 
         glFlush(0);
     }
