@@ -17,17 +17,17 @@ void Character::AddSingleTopic(Topic *topic)
     m_topics.push_back(topic);
 }
 
-void Character::AddMultipleTones(Tone *tones[])
+void Character::AddMultipleTones(Tone *tones[], int size)
 {
-    for (int i = 0; i < sizeof(tones)/sizeof(*tones); i++)
+    for (int i = 0; i < size; i++)
     {
         AddSingleTone(tones[i]);
     }
 }
 
-void Character::AddMultipleTopics(Topic *topics[])
+void Character::AddMultipleTopics(Topic *topics[], int size)
 {
-    for (int i = 0; i < sizeof(topics)/sizeof(*topics); i++)
+    for (int i = 0; i < size; i++)
     {
         AddSingleTopic(topics[i]);
     }

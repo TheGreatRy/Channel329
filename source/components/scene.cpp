@@ -24,9 +24,79 @@ void Scene::AddTextLayer(Text *text)
     m_text_layers.push_back(text);
 }
 
+void Scene::AddTextConsole(TextConsole *text_con)
+{
+    if (text_con->m_text_console_type == TEXT_CON_TYPE_MAIN_OPT || text_con->m_text_console_type == TEXT_CON_TYPE_MAIN_TALK)
+        m_main_cons.push_back(text_con);
+
+    else if (text_con->m_text_console_type == TEXT_CON_TYPE_SUB_OPT || text_con->m_text_console_type == TEXT_CON_TYPE_SUB_TALK)
+        m_sub_cons.push_back(text_con);
+}
+
 void Scene::AddBattle(Battle *battle)
 {
     m_battles.push_back(battle);
+}
+
+void Scene::CheckCollision(Background* col_bg, int &scroll_x, int &scroll_y, bool &can_move_up, bool &can_move_down, bool &can_move_left, bool &can_move_right)
+{
+    for (int x = 0; x < 31; x ++)
+    {
+        can_move_up = (NF_GetPoint(col_bg->m_slot, scroll_x + 113 + x, scroll_y + 80) == 3) ? false : true;
+        if (can_move_up == false) break;
+    }
+
+    //Check bottom 
+    for (int x = 0; x < 31; x ++)
+    {
+        can_move_down = (NF_GetPoint(col_bg->m_slot, scroll_x + 113 + x, scroll_y + 112) == 3) ? false : true;
+        if (can_move_down == false) break;
+    }
+
+    //Check left side of sprite
+    for (int y = 0; y < 31; y++)
+    {
+        can_move_left = (NF_GetPoint(col_bg->m_slot, scroll_x + 112, scroll_y + 81 + y) == 3) ? false : true;
+        if (can_move_left == false) break;
+    }
+
+    //Check right of sprite
+    for (int y = 0; y < 31; y++)
+    {
+        can_move_right = (NF_GetPoint(col_bg->m_slot, scroll_x + 144, scroll_y + 81 + y) == 3) ? false : true;
+        if (can_move_right == false) break;
+    }
+    
+}
+
+void Scene::CheckInteractions(Background *col_bg, int &scroll_x, int &scroll_y, bool& can_battle)
+{
+    for (int x = 0; x < 32; x ++)
+    {
+        can_battle = (NF_GetPoint(col_bg->m_slot, scroll_x + 112 + x, scroll_y + 80) == 2) ? true : false;
+        if (can_battle == true) return;
+    }
+
+    //Check bottom 
+    for (int x = 0; x < 31; x ++)
+    {
+        can_battle = (NF_GetPoint(col_bg->m_slot, scroll_x + 112 + x, scroll_y + 112) == 2) ? true : false;
+        if (can_battle == true) return;
+    }
+
+    //Check left side of sprite
+    for (int y = 0; y < 31; y++)
+    {
+        can_battle = (NF_GetPoint(col_bg->m_slot, scroll_x + 112, scroll_y + 80 + y) == 2) ? true : false;
+        if (can_battle == true) return;
+    }
+
+    //Check right of sprite
+    for (int y = 0; y < 31; y++)
+    {
+        can_battle = (NF_GetPoint(col_bg->m_slot, scroll_x + 144, scroll_y + 80 + y) == 2) ? true : false;
+        if (can_battle == true) return;
+    }
 }
 
 void Scene::AddBackground(Background *background)
@@ -124,14 +194,10 @@ void Scene::DeleteAllSceneComponents()
     // Battles
     for (Battle *battle : m_battles)
     {
-        battle->m_tone_text->ClearText();
-        battle->m_tone_text->RemoveText();
+        delete battle->m_battle_response;
+        delete battle->m_tone_text;
+        delete battle->m_topic_text;
 
-        battle->m_topic_text->ClearText();
-        battle->m_topic_text->RemoveText();
-
-        battle->m_battle_response->ClearText();
-        battle->m_battle_response->RemoveText();
         delete battle;
     }
 
@@ -142,18 +208,61 @@ void Scene::DeleteAllSceneComponents()
         delete background;
     }
 
-    for (Text* text : m_text_layers)
+    // Text
+    for (TextConsole* main_con : m_main_cons)
     {
-        text->ClearText();
-        text->RemoveText();
-        delete text;
+        delete main_con;
     }
+
+    for (TextConsole* sub_con : m_sub_cons)
+    {
+        delete sub_con;
+    }
+
+    // for (Text* text : m_text_layers)
+    // {
+    //     text->ClearText();
+    //     text->RemoveText();
+    //     delete text;
+    // }
 
     NF_ResetSpriteBuffers();
     NF_ResetTiledBgBuffers();
     NF_Reset8bitsBgBuffers();
+    NF_ResetCmapBuffers();
+    NF_ResetRawSoundBuffers();
 }
 
+void Scene::ClearAllTextConsoles()
+{
+    for (Battle* battle : m_battles)
+    {
+        battle->m_battle_response->ClearTextConsole(&battle->m_battle_response->m_print_console);
+        battle->m_tone_text->ClearTextConsole(&battle->m_tone_text->m_print_console);
+        battle->m_topic_text->ClearTextConsole(&battle->m_topic_text->m_print_console);
+    }
+
+    // Text
+    for (TextConsole* main_con : m_main_cons)
+    {
+        main_con->ClearTextConsole(&main_con->m_print_console);
+    }
+
+    for (TextConsole* sub_con : m_sub_cons)
+    {
+        sub_con->ClearTextConsole(&sub_con->m_print_console);
+    }
+}
+
+void Scene::ValidateColBg(bool &can_move_up, bool &can_move_down, bool &can_move_left, bool &can_move_right, bool &can_battle)
+{
+    if (keysUp() & KEY_B)
+    {
+        std::string col_out = "MOVE UP? " + std::to_string(can_move_up) + "\nMOVE DOWN? " + std::to_string(can_move_down) + "\nMOVE LEFT? " + std::to_string(can_move_left) + "\nMOVE RIGHT? " + std::to_string(can_move_right) + "\nCAN BATTLE? " + std::to_string(can_battle);
+        m_sub_cons[0]->SetText(col_out, false);
+        m_sub_cons[0]->DisplayTextConsole(&m_sub_cons[0]->m_print_console);
+    }
+}
 
 void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can_move_down, bool &can_move_left, bool &can_move_right)
 {
@@ -165,6 +274,9 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
 
     bool shifting_tones = false;
     bool shifting_topics = false;
+
+    bool confirm = false;
+    bool can_battle = true;
 
     while (1)
     {
@@ -195,30 +307,40 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
         // switch scenes
         if (keysUp() & KEY_A)
         {
+            //accept user input
             if (shifting_tones || shifting_topics)
             {
+                confirm = true;
+
                 shifting_tones = false;
                 shifting_topics = false;
 
                 m_battles[0]->CheckAttackPhrase();
             }
-            else
+            else if (can_battle)
             {
                 // switch to game
                 if (m_scene_gm_state != GM_STATE_BATTLE)
                 {
-                    m_switch_gm_state = GM_STATE_BATTLE;
-                    m_player_quit = false;
-                    break;
-                }
 
-                // switch to main
-                if (m_scene_gm_state != GM_STATE_MAIN)
-                {
-                    m_switch_gm_state = GM_STATE_MAIN;
-                    m_player_quit = false;
-                    break;
+                    if (keysUp() & KEY_A)
+                    {
+                        m_switch_gm_state = GM_STATE_BATTLE;
+                        break;
+                    }
+                    else if (keysUp() & KEY_B)
+                        break;
                 }
+                m_player_quit = false;
+                break;
+            }
+
+            // switch to main
+            if (m_scene_gm_state != GM_STATE_MAIN)
+            {
+                m_switch_gm_state = GM_STATE_MAIN;
+                m_player_quit = false;
+                break;
             }
         }
 
@@ -251,35 +373,63 @@ void Scene::DrawScene(int &scroll_x, int &scroll_y, bool &can_move_up, bool &can
         //Backgrounds
         for (Background *background : m_backgrounds)
         {
-            if (background->m_bg_type == BG_TYPE_TILED_FULL && m_scene_gm_state != GM_STATE_BATTLE) NF_ScrollBg(background->m_screen, background->m_layer, scroll_x, scroll_y);
+            if (m_scene_gm_state != GM_STATE_BATTLE && background->m_screen == 0) 
+            {
+                NF_ScrollBg(background->m_screen, background->m_layer, scroll_x, scroll_y);
+            }
+            if (background->m_bg_type == BG_TYPE_COL) 
+            {
+                CheckCollision(background, scroll_x, scroll_y, can_move_up, can_move_down, can_move_left, can_move_right);
+                CheckInteractions(background, scroll_x, scroll_y, can_battle);
+            }
         }
 
-        //Text Layers
-        for (Text* text : m_text_layers)
+        for (Battle *battle : m_battles)
         {
-            text->WriteText();
+            if (!confirm)
+            {
+                
+                if (keysUp() & KEY_X)
+                {
+                    shifting_tones = true;
+                    shifting_topics = false;
+                }
+                else if (keysUp() & KEY_Y)
+                {
+                    shifting_tones = false;
+                    shifting_topics = true;
+                }
+
+                if (shifting_tones)
+                    battle->CycleTones();
+                else if (shifting_topics)
+                    battle->CycleTopics();
+            }
         }
 
-        for (Battle* battle : m_battles)
+         // Main Screen Text Consoles
+        for (TextConsole *main_con : m_main_cons)
         {
-            if (keysUp() & KEY_X) 
-            {
-                shifting_tones = true;
-                shifting_topics = false;
-            }
-            else if (keysUp() & KEY_Y)
-            {
-                shifting_tones = false;
-                shifting_topics = true;
-            }
+            if (m_scene_gm_state != GM_STATE_BATTLE) main_con->DisplayTextConsole(&main_con->m_print_console);
+        }
 
-            if (shifting_tones) battle->CycleTones();
-            else if (shifting_topics) battle->CycleTopics();
-
+        // Sub Screen Text Consoles
+        for (TextConsole *sub_con : m_sub_cons)
+        {
+            if (m_scene_gm_state != GM_STATE_BATTLE) sub_con->DisplayTextConsole(&sub_con->m_print_console, current_pos);
+            if (m_scene_gm_state != GM_STATE_BATTLE && can_battle)
+            {
+                sub_con->SetText("WOULD YOU LIKE TO INTERROGATE THIS NPC?\nA: YES\nB: NO", false);
+                sub_con->DisplayTextConsole(&sub_con->m_print_console);
+            }
+            else if (m_scene_gm_state != GM_STATE_BATTLE && !can_battle)
+            {
+                ValidateColBg(can_move_up, can_move_down, can_move_left, can_move_right, can_battle);
+            }
+            
         }
 
         NF_Draw3dSprites();
-        NF_UpdateTextLayers();
 
         glFlush(0);
     }

@@ -40,15 +40,19 @@ void Game::InitializeGame()
     // Initialize audio
     soundEnable();
     NF_InitRawSoundBuffers();
+
+    // Initialize collision map buffers
+    NF_InitCmapBuffers();
 }
 
 void Game::InitializeScene(Scene *scene)
 {
     int data_index = scene->m_data_index;
-
+    
+    m_data[data_index]->InitializeData();
+    
     // if (!m_data[data_index]->has_initialized)
     // {
-        m_data[data_index]->InitializeData();
     //     m_data[data_index]->has_initialized = true;
     // }
 }
@@ -110,7 +114,7 @@ void Game::RunCurrentScene(Scene *scene)
     //     break;
     // }
 
-    // scene->ClearAllTextConsoles();
+    scene->ClearAllTextConsoles();
     scene->DeleteAllSceneComponents();
 
     

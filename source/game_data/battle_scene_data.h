@@ -4,7 +4,7 @@
 #include "game_data.h"
 
 //Components Folder
-#include "../components/Sprite.h"
+#include "../components/sprite.h"
 
 //Engine Folder
 #include "../engine/text_console.h"
@@ -56,34 +56,34 @@ class BattleSceneData : public GameData
     
     Phrase* cam_attack_phrases[7] = {
         //defender wins (neg)
-        new Phrase{"Tell me everything you know about this person", TONE_SKILL_DIRECT, TOPIC_SKILL_PEOPLE, PHRASE_TYPE_ATTACK},
+        new Phrase{"TELL ME EVERYTHING YOU KNOW ABOUT THIS PERSON", TONE_SKILL_DIRECT, TOPIC_SKILL_PEOPLE, PHRASE_TYPE_ATTACK},
         //defender wins (unknown)
-        new Phrase{"I request you give any information regarding the crime in this area", TONE_SKILL_AUTHOR, TOPIC_SKILL_CRIME, PHRASE_TYPE_ATTACK},
+        new Phrase{"I REQUEST YOU GIVE ANY INFORMATION REGARDING CRIME IN THIS AREA", TONE_SKILL_AUTHOR, TOPIC_SKILL_CRIME, PHRASE_TYPE_ATTACK},
         //defender wins (unknown)
-        new Phrase{"Hey buddy, this town seems pretty peaceful... I wonder if it was always like that?", TONE_SKILL_CASUAL, TOPIC_SKILL_CRIME, PHRASE_TYPE_ATTACK},
+        new Phrase{"HEY BUDDY, THIS TWON SEEMS PRETTY PEACEFUL... I WONDER IF IT WAS ALWAYS LIKE THAT?", TONE_SKILL_CASUAL, TOPIC_SKILL_CRIME, PHRASE_TYPE_ATTACK},
         //attacker wins (positive and indiff)
-        new Phrase{"Hey buddy, great town right? I wonder how it came to be... say, do you know anything about this town?", TONE_SKILL_CASUAL, TOPIC_SKILL_HISTORY, PHRASE_TYPE_ATTACK},
+        new Phrase{"HEY BUDDY, GREAT TOWN, RIGHT? I WONDER HOW IT CAME TO BE... SAY, DO YOU KNOW ANYTHING ABOUT THIS TOWN?", TONE_SKILL_CASUAL, TOPIC_SKILL_HISTORY, PHRASE_TYPE_ATTACK},
         //attacker wins (positive and known)
-        new Phrase{"Hey buddy, do you get around often? I'd love to know more about the people here.", TONE_SKILL_CASUAL, TOPIC_SKILL_HISTORY, PHRASE_TYPE_ATTACK},
+        new Phrase{"HEY BUDDY, DO YOU GET AROUND OFTEN? I'D LOVE TO HEAR MORE ABOUT THE PEOPLE HERE.", TONE_SKILL_CASUAL, TOPIC_SKILL_PEOPLE, PHRASE_TYPE_ATTACK},
         //defender wins (neutral and indiff)
-        new Phrase{"Hello Mx. I wanted to ask if you knew anything about how magic works?", TONE_SKILL_PROFESS, TOPIC_SKILL_MAGIC, PHRASE_TYPE_ATTACK},
+        new Phrase{"HELLO MX. I WANTED TO ASK IF YOU KNEW ANYTHING ABOUT HOW MAGIC WORKS?", TONE_SKILL_PROFESS, TOPIC_SKILL_MAGIC, PHRASE_TYPE_ATTACK},
         //defender wins (neutral and known)
-        new Phrase{"Hello, I'm an investigator and would like to interview you about the people of this town.", TONE_SKILL_PROFESS, TOPIC_SKILL_PEOPLE, PHRASE_TYPE_ATTACK}
+        new Phrase{"HELLO, I AM AN INVESTIGATOR, AND I WOULD LIKR TO INTERVIEW YOU ABOUT THE PEOPLE OF THIS TOWN.", TONE_SKILL_PROFESS, TOPIC_SKILL_PEOPLE, PHRASE_TYPE_ATTACK}
     };
     
     Phrase* defender_phrases[6] = {
         //defender wins (neg)
-        new Phrase{"That's pretty rude, buster!", TONE_SKILL_DIRECT, TOPIC_SKILL_PEOPLE, PHRASE_TYPE_DEFEND},
+        new Phrase{"THAT'S PRETTY RUDE, BUSTER!", TONE_SKILL_DIRECT, TOPIC_SKILL_PEOPLE, PHRASE_TYPE_DEFEND},
         //defender wins (unknown)
-        new Phrase{"I don't know anything about that...", TONE_SKILL_AUTHOR, TOPIC_SKILL_CRIME, PHRASE_TYPE_DEFEND},
+        new Phrase{"I DON'T KNOW ANYTHING ABOUT THAT...", TONE_SKILL_AUTHOR, TOPIC_SKILL_CRIME, PHRASE_TYPE_DEFEND},
         //(KnPos)
-        new Phrase{"Oh sure! There's my neighbor Tony... and my other neighbor Toni...", TONE_SKILL_CASUAL, TOPIC_SKILL_HISTORY, PHRASE_TYPE_DEFEND},
+        new Phrase{"OH SURE! THERE'S MY NEIGHBOR TONY... AND MY OTHER NEIGHBOR TONI...", TONE_SKILL_CASUAL, TOPIC_SKILL_PEOPLE, PHRASE_TYPE_DEFEND},
         //(KnNt)
-        new Phrase{"Hmmm, well there are a lot of people in this town and I don't them all, but...", TONE_SKILL_PROFESS, TOPIC_SKILL_PEOPLE, PHRASE_TYPE_DEFEND},
+        new Phrase{"HMMM, WELL THERE ARE A LOT OF PEOPLE HERE. I DON'T KNOW THEM ALL, BUT...", TONE_SKILL_PROFESS, TOPIC_SKILL_PEOPLE, PHRASE_TYPE_DEFEND},
         //(InPos)
-        new Phrase{"Not really, but Sally down south would know more!", TONE_SKILL_CASUAL, TOPIC_SKILL_HISTORY, PHRASE_TYPE_DEFEND},
+        new Phrase{"NOT REALLY, BUT SALLY DOWN SOUTH WOULD KNOW!", TONE_SKILL_CASUAL, TOPIC_SKILL_HISTORY, PHRASE_TYPE_DEFEND},
         //(InNt)
-        new Phrase{"Ah, I'm not the best at magic, sorry...", TONE_SKILL_PROFESS, TOPIC_SKILL_MAGIC, PHRASE_TYPE_DEFEND}
+        new Phrase{"AH, I'M NOT THE BEST AT MAGIC, SORRY...", TONE_SKILL_PROFESS, TOPIC_SKILL_MAGIC, PHRASE_TYPE_DEFEND}
     };
     
 

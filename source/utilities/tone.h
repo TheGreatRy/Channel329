@@ -40,6 +40,7 @@ enum TONE_SKILL
 
 enum TONE_TYPE
 {
+    TONE_TYPE_NONE,
     TONE_TYPE_POSITIVE,
     TONE_TYPE_NEUTRAL,
     TONE_TYPE_NEGATIVE
@@ -55,10 +56,6 @@ class Tone
     Tone(TONE_SKILL skill, TONE_TYPE type) :
         m_tone_skill{skill},
         m_tone_type{type}
-    {}
-
-    Tone(TONE_SKILL skill) :
-        m_tone_skill{skill}
     {}
     
     ~Tone() = default;
@@ -129,7 +126,7 @@ class Tone
                 name = "PROVOCATIVE";
                 break;
             case TONE_SKILL_QUIRKY:
-                name = "QURIKY";
+                name = "QUIRKY";
                 break;
             case TONE_SKILL_RESON:
                 name = "RESONATING";
