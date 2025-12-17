@@ -41,12 +41,12 @@ int main(int argc, char **argv)
     consoleSelect(&topScreen);
 
     
-    bool init_ok = fatInitDefault();
-    if (!init_ok)
-    {
-        perror("fatInitDefault()");
-        wait_forever();
-    }
+    // bool init_ok = fatInitDefault();
+    // if (!init_ok)
+    // {
+    //     perror("fatInitDefault()");
+    //     wait_forever();
+    // }
 
     printf("Testing input. Please press any key");
     printf("\n");
